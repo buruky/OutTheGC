@@ -33,12 +33,12 @@ Check off steps as you finish them. Add new steps anywhere; renumbering is fine.
 - **Done when:** your edited text shows on your phone. First commit pushed to GitHub.
 - **Notes:** Scaffolded in `apps/mobile/` (not the repo root) to match the monorepo layout in `CLAUDE.md`. SDK 57's default template already wires up Expo Router, with routes under `src/app/` rather than a top-level `app/` — updated `mobile-expert.md` to match. Confirmed hot reload on a physical device via Expo Go. Pushed as commit `9eb185e`.
 
-### [ ] 2. Screens and navigation
+### [x] 2. Screens and navigation
 - **Goal:** the app's skeleton with fake data.
 - **Try:** with Expo Router, make tabs for Trips and Profile, plus a trip detail screen at `app/trip/[id].tsx`. Show a hardcoded list of 2 or 3 trips; tapping one opens its detail screen.
 - **Learn:** file based routing, components, props, and passing an id through a route.
 - **Done when:** you can tap from the trip list into a trip and back.
-- **Notes:**
+- **Notes:** Tab screens moved into a `(tabs)` route group so `trip/[id]` could be pushed as a sibling `Stack.Screen` with a real header/back button — a flat tab bar alone can't give a pushed detail screen a back gesture. Fake trip data (`src/data/trips.ts`) mirrors the real `trips` table's fields for an easy swap to Supabase in step 4. Also turned on ESLint (`eslint` + `eslint-config-expo`) while here, since `AGENTS.md` already assumed `npx expo lint` worked. Confirmed working live on device.
 
 ### [ ] 3. The map
 - **Goal:** pins on a real map.
