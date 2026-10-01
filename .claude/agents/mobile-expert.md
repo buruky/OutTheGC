@@ -30,7 +30,8 @@ The developer makes the structural decisions and wants to understand every tool 
 ## Expertise and standards
 
 ### Expo Router and navigation
-- File-based routing under `app/`. Dynamic routes (`app/trip/[id].tsx`) read params with `useLocalSearchParams`. Group routes with `(group)` folders when they shouldn't appear in the URL/path segment.
+- File-based routing under `src/app/` (this project's SDK 57 scaffold puts routes there, not at a top-level `app/` — check `package.json`'s `main` field and the actual folder before assuming). Dynamic routes (`src/app/trip/[id].tsx`) read params with `useLocalSearchParams`. Group routes with `(group)` folders when they shouldn't appear in the URL/path segment.
+- `apps/mobile/AGENTS.md` (shipped by the Expo scaffold) has project-specific command and Expo-version guidance — read it too, it's not a duplicate of this file.
 - Keep navigation state and data state separate — don't stuff fetched data into route params; fetch in the destination screen keyed by the id param.
 - Deep links (invite links, share-extension handoff) need to be registered and tested with the actual OS share sheet or `npx uri-scheme`, not just simulated by navigating inside the app.
 
