@@ -26,12 +26,12 @@ Check off steps as you finish them. Add new steps anywhere; renumbering is fine.
 
 ## Phase 1: The app shell (no backend yet)
 
-### [ ] 1. Hello world on your phone
+### [x] 1. Hello world on your phone
 - **Goal:** your own app running on your phone.
 - **Try:** `npx create-expo-app@latest outthegc` (it uses TypeScript). Run `npx expo start`, scan the QR code with your phone. Change some text and watch it update live.
 - **Learn:** the project layout, hot reload, and how JSX/TSX describes a screen.
 - **Done when:** your edited text shows on your phone. First commit pushed to GitHub.
-- **Notes:**
+- **Notes:** Scaffolded in `apps/mobile/` (not the repo root) to match the monorepo layout in `CLAUDE.md`. SDK 57's default template already wires up Expo Router, with routes under `src/app/` rather than a top-level `app/` — updated `mobile-expert.md` to match. Confirmed hot reload on a physical device via Expo Go. Pushed as commit `9eb185e`.
 
 ### [ ] 2. Screens and navigation
 - **Goal:** the app's skeleton with fake data.
