@@ -51,12 +51,12 @@ Check off steps as you finish them. Add new steps anywhere; renumbering is fine.
 
 ## Phase 2: Real data with Supabase
 
-### [ ] 4. Connect Supabase
+### [x] 4. Connect Supabase
 - **Goal:** the app talks to a real database.
 - **Try:** create a Supabase project. Install the Supabase CLI and link it to the project. Write your first migration creating a simple `trips` table, push it, add a row in the dashboard, and read it from the app with `supabase-js`.
 - **Learn:** SQL tables, migrations (schema changes saved as files in git), and keeping keys in environment variables.
 - **Done when:** the trip list in the app comes from the database, not hardcoded data.
-- **Notes:**
+- **Notes:** `trips` table deliberately minimal -- no `owner_id`/`invite_code`/RLS yet, those are steps 6-7. Table is currently open to anyone with the (public-by-design) anon key; that's expected until step 6 adds RLS, not a gap in this step. Confirmed live: a dashboard-added row shows up in the app, with the pre-existing hardcoded map pins correctly showing "no pins" for a real trip id (expected until steps 8/12). Keys live in `apps/mobile/.env.local`, gitignored.
 
 ### [ ] 5. Sign in
 - **Goal:** real accounts.
