@@ -40,12 +40,12 @@ Check off steps as you finish them. Add new steps anywhere; renumbering is fine.
 - **Done when:** you can tap from the trip list into a trip and back.
 - **Notes:** Tab screens moved into a `(tabs)` route group so `trip/[id]` could be pushed as a sibling `Stack.Screen` with a real header/back button — a flat tab bar alone can't give a pushed detail screen a back gesture. Fake trip data (`src/data/trips.ts`) mirrors the real `trips` table's fields for an easy swap to Supabase in step 4. Also turned on ESLint (`eslint` + `eslint-config-expo`) while here, since `AGENTS.md` already assumed `npx expo lint` worked. Confirmed working live on device.
 
-### [ ] 3. The map
+### [x] 3. The map
 - **Goal:** pins on a real map.
 - **Try:** add `react-native-maps` to the trip screen. Put 5 hardcoded pins near a city. Tapping a pin shows the place name in a card at the bottom.
 - **Learn:** coordinates (latitude, longitude), map regions, and component state (`useState`) for "which pin is selected".
 - **Done when:** the map shows your pins and tapping one updates the card.
-- **Notes:**
+- **Notes:** Used default map providers (Apple Maps iOS, Google Maps Android) — no API key, works in Expo Go as-is; revisit "Google everywhere" (spec Open Q #5) once step 12 requires a Google Maps Platform key anyway. 5 real Tokyo-area pins on the tokyo-2026 fake trip; other fake trips show an empty-pins state. `react-native-maps` doesn't support the web build at all (hard crash, not just ugly) — left unaddressed since web is explicitly deferred. Debugged a separate "request timed out" issue on device: phone WiFi was off, not a firewall/network problem — check that first next time before anything more involved.
 
 ---
 
