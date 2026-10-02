@@ -1,14 +1,15 @@
 /**
- * Hardcoded trip data for roadmap step 2 (screens and navigation).
+ * Hardcoded trip data from roadmap step 2 (screens and navigation).
  *
- * Field names deliberately mirror the real `trips` table from
- * OutTheGC-spec.md (name, destination, start_date, end_date) so step 4 can
- * swap this module for a Supabase query without changing the screens that
- * consume it.
+ * As of step 4 ("Connect Supabase"), the Trips tab and trip detail screen
+ * read from `src/services/trips.ts` (a real `trips` table query) instead of
+ * this file — nothing in `src/app/` imports `FAKE_TRIPS` or `getTripById`
+ * anymore. Left in place as a reference for the shape the UI expected
+ * before the swap; safe to delete once that history isn't useful.
  *
- * Note: real `trips.id` values will be Postgres-generated UUIDs. The slug
- * ids below are just readable placeholders — nothing here depends on the id
- * format, since route params from `useLocalSearchParams` are always strings.
+ * Note: real `trips.id` values are Postgres-generated UUIDs, unlike the
+ * slug ids below — nothing here depends on the id format, since route
+ * params from `useLocalSearchParams` are always strings.
  */
 export type Trip = {
   id: string;

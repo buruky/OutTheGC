@@ -1,6 +1,6 @@
 import { Stack, useLocalSearchParams } from 'expo-router';
-import { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { useCallback, useEffect, useState } from 'react';
+import { ActivityIndicator, Pressable, StyleSheet } from 'react-native';
 import MapView, { Marker, type Region } from 'react-native-maps';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -8,17 +8,82 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Spacing } from '@/constants/theme';
 import { getPlacesForTrip, type Place } from '@/data/places';
-import { getTripById } from '@/data/trips';
+import { fetchTripById, type TripRow } from '@/services/trips';
 import { useTheme } from '@/hooks/use-theme';
+
+type Status = 'loading' | 'error' | 'not-found' | 'ready';
 
 export default function TripDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const trip = getTripById(id);
-  const places = getPlacesForTrip(id);
+  const [trip, setTrip] = useState<TripRow | null>(null);
+  const [status, setStatus] = useState<Status>('loading');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const theme = useTheme();
 
-  if (!trip) {
+  // Hardcoded pins keyed by trip id — stays this way until step 8 ("Pins
+  // from the database") adds `places`/`trip_places`. Not touched by the
+  // step 4 Supabase swap.
+  const places = getPlacesForTrip(id);
+
+  // `load` itself must not call setState synchronously — only from inside
+  // the then/catch callbacks, once the fetch actually settles. That keeps it
+  // safe to call directly from the mount effect below (lint:
+  // react-hooks/set-state-in-effect) while still being reusable for retry.
+  const load = useCallback(() => {
+    fetchTripById(id)
+      .then((row) => {
+        setTrip(row);
+        setStatus(row ? 'ready' : 'not-found');
+      })
+      .catch((err: unknown) => {
+        setErrorMessage(err instanceof Error ? err.message : 'Something went wrong.');
+        setStatus('error');
+      });
+  }, [id]);
+
+  useEffect(() => {
+    load();
+  }, [load]);
+
+  const retry = useCallback(() => {
+    setStatus('loading');
+    setErrorMessage(null);
+    load();
+  }, [load]);
+
+  if (status === 'loading') {
+    return (
+      <ThemedView style={styles.container}>
+        <Stack.Screen options={{ title: 'Loading…' }} />
+        <SafeAreaView style={[styles.safeArea, styles.centered]}>
+          <ActivityIndicator accessibilityLabel="Loading trip" />
+        </SafeAreaView>
+      </ThemedView>
+    );
+  }
+
+  if (status === 'error') {
+    return (
+      <ThemedView style={styles.container}>
+        <Stack.Screen options={{ title: 'Error' }} />
+        <SafeAreaView style={[styles.safeArea, styles.centered]}>
+          <ThemedText type="small" themeColor="textSecondary">
+            Couldn&apos;t load this trip{errorMessage ? `: ${errorMessage}` : '.'}
+          </ThemedText>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Retry loading trip"
+            onPress={retry}
+            style={({ pressed }) => [styles.retryButton, pressed && styles.pressed]}>
+            <ThemedText type="link">Retry</ThemedText>
+          </Pressable>
+        </SafeAreaView>
+      </ThemedView>
+    );
+  }
+
+  if (status === 'not-found' || !trip) {
     return (
       <ThemedView style={styles.container}>
         <Stack.Screen options={{ title: 'Trip not found' }} />
@@ -46,10 +111,10 @@ export default function TripDetailScreen() {
         <ThemedView style={styles.header}>
           <ThemedText type="title">{trip.name}</ThemedText>
           <ThemedText type="default" themeColor="textSecondary">
-            {trip.destination}
+            {trip.destination ?? 'Destination TBD'}
           </ThemedText>
           <ThemedText type="small" themeColor="textSecondary">
-            {trip.startDate} – {trip.endDate}
+            {trip.start_date ?? '?'} – {trip.end_date ?? '?'}
           </ThemedText>
         </ThemedView>
 
@@ -93,6 +158,17 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
+  },
+  centered: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: Spacing.three,
+  },
+  retryButton: {
+    padding: Spacing.two,
+  },
+  pressed: {
+    opacity: 0.7,
   },
   header: {
     padding: Spacing.four,
