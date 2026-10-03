@@ -7,12 +7,14 @@
  * (it's meant to be public and relies on RLS, not secrecy), never for a
  * service role key or any other secret.
  *
- * `auth.persistSession: false` is temporary: there's no Supabase Auth yet
- * (that's roadmap step 5), so there's no session to persist. Step 5 should
- * revisit this and add a `storage` adapter (e.g.
- * `@react-native-async-storage/async-storage`) so sessions survive an app
- * restart, per "Learn: sessions, auth state..." in that step.
+ * Auth (step 5): sessions persist across app restarts via AsyncStorage
+ * (Expo's blessed key-value storage, works in Expo Go — no native config
+ * needed) and refresh themselves automatically while the app is open.
+ * `detectSessionInUrl: false` because that option is for parsing an OAuth
+ * redirect out of a browser URL on web; there's no URL to parse on native,
+ * and leaving it on can throw trying to read `window.location`.
  */
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL;
@@ -26,6 +28,9 @@ if (!supabaseUrl || !supabaseAnonKey) {
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
-    persistSession: false,
+    storage: AsyncStorage,
+    persistSession: true,
+    autoRefreshToken: true,
+    detectSessionInUrl: false,
   },
 });
