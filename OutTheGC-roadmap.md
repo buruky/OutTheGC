@@ -199,4 +199,11 @@ Check off steps as you finish them. Add new steps anywhere; renumbering is fine.
 
 Use this for anything that doesn't fit a step: bugs that took hours, ideas, things to revisit.
 
+- `react-native-maps` (step 3) hard-crashes the web build (`codegenNativeComponent is not a function`) -- not just ugly, doesn't render at all. Left unaddressed; web is explicitly secondary per CLAUDE.md.
+- Security review after step 5 surfaced a few things deliberately deferred, not forgotten:
+  - **Refresh tokens sit in plaintext in AsyncStorage** (Supabase's documented default for Expo). Fine for now; before a real beta (step 20-ish), switch to `expo-secure-store` with the "LargeSecureStore" wrapper pattern from Supabase's docs, since SecureStore alone has a ~2KB size limit a session can exceed.
+  - **`profiles` UPDATE policy doesn't constrain column values** -- no length limit on `display_name`, no validation on `avatar_url`, `username` isn't unique/normalized. Not exploitable yet since no UI writes these columns. Revisit (CHECK constraints, or route writes through a validated RPC) once profile editing actually ships.
+  - **`app.json`'s `scheme` is `"mobile"`** -- generic, another app could claim it. Harmless today (no OAuth/magic-link redirects use it), but rename to something unique before step 19 adds Apple/Google sign-in.
+  - **`auth.site_url` is still `http://127.0.0.1:3000`** -- confirmation still works (the email link hits Supabase's own verify endpoint first), but the post-confirm redirect lands on a dead local page. Cosmetic; fix once there's a real redirect destination to point to.
+  - **Profile visibility beyond "own row only"** is still an open spec question (can co-members see each other's username/avatar?) -- current policy is maximally conservative (`auth.uid() = id`) on purpose; revisit when `trip_members` exists in step 6.
 -
