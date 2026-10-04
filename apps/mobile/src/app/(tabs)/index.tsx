@@ -67,9 +67,17 @@ export default function TripsScreen() {
   return (
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
-        <ThemedText type="title" style={styles.title}>
-          Trips
-        </ThemedText>
+        <ThemedView style={styles.titleRow}>
+          <ThemedText type="title">Trips</ThemedText>
+          <Link href="/trip/new" asChild>
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="Create a new trip"
+              style={({ pressed }) => [styles.newTripButton, pressed && styles.pressed]}>
+              <ThemedText type="linkPrimary">+ New trip</ThemedText>
+            </Pressable>
+          </Link>
+        </ThemedView>
 
         {status === 'loading' && (
           <ThemedView style={styles.centered}>
@@ -121,8 +129,17 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: MaxContentWidth,
   },
-  title: {
+  titleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingVertical: Spacing.four,
+  },
+  newTripButton: {
+    minHeight: 44,
+    minWidth: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   centered: {
     flex: 1,

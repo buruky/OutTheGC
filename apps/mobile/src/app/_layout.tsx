@@ -34,6 +34,7 @@ function RootNavigator() {
       <Stack.Protected guard={!!session}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="trip/[id]" />
+        <Stack.Screen name="trip/new" options={{ title: 'New trip', presentation: 'modal' }} />
       </Stack.Protected>
 
       <Stack.Protected guard={!session}>
