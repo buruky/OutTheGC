@@ -58,12 +58,12 @@ Check off steps as you finish them. Add new steps anywhere; renumbering is fine.
 - **Done when:** the trip list in the app comes from the database, not hardcoded data.
 - **Notes:** `trips` table deliberately minimal -- no `owner_id`/`invite_code`/RLS yet, those are steps 6-7. Table is currently open to anyone with the (public-by-design) anon key; that's expected until step 6 adds RLS, not a gap in this step. Confirmed live: a dashboard-added row shows up in the app, with the pre-existing hardcoded map pins correctly showing "no pins" for a real trip id (expected until steps 8/12). Keys live in `apps/mobile/.env.local`, gitignored.
 
-### [ ] 5. Sign in
+### [x] 5. Sign in
 - **Goal:** real accounts.
 - **Try:** add email sign in with Supabase Auth. Create a `profiles` table filled in when someone signs up. Keep people signed in after they close the app. Add sign out.
 - **Learn:** sessions, auth state, and protected screens (signed out users only see the sign in screen).
 - **Done when:** you can sign up, close the app, reopen, and still be signed in.
-- **Notes:**
+- **Notes:** Email confirmation required (deliberate) -- signup creates the account but no session until the link is clicked, then sign in separately. `profiles` row created via a SECURITY DEFINER trigger on auth.users, not a client-side insert. Session persistence via AsyncStorage; `Stack.Protected` gates (tabs)/trip behind a session. Post-build security review tightened `profiles` RLS to own-row-only reads (was accidentally world-readable to any signed-up account) and fixed a config.toml/production drift on email confirmation -- see the Log section for what's still deliberately deferred (secure token storage, profile value constraints, app scheme, dead redirect page). Also discovered the free email tier caps at 2 sends/hour -- SMTP setup is a live option if this keeps being disruptive.
 
 ### [ ] 6. Trips with permissions
 - **Goal:** each person only sees their own trips.
