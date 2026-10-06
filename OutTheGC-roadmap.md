@@ -75,12 +75,12 @@ Check off steps as you finish them. Add new steps anywhere; renumbering is fine.
   2. **Same-statement trigger visibility** -- after fixing #1, `insert into trips ... returning` (exactly what createTrip() does) still failed, because the RETURNING clause's implicit SELECT-policy check didn't reliably see the trip_members row the trigger had just written in that same statement (confirmed empirically; didn't matter whether the helper function was `stable` or not). Fixed by giving the trips SELECT policy a direct `owner_id = auth.uid()` fast path that doesn't depend on trip_members at all for the owner's own row -- a better policy on its own merits, not just a workaround.
   Isolation verified two ways: directly against the database (a simulated second identity got zero rows on both a direct id lookup and an unfiltered list -- no error, just nothing) and by the developer with a real second account in the app.
 
-### [ ] 7. Invite codes
+### [x] 7. Invite codes
 - **Goal:** friends can join a trip.
 - **Try:** generate an `invite_code` per trip. Add a "join with code" screen. Then make an invite link that opens the app to the join screen.
 - **Learn:** database functions (joining needs to bypass normal rules safely) and deep links.
 - **Done when:** account B joins account A's trip with a code and sees it in their list.
-- **Notes:**
+- **Notes:** Code is 8 chars, server-generated only (ambiguity-free alphabet, retry-on-collision, backed by a UNIQUE constraint) -- client never supplies it. `join_trip_by_code()` is idempotent (rejoining is a no-op, not an error) and returns a distinguishable SQLSTATE (22023) for a bad code. Found and fixed mid-build: Supabase auto-grants EXECUTE on new functions directly to anon/authenticated/service_role, not through PUBLIC -- `revoke from public` alone didn't block anon; fixed with an explicit `revoke ... from anon`, then applied the same cleanup to the two earlier helper functions as defense-in-depth (confirmed neither actually leaked anything to anon, just tightened on principle). `app.json`'s scheme renamed `mobile` -> `outthegc` -- this step needed a real one for the invite link, not just the earlier OAuth concern. Confirmed working end to end: join by typing a code, rejoin shows "already in," bad code shows a clear message, all with a real second account. The deep link itself is correctly built but can't be tested as a tappable link until step 15 (Expo Go doesn't register custom schemes) -- see Log.
 
 ### [ ] 8. Pins from the database
 - **Goal:** the map shows real saved places.
