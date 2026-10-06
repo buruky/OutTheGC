@@ -1,0 +1,31 @@
+-- Fixes an incomplete privilege restriction from
+-- 20261005235900_add_invite_code_and_join_function.sql.
+--
+-- That migration did `revoke all on function public.join_trip_by_code(text) from public`
+-- then `grant execute ... to authenticated`, intending anon (unauthenticated) callers to
+-- be rejected outright. Verified directly against the live project that this did NOT
+-- work: `information_schema.role_routine_grants` showed EXECUTE already granted
+-- separately and directly to anon, authenticated, and service_role on this function --
+-- not inherited through the PUBLIC pseudo-role, so revoking from PUBLIC never touched
+-- it. This is Supabase's own default behavior (see supabase/config.toml's
+-- `auto_expose_new_tables` comment: "new ... functions created in the public schema by
+-- postgres are reachable through the Data API roles (anon, authenticated, service_role)
+-- without explicit GRANTs, matching the cloud default"), not a mistake in how the grant
+-- statement was written -- just a wrong assumption about what "revoke from public" undoes.
+--
+-- Confirmed the actual failure mode by calling the function directly as anon (no JWT
+-- claims, so auth.uid() is null): it did NOT get a permission-denied error as intended --
+-- it ran all the way into the INSERT and failed there instead, with a confusing
+-- "null value in column user_id violates not-null constraint" error. Not a security hole
+-- (anon still can't join anything -- the insert fails either way), but it's the wrong
+-- failure mode: an unauthenticated caller should get a clean "you must be signed in"
+-- rejection at the privilege-check layer, not a raw constraint-violation error leaking
+-- table internals.
+--
+-- Migrations are append-only history (same convention as the two RLS bug-fix migrations
+-- from step 6), so this is a new migration rather than an edit to the already-applied one.
+revoke execute on function public.join_trip_by_code(text) from anon;
+
+-- authenticated keeps EXECUTE (granted explicitly in the previous migration); service_role
+-- keeps it too (harmless -- service_role already bypasses RLS and all grants by design, and
+-- nothing in this project runs server-side code as service_role yet).
