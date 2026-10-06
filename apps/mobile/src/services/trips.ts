@@ -18,6 +18,12 @@ export type TripRow = {
   end_date: string | null;
   /** Postgres `timestamptz`, serialized as an ISO 8601 string. */
   created_at: string;
+  /**
+   * Server-generated, unique, 8-character (see
+   * `supabase/migrations/20261005235900_add_invite_code_and_join_function.sql`).
+   * Never set from the client — the column default fills it in on insert.
+   */
+  invite_code: string;
 };
 
 export async function fetchTrips(): Promise<TripRow[]> {
@@ -67,4 +73,31 @@ export async function createTrip(input: NewTripInput): Promise<TripRow> {
 
   if (error) throw error;
   return data;
+}
+
+export type JoinTripResult = {
+  trip_id: string;
+  trip_name: string;
+  already_member: boolean;
+};
+
+/**
+ * Wraps the `join_trip_by_code` RPC (see
+ * `supabase/migrations/20261005235900_add_invite_code_and_join_function.sql`).
+ * Idempotent on the server — joining a trip you're already on resolves with
+ * `already_member: true` rather than throwing. On an unrecognized code, the
+ * rejected `error` has `error.code === '22023'` (Postgres SQLSTATE
+ * `invalid_parameter_value`) — check that field, not the message text, to
+ * show a "that code doesn't look right" message instead of a generic error.
+ */
+export async function joinTripByCode(code: string): Promise<JoinTripResult> {
+  const { data, error } = await supabase.rpc('join_trip_by_code', { p_code: code }).single();
+
+  if (error) throw error;
+  // `createClient` in `@/lib/supabase` isn't given a generated `Database`
+  // type (none has been generated from the schema yet), so `.rpc()` on an
+  // unrecognized function name types its result as `unknown` rather than
+  // inferring the `returns table (...)` shape from the migration. Safe to
+  // assert here: the shape is exactly what `join_trip_by_code` returns.
+  return data as JoinTripResult;
 }

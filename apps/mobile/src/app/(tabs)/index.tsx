@@ -69,14 +69,24 @@ export default function TripsScreen() {
       <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
         <ThemedView style={styles.titleRow}>
           <ThemedText type="title">Trips</ThemedText>
-          <Link href="/trip/new" asChild>
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel="Create a new trip"
-              style={({ pressed }) => [styles.newTripButton, pressed && styles.pressed]}>
-              <ThemedText type="linkPrimary">+ New trip</ThemedText>
-            </Pressable>
-          </Link>
+          <ThemedView style={styles.titleActions}>
+            <Link href="/join" asChild>
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="Join a trip with a code"
+                style={({ pressed }) => [styles.newTripButton, pressed && styles.pressed]}>
+                <ThemedText type="linkPrimary">Join with code</ThemedText>
+              </Pressable>
+            </Link>
+            <Link href="/trip/new" asChild>
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="Create a new trip"
+                style={({ pressed }) => [styles.newTripButton, pressed && styles.pressed]}>
+                <ThemedText type="linkPrimary">+ New trip</ThemedText>
+              </Pressable>
+            </Link>
+          </ThemedView>
         </ThemedView>
 
         {status === 'loading' && (
@@ -134,6 +144,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: Spacing.four,
+  },
+  titleActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.three,
   },
   newTripButton: {
     minHeight: 44,

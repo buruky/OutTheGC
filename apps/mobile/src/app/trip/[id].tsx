@@ -1,6 +1,7 @@
+import * as Clipboard from 'expo-clipboard';
 import { Stack, useLocalSearchParams } from 'expo-router';
-import { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, Pressable, StyleSheet } from 'react-native';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { ActivityIndicator, Pressable, Share, StyleSheet } from 'react-native';
 import MapView, { Marker, type Region } from 'react-native-maps';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -13,13 +14,54 @@ import { useTheme } from '@/hooks/use-theme';
 
 type Status = 'loading' | 'error' | 'not-found' | 'ready';
 
+/**
+ * `outthegc://join/<code>` — matches `app.json`'s `scheme` and the
+ * `src/app/join/[code].tsx` route. Built here and in the join screen rather
+ * than stored anywhere, since it's fully derived from the code.
+ */
+function buildInviteLink(inviteCode: string): string {
+  return `outthegc://join/${inviteCode}`;
+}
+
 export default function TripDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const [trip, setTrip] = useState<TripRow | null>(null);
   const [status, setStatus] = useState<Status>('loading');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
+  const [copied, setCopied] = useState(false);
+  const copiedResetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const theme = useTheme();
+
+  // Clears on unmount so a pending "reset the copied label" timer never
+  // fires a setState after this screen is gone.
+  useEffect(() => {
+    return () => {
+      if (copiedResetTimer.current) clearTimeout(copiedResetTimer.current);
+    };
+  }, []);
+
+  const handleCopyCode = useCallback((inviteCode: string) => {
+    Clipboard.setStringAsync(inviteCode)
+      .then(() => {
+        setCopied(true);
+        if (copiedResetTimer.current) clearTimeout(copiedResetTimer.current);
+        copiedResetTimer.current = setTimeout(() => setCopied(false), 1500);
+      })
+      .catch(() => {
+        // Clipboard access can fail on some Android configurations; silently
+        // no-op rather than showing a scary error for a convenience action.
+      });
+  }, []);
+
+  const handleShareInvite = useCallback((tripName: string, inviteCode: string) => {
+    Share.share({
+      message: `Join my trip "${tripName}" on OutTheGC: ${buildInviteLink(inviteCode)}`,
+      url: buildInviteLink(inviteCode), // iOS-only field; Android reads the link from `message`.
+    }).catch(() => {
+      // User-cancelled shares also reject on some platforms — no error UI needed.
+    });
+  }, []);
 
   // Hardcoded pins keyed by trip id — stays this way until step 8 ("Pins
   // from the database") adds `places`/`trip_places`. Not touched by the
@@ -116,6 +158,31 @@ export default function TripDetailScreen() {
           <ThemedText type="small" themeColor="textSecondary">
             {trip.start_date ?? '?'} – {trip.end_date ?? '?'}
           </ThemedText>
+
+          <ThemedView style={styles.inviteRow}>
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={`Invite code ${trip.invite_code}. Double tap to copy.`}
+              onPress={() => handleCopyCode(trip.invite_code)}
+              style={({ pressed }) => [
+                styles.inviteCodeChip,
+                { backgroundColor: theme.backgroundElement },
+                pressed && styles.pressed,
+              ]}>
+              <ThemedText type="code">{trip.invite_code}</ThemedText>
+              <ThemedText type="small" themeColor="textSecondary">
+                {copied ? 'Copied!' : 'Tap to copy'}
+              </ThemedText>
+            </Pressable>
+
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="Share invite link"
+              onPress={() => handleShareInvite(trip.name, trip.invite_code)}
+              style={({ pressed }) => [styles.shareButton, pressed && styles.pressed]}>
+              <ThemedText type="linkPrimary">Share invite</ThemedText>
+            </Pressable>
+          </ThemedView>
         </ThemedView>
 
         <ThemedView style={styles.mapContainer}>
@@ -173,6 +240,26 @@ const styles = StyleSheet.create({
   header: {
     padding: Spacing.four,
     gap: Spacing.two,
+  },
+  inviteRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.three,
+    marginTop: Spacing.one,
+  },
+  inviteCodeChip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.two,
+    minHeight: 44,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Spacing.two,
+  },
+  shareButton: {
+    minHeight: 44,
+    paddingHorizontal: Spacing.two,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   mapContainer: {
     flex: 1,
