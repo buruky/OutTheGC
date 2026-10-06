@@ -65,12 +65,15 @@ Check off steps as you finish them. Add new steps anywhere; renumbering is fine.
 - **Done when:** you can sign up, close the app, reopen, and still be signed in.
 - **Notes:** Email confirmation required (deliberate) -- signup creates the account but no session until the link is clicked, then sign in separately. `profiles` row created via a SECURITY DEFINER trigger on auth.users, not a client-side insert. Session persistence via AsyncStorage; `Stack.Protected` gates (tabs)/trip behind a session. Post-build security review tightened `profiles` RLS to own-row-only reads (was accidentally world-readable to any signed-up account) and fixed a config.toml/production drift on email confirmation -- see the Log section for what's still deliberately deferred (secure token storage, profile value constraints, app scheme, dead redirect page). Also discovered the free email tier caps at 2 sends/hour -- SMTP setup is a live option if this keeps being disruptive.
 
-### [ ] 6. Trips with permissions
+### [x] 6. Trips with permissions
 - **Goal:** each person only sees their own trips.
 - **Try:** add `trip_members` and `owner_id`. Build "create trip" in the app. Write row level security policies so you can only read trips you belong to. Test with two accounts on two devices (or a phone and a simulator).
 - **Learn:** row level security, the core of the whole permission system.
 - **Done when:** account A cannot see account B's trip, even by guessing its id.
-- **Notes:**
+- **Notes:** Membership on trip creation handled by a SECURITY DEFINER trigger (same pattern as the profiles trigger), not a client-side insert, so a dropped connection can't lock the creator out of their own trip. Two real RLS bugs found and fixed post-build, both worth remembering:
+  1. **Infinite recursion** -- the first trip_members SELECT policy checked membership via a self-join back onto trip_members itself; since that table has RLS enabled, evaluating the policy required evaluating the policy, forever (Postgres error 42P17). Fixed with a SECURITY DEFINER helper function (`is_trip_member`) that bypasses RLS internally, breaking the cycle.
+  2. **Same-statement trigger visibility** -- after fixing #1, `insert into trips ... returning` (exactly what createTrip() does) still failed, because the RETURNING clause's implicit SELECT-policy check didn't reliably see the trip_members row the trigger had just written in that same statement (confirmed empirically; didn't matter whether the helper function was `stable` or not). Fixed by giving the trips SELECT policy a direct `owner_id = auth.uid()` fast path that doesn't depend on trip_members at all for the owner's own row -- a better policy on its own merits, not just a workaround.
+  Isolation verified two ways: directly against the database (a simulated second identity got zero rows on both a direct id lookup and an unfiltered list -- no error, just nothing) and by the developer with a real second account in the app.
 
 ### [ ] 7. Invite codes
 - **Goal:** friends can join a trip.
