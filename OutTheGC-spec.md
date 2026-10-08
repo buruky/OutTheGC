@@ -117,7 +117,7 @@ See OutTheGC-roadmap.md for the step by step build plan.
 
 ### 4. Extraction
 - Which fields matter most: name, address, category, price, hours, dishes/items, vibe, tips?
-- Which categories at launch (food, views, entertainment, stay, shopping, nightlife, other)?
+- ~~Which categories at launch?~~ Decided at step 8: `food, views, entertainment, stay, shopping, nightlife, other` as a Postgres ENUM on `trip_places.category`.
 - LLM provider and a cost ceiling per post?
 
 ### 5. Map and places

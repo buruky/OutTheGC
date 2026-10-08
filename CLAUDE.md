@@ -17,7 +17,7 @@ Everything else — worker framework, job queue mechanism (polling vs pgmq), wor
 
 ## Current step
 
-Not started. Step 0 (tooling) in `OutTheGC-roadmap.md` is next. Run the `stage-gate` skill before starting it and before moving to each step after.
+Steps 0-8 done. Step 9 (live updates) in `OutTheGC-roadmap.md` is next. Run the `stage-gate` skill before starting it and before moving to each step after.
 
 ## How to work in this repo
 
