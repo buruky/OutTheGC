@@ -49,6 +49,26 @@ MODEL = "gpt-5.4-mini"
 MAX_TRANSIENT_RETRIES = 2
 RETRY_BACKOFF_SECONDS = [3, 9]
 
+# Hard confidence floor, applied in code after the model responds -- not
+# just as a prompt instruction. A prompt can ask the model to withhold a
+# guess it would itself rate under ~0.5 (see SYSTEM_PROMPT), but a model's
+# self-reported confidence isn't something to trust blindly as the only
+# safeguard: this is a second, code-level check that holds regardless of
+# whether the model's own self-rating is honest on a given call. The
+# product's UX already treats confidence as "how sure are we" before a
+# user ever sees a candidate (CLAUDE.md: confidence and multiple
+# candidates are real product behavior) -- a sub-floor guess arguably
+# shouldn't reach that screen at all.
+#
+# 0.55, not 0.5: chosen from the v2 eval run's actual confidence spread,
+# not a round-number guess. The two hallucination regressions this is
+# meant to catch scored 0.35 and 0.51; the next-lowest score in the whole
+# 37-case run was 0.61, a genuinely correct extraction ("Puerco Pina",
+# case 022). 0.55 sits in that gap -- it catches both known-bad low
+# scores without clipping the lowest-known-good one. Revisit this number
+# if the eval set grows and a legitimate case scores between 0.5 and 0.6.
+MIN_CONFIDENCE = 0.55
+
 
 # ---------------------------------------------------------------------------
 # Output schema. category is a Python Enum of exactly the 7 Postgres enum
@@ -155,7 +175,21 @@ Rules:
 gem", "this viral restaurant", "save this spot") with no name, no \
 hashtag that encodes a name, no handle, and no address -- return nothing \
 for that caption. A vague caption with zero real places is the CORRECT \
-answer in that case, not a failure to try harder.
+answer in that case, not a failure to try harder. This includes a \
+capitalized or Title-Cased generic phrase -- TikTok captions routinely \
+capitalize ordinary descriptive words for emphasis ("this hidden Rooftop \
+Bar", "the BEST Hidden Gem"), and that styling is NOT a signal of a real \
+name (rule 4's "trust the explicit text name, especially if capitalized" \
+is about an actual proper name/brand appearing in the text, not about \
+capitalization itself). A real name has some distinguishing word beyond \
+the generic category description -- a brand, a person's name, a \
+nickname, a place-specific word. "Rooftop Bar" alone, however it's \
+capitalized, is a category description of an unnamed place, not a name; \
+"ICON Bar & Rooftop" is a name, because "ICON" is the distinguishing \
+part. When all you have is the generic category phrase with no \
+distinguishing word, that's still rule 1's no-name case -- return nothing \
+(or, if a genuine address is also given, see rule 2 -- but the generic \
+phrase itself never counts as the name).
 2. Exception to rule 1: if the caption gives a genuine, concrete address \
 (a street name/number, coordinates, or an equally specific locator) for a \
 real place, but no name appears anywhere, include it anyway with name set \
@@ -198,12 +232,21 @@ vibe (not one specific attraction within it) is "other", not "views".
    - A themed cafe (comic/manga cafe, cat cafe, dessert cafe) is "food" if \
 it's fundamentally a place to eat/drink, even if its hook is an activity. \
 A gallery, museum, or similar cultural/art space is "entertainment".
-   - A place whose own name includes "Bar", "Rooftop", "Lounge", or \
-"Club" is "nightlife", even if the caption's hype is about the view, not \
-the drinks.
-   - If the caption's own words explicitly call a place a "restaurant", \
-"cafe", or "bar" (even when its proper name sounds like a landmark, e.g. \
-a waterfall's name), trust that explicit word for category over the name.
+   - Food-vs-nightlife precedence, in this order: (1) If the caption's \
+own words explicitly call the place a "restaurant" or "cafe" ANYWHERE -- \
+even if the same caption, or the place's own proper name, ALSO contains a \
+nightlife word like "bar", "rooftop", "lounge", or "club" (e.g. a \
+caption reading "Hanging restaurant & bar" about a place named "Hanging \
+Restaurant & Bar") -- the category is "food", full stop. The explicit \
+"restaurant"/"cafe" wording always wins; it is not a soft suggestion to \
+weigh against the name, and a co-occurring nightlife word does not pull \
+it back to "nightlife". (2) Only if rule (1) doesn't apply -- the \
+caption never calls the place a "restaurant" or "cafe" -- does a \
+nightlife word matter: if the caption's words explicitly call it a \
+"bar"/"lounge"/"club", or if no caption wording pins down the category \
+at all but the place's own proper name contains "Bar", "Rooftop", \
+"Lounge", or "Club", that's "nightlife", even if the caption's hype is \
+about the view, not the drinks.
 7. Captions are sometimes non-English or bilingual (Spanish, German, \
 Korean, Indonesian, etc). Keep the place name in whatever language/script \
 it's given in (romanization in parentheses is fine to keep too); still \
@@ -239,6 +282,17 @@ second entry for "Shibuya Sakura Stage" (rule 5).
 DEL PASTOR") but also has an unrelated hashtag that looks like another \
 name (e.g. "#lagarnachaqueapapacha") -> use the explicit caption-text name, \
 not the hashtag (rule 4).
+- Caption says "Hanging restaurant & bar" about a place named "Hanging \
+Restaurant & Bar" -> "food", not "nightlife" -- the caption's own words \
+call it a restaurant, and that wins over both the "bar" word in the same \
+caption and the "Bar" in the place's own name (rule 6).
+
+One more thing on confidence: if, after applying the rules above, you'd \
+honestly rate your own confidence in a candidate below roughly 0.5, you \
+do not have enough to go on -- leave it out of the list entirely rather \
+than returning it as a low-confidence guess. "This caption has location \
+hype but nothing concrete enough to identify a specific place" is rule \
+1's empty-list case, not a place to report with a hedge.
 """
 
 
@@ -288,6 +342,17 @@ class ExtractionCallResult:
     places: List[ExtractedPlace] = field(default_factory=list)
     usage: Optional[Usage] = None
     model: str = MODEL
+    # Places the model returned but that were dropped by the MIN_CONFIDENCE
+    # floor before `places` above was populated. Kept separate (not just
+    # silently discarded) so a caller -- the eval runner, later the worker's
+    # logging -- can see when the floor actually fired, rather than that
+    # being invisible. NOTE: this means `.places` is not strictly "the
+    # model's raw output" anymore for eval-scoring purposes -- it's the
+    # model's output after a code-level filter. Worth being explicit about
+    # that distinction since it changes what a "miss" means (a dropped
+    # candidate now scores as if the model returned nothing, not as if it
+    # returned something wrong).
+    dropped_low_confidence: List[ExtractedPlace] = field(default_factory=list)
 
 
 def _is_daily_or_quota_limit(exc: RateLimitError) -> bool:
@@ -388,7 +453,14 @@ def extract_places(
         if usage is not None
         else None
     )
-    return ExtractionCallResult(places=parsed.places, usage=usage_obj, model=MODEL)
+
+    kept, dropped = [], []
+    for p in parsed.places:
+        (kept if p.confidence >= MIN_CONFIDENCE else dropped).append(p)
+
+    return ExtractionCallResult(
+        places=kept, usage=usage_obj, model=MODEL, dropped_low_confidence=dropped
+    )
 
 
 if __name__ == "__main__":

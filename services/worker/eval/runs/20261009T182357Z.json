@@ -1,0 +1,47 @@
+{
+  "timestamp": "20261009T182357Z",
+  "model": "gpt-5.4-mini",
+  "git_sha": "b4ffc9e",
+  "notes": "v3 spot-check: rule 6 merged precedence (explicit restaurant/cafe wording wins over co-occurring nightlife word)",
+  "cases_attempted": 1,
+  "cases_scored": 1,
+  "stopped_early_at": null,
+  "total_points": 1.0,
+  "total_max_points": 1.0,
+  "token_usage": {
+    "prompt_tokens": 2318,
+    "completion_tokens": 39,
+    "total_tokens": 2357
+  },
+  "results": [
+    {
+      "case_id": "037-bali-food-hanging-misleading-tag",
+      "expected": [
+        {
+          "name": "Hanging Restaurant & Bar",
+          "area": "Sekumpul, Buleleng, Bali",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Hanging Restaurant & Bar",
+          "area": "Ubud, Bali, Indonesia",
+          "category": "food",
+          "confidence": 0.98
+        }
+      ],
+      "dropped_low_confidence": [],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Hanging Restaurant & Bar' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 2318,
+        "completion_tokens": 39,
+        "total_tokens": 2357
+      }
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "timestamp": "20261009T182413Z",
+  "model": "gpt-5.4-mini",
+  "git_sha": "b4ffc9e",
+  "notes": "v3 spot-check: rule 1 confidence-floor instruction + code-level MIN_CONFIDENCE=0.55 filter",
+  "cases_attempted": 1,
+  "cases_scored": 1,
+  "stopped_early_at": null,
+  "total_points": 0.0,
+  "total_max_points": 1.0,
+  "token_usage": {
+    "prompt_tokens": 2331,
+    "completion_tokens": 34,
+    "total_tokens": 2365
+  },
+  "results": [
+    {
+      "case_id": "027-lisbon-bar-unnamed-hidden",
+      "expected": [],
+      "extracted": [
+        {
+          "name": null,
+          "area": "Lisbon, Portugal",
+          "category": "nightlife",
+          "confidence": 0.64
+        }
+      ],
+      "dropped_low_confidence": [],
+      "points": 0.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "miss: expected nothing, hallucinated None"
+      ],
+      "usage": {
+        "prompt_tokens": 2331,
+        "completion_tokens": 34,
+        "total_tokens": 2365
+      }
+    }
+  ]
+}

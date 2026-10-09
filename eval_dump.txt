@@ -1,0 +1,29 @@
+=== 008-nyc-pizza-lucia-soho ===
+expected: [{"name": "Lucia Pizza of SoHo", "area": "SoHo, New York", "category": "food"}]
+extracted: [{"name": "Lucia of SoHo", "area": "SoHo, NYC", "category": "food", "confidence": 0.98}]
+points/max: 1.0 1.0
+outcomes: ["hit: 'Lucia Pizza of SoHo' (food)"]
+
+=== 011-nyc-pizza-list-in-caption ===
+expected: [{"name": "Rubirosa", "area": "Nolita, New York", "category": "food"}, {"name": "John's of Bleecker Street", "area": "West Village, New York", "category": "food"}, {"name": "Zillion's", "area": "New York", "category": "food"}, {"name": "Pop's Pizza", "area": "New York", "category": "food"}, {"name": "Prince Street Pizza", "area": "Nolita, New York", "category": "food"}, {"name": "NY Pizza Suprema", "area": "Midtown, New York", "category": "food"}, {"name": "Cello's Pizza", "area": "East Village, New York", "category": "food"}]
+extracted: [{"name": "Zillion’s", "area": "NYC, New York, USA", "category": "food", "confidence": 0.94}, {"name": "Pop’s Pizza", "area": "NYC, New York, USA", "category": "food", "confidence": 0.97}, {"name": "Prince Street Pizza", "area": "NYC, New York, USA", "category": "food", "confidence": 0.99}, {"name": "NY Pizza Suprema", "area": "NYC, New York, USA", "category": "food", "confidence": 0.99}, {"name": "Cello’s Pizza", "area": "NYC, New York, USA", "category": "food", "confidence": 0.95}]
+points/max: 5.0 7.0
+outcomes: ["miss: no extracted entry matched 'Rubirosa' (food)", "miss: no extracted entry matched 'John's of Bleecker Street' (food)", "hit: 'Zillion's' (food)", "hit: 'Pop's Pizza' (food)", "hit: 'Prince Street Pizza' (food)", "hit: 'NY Pizza Suprema' (food)", "hit: 'Cello's Pizza' (food)"]
+
+=== 016-seoul-cafe-korean-name ===
+expected: [{"name": "Nolsoop Comic Cafe (만화카페 놀숲)", "area": "Seoul", "category": "food"}]
+extracted: [{"name": "만화카페 놀숲", "area": "Korea", "category": "food", "confidence": 0.95}]
+points/max: 1.0 1.0
+outcomes: ["hit: 'Nolsoop Comic Cafe (만화카페 놀숲)' (food)"]
+
+=== 017-seoul-cafe-anipark-bilingual ===
+expected: [{"name": "Anipark (애니파크)", "area": "Samseong-dong, Gangnam-gu, Seoul", "category": "food"}]
+extracted: [{"name": "애니파크 (Anipark)", "area": "Samseong-dong, Gangnam-gu, Seoul, South Korea", "category": "food", "confidence": 0.99}]
+points/max: 0.5 1.0
+outcomes: ["partial: category matched (food), name mismatch (expected 'Anipark (애니파크)', got '애니파크 (Anipark)')"]
+
+=== 028-barcelona-bar-lamaro ===
+expected: [{"name": "Lamaro Hotel (L'Àtic rooftop)", "area": "Gothic Quarter, Barcelona", "category": "nightlife"}]
+extracted: [{"name": "Lamaro Hotel", "area": "Barcelona, Spain", "category": "stay", "confidence": 0.99}]
+points/max: 0.5 1.0
+outcomes: ["partial: 'Lamaro Hotel (L'Àtic rooftop)' name matched, category mismatch (expected nightlife, got stay)"]

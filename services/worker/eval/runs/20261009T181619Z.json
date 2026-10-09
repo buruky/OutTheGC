@@ -1,0 +1,1176 @@
+{
+  "timestamp": "20261009T181619Z",
+  "model": "gpt-5.4-mini",
+  "git_sha": "b4ffc9e",
+  "notes": "prompt v2 full re-run",
+  "cases_attempted": 37,
+  "cases_scored": 37,
+  "stopped_early_at": null,
+  "total_points": 47.5,
+  "total_max_points": 54.0,
+  "token_usage": {
+    "prompt_tokens": 76699,
+    "completion_tokens": 1711,
+    "total_tokens": 78410
+  },
+  "results": [
+    {
+      "case_id": "001-tokyo-cafe-ruru-shibuya",
+      "expected": [
+        {
+          "name": "RuRu Shibuya",
+          "area": "Shibuya, Tokyo",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "RuRu Shibuya",
+          "area": "Shibuya, Tokyo, Japan",
+          "category": "food",
+          "confidence": 0.98
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'RuRu Shibuya' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 2099,
+        "completion_tokens": 40,
+        "total_tokens": 2139
+      }
+    },
+    {
+      "case_id": "002-tokyo-neighborhood-gotokuji",
+      "expected": [
+        {
+          "name": "Gotokuji",
+          "area": "Setagaya, Tokyo",
+          "category": "other"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Gotokuji",
+          "area": "Tokyo, Japan",
+          "category": "other",
+          "confidence": 0.96
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Gotokuji' (other)"
+      ],
+      "usage": {
+        "prompt_tokens": 2033,
+        "completion_tokens": 34,
+        "total_tokens": 2067
+      }
+    },
+    {
+      "case_id": "003-tokyo-cafe-hekkelun-hashtag-only",
+      "expected": [
+        {
+          "name": "Hekkelun",
+          "area": "Shimbashi, Minato, Tokyo",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Hekkelun",
+          "area": "Tokyo, Japan",
+          "category": "food",
+          "confidence": 0.91
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Hekkelun' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 2022,
+        "completion_tokens": 35,
+        "total_tokens": 2057
+      }
+    },
+    {
+      "case_id": "004-tokyo-cafe-temari-no-oshiro",
+      "expected": [
+        {
+          "name": "Temari no Oshiro",
+          "area": "Kichijoji, Tokyo",
+          "category": "food"
+        },
+        {
+          "name": "Petit Mura",
+          "area": "Kichijoji, Tokyo",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Temari No Oshiro Cat Cafe",
+          "area": "Kichijoji, Tokyo, Japan",
+          "category": "food",
+          "confidence": 0.98
+        },
+        {
+          "name": "Petit Mura",
+          "area": "Kichijoji, Tokyo, Japan",
+          "category": "food",
+          "confidence": 0.93
+        }
+      ],
+      "points": 2.0,
+      "max_points": 2.0,
+      "outcomes": [
+        "hit: 'Temari no Oshiro' (food)",
+        "hit: 'Petit Mura' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 2221,
+        "completion_tokens": 70,
+        "total_tokens": 2291
+      }
+    },
+    {
+      "case_id": "005-tokyo-cafe-ghibli-two-named",
+      "expected": [
+        {
+          "name": "Coffee Hall Kugutsuso",
+          "area": "Kichijoji, Tokyo",
+          "category": "food"
+        },
+        {
+          "name": "Tea House Happa",
+          "area": "Tokyo",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Coffee Hall Kugutsuso",
+          "area": "Tokyo, Japan",
+          "category": "food",
+          "confidence": 0.98
+        },
+        {
+          "name": "Tea House Happa",
+          "area": "Tokyo, Japan",
+          "category": "food",
+          "confidence": 0.98
+        },
+        {
+          "name": "TOMOGO",
+          "area": "Tokyo, Japan",
+          "category": "other",
+          "confidence": 0.74
+        }
+      ],
+      "points": 2.0,
+      "max_points": 2.0,
+      "outcomes": [
+        "hit: 'Coffee Hall Kugutsuso' (food)",
+        "hit: 'Tea House Happa' (food)",
+        "note: extra unmatched extraction 'TOMOGO' (other, confidence 0.74)"
+      ],
+      "usage": {
+        "prompt_tokens": 2106,
+        "completion_tokens": 81,
+        "total_tokens": 2187
+      }
+    },
+    {
+      "case_id": "006-tokyo-cafe-unnamed-fuji-cakes",
+      "expected": [],
+      "extracted": [],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: correctly returned nothing"
+      ],
+      "usage": {
+        "prompt_tokens": 2350,
+        "completion_tokens": 11,
+        "total_tokens": 2361
+      }
+    },
+    {
+      "case_id": "007-tokyo-cafe-unnamed-ghibli",
+      "expected": [],
+      "extracted": [],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: correctly returned nothing"
+      ],
+      "usage": {
+        "prompt_tokens": 2087,
+        "completion_tokens": 11,
+        "total_tokens": 2098
+      }
+    },
+    {
+      "case_id": "008-nyc-pizza-lucia-soho",
+      "expected": [
+        {
+          "name": "Lucia Pizza of SoHo",
+          "area": "SoHo, New York",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Lucia of SoHo",
+          "area": "NYC",
+          "category": "food",
+          "confidence": 0.99
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Lucia Pizza of SoHo' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 2102,
+        "completion_tokens": 35,
+        "total_tokens": 2137
+      }
+    },
+    {
+      "case_id": "009-nyc-pizza-rays-address",
+      "expected": [
+        {
+          "name": "Famous Original Ray's Pizza",
+          "area": "Times Square, New York",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Famous Original Ray's Pizza",
+          "area": "Times Square, New York City, USA",
+          "category": "food",
+          "confidence": 0.99
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Famous Original Ray's Pizza' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 2015,
+        "completion_tokens": 42,
+        "total_tokens": 2057
+      }
+    },
+    {
+      "case_id": "010-nyc-pizza-jules-bensonhurst",
+      "expected": [
+        {
+          "name": "Jules Pizza",
+          "area": "Bensonhurst, Brooklyn, New York",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Jules Pizza",
+          "area": "Bensonhurst, New York City, USA",
+          "category": "food",
+          "confidence": 0.99
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Jules Pizza' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 2010,
+        "completion_tokens": 40,
+        "total_tokens": 2050
+      }
+    },
+    {
+      "case_id": "011-nyc-pizza-list-in-caption",
+      "expected": [
+        {
+          "name": "Rubirosa",
+          "area": "Nolita, New York",
+          "category": "food"
+        },
+        {
+          "name": "John's of Bleecker Street",
+          "area": "West Village, New York",
+          "category": "food"
+        },
+        {
+          "name": "Zillion's",
+          "area": "New York",
+          "category": "food"
+        },
+        {
+          "name": "Pop's Pizza",
+          "area": "New York",
+          "category": "food"
+        },
+        {
+          "name": "Prince Street Pizza",
+          "area": "Nolita, New York",
+          "category": "food"
+        },
+        {
+          "name": "NY Pizza Suprema",
+          "area": "Midtown, New York",
+          "category": "food"
+        },
+        {
+          "name": "Cello's Pizza",
+          "area": "East Village, New York",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Zillion’s",
+          "area": "NYC, New York, USA",
+          "category": "food",
+          "confidence": 0.89
+        },
+        {
+          "name": "Pop’s Pizza",
+          "area": "NYC, New York, USA",
+          "category": "food",
+          "confidence": 0.97
+        },
+        {
+          "name": "Prince Street Pizza",
+          "area": "NYC, New York, USA",
+          "category": "food",
+          "confidence": 0.99
+        },
+        {
+          "name": "NY Pizza Suprema",
+          "area": "NYC, New York, USA",
+          "category": "food",
+          "confidence": 0.99
+        },
+        {
+          "name": "Cello’s Pizza",
+          "area": "NYC, New York, USA",
+          "category": "food",
+          "confidence": 0.96
+        }
+      ],
+      "points": 5.0,
+      "max_points": 7.0,
+      "outcomes": [
+        "miss: no extracted entry matched 'Rubirosa' (food)",
+        "miss: no extracted entry matched 'John's of Bleecker Street' (food)",
+        "hit: 'Zillion's' (food)",
+        "hit: 'Pop's Pizza' (food)",
+        "hit: 'Prince Street Pizza' (food)",
+        "hit: 'NY Pizza Suprema' (food)",
+        "hit: 'Cello's Pizza' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 2103,
+        "completion_tokens": 143,
+        "total_tokens": 2246
+      }
+    },
+    {
+      "case_id": "012-nyc-pizza-artichoke-mention",
+      "expected": [
+        {
+          "name": "Artichoke Basille's Pizza",
+          "area": "New York",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Artichoke Basille’s Pizza",
+          "area": "NYC, New York City, USA",
+          "category": "food",
+          "confidence": 0.99
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Artichoke Basille's Pizza' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 2125,
+        "completion_tokens": 43,
+        "total_tokens": 2168
+      }
+    },
+    {
+      "case_id": "013-nyc-pizza-handle-only",
+      "expected": [
+        {
+          "name": "Jonny's Pizza",
+          "area": "Lower East Side, New York",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Jonny's Pizza",
+          "area": "New York City, USA",
+          "category": "food",
+          "confidence": 0.95
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Jonny's Pizza' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 2011,
+        "completion_tokens": 37,
+        "total_tokens": 2048
+      }
+    },
+    {
+      "case_id": "014-seoul-cafe-saeraul-address",
+      "expected": [
+        {
+          "name": "Cafe Saeraul",
+          "area": "Yeonhui-dong, Seodaemun-gu, Seoul",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Cafe Saeraul",
+          "area": "Seodaemun-gu, Seoul, South Korea",
+          "category": "food",
+          "confidence": 0.98
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Cafe Saeraul' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 2014,
+        "completion_tokens": 41,
+        "total_tokens": 2055
+      }
+    },
+    {
+      "case_id": "015-seoul-cafe-pokpo",
+      "expected": [
+        {
+          "name": "Cafe Pokpo",
+          "area": "Seodaemun-gu, Seoul",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Cafe Pokpo",
+          "area": "Seoul, Korea",
+          "category": "food",
+          "confidence": 0.94
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Cafe Pokpo' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 2016,
+        "completion_tokens": 35,
+        "total_tokens": 2051
+      }
+    },
+    {
+      "case_id": "016-seoul-cafe-korean-name",
+      "expected": [
+        {
+          "name": "Nolsoop Comic Cafe (만화카페 놀숲)",
+          "area": "Seoul",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "만화카페 놀숲",
+          "area": "Korea",
+          "category": "food",
+          "confidence": 0.97
+        }
+      ],
+      "points": 0.5,
+      "max_points": 1.0,
+      "outcomes": [
+        "partial: category matched (food), name mismatch (expected 'Nolsoop Comic Cafe (만화카페 놀숲)', got '만화카페 놀숲')"
+      ],
+      "usage": {
+        "prompt_tokens": 2041,
+        "completion_tokens": 37,
+        "total_tokens": 2078
+      }
+    },
+    {
+      "case_id": "017-seoul-cafe-anipark-bilingual",
+      "expected": [
+        {
+          "name": "Anipark (애니파크)",
+          "area": "Samseong-dong, Gangnam-gu, Seoul",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "애니파크 (Anipark)",
+          "area": "Samseong-dong, Gangnam-gu, Seoul, South Korea",
+          "category": "food",
+          "confidence": 0.99
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Anipark (애니파크)' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 2044,
+        "completion_tokens": 51,
+        "total_tokens": 2095
+      }
+    },
+    {
+      "case_id": "018-seoul-gallery-address-no-name",
+      "expected": [
+        {
+          "name": null,
+          "area": "Yongsan-gu, Seoul",
+          "category": "entertainment"
+        }
+      ],
+      "extracted": [
+        {
+          "name": null,
+          "area": "Yongsan District, Seoul, South Korea",
+          "category": "entertainment",
+          "confidence": 0.91
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'None' (entertainment)"
+      ],
+      "usage": {
+        "prompt_tokens": 2045,
+        "completion_tokens": 40,
+        "total_tokens": 2085
+      }
+    },
+    {
+      "case_id": "019-seoul-cafe-negative-mention",
+      "expected": [],
+      "extracted": [],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: correctly returned nothing"
+      ],
+      "usage": {
+        "prompt_tokens": 2077,
+        "completion_tokens": 11,
+        "total_tokens": 2088
+      }
+    },
+    {
+      "case_id": "020-seoul-cafe-unnamed-mio",
+      "expected": [],
+      "extracted": [],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: correctly returned nothing"
+      ],
+      "usage": {
+        "prompt_tokens": 2020,
+        "completion_tokens": 11,
+        "total_tokens": 2031
+      }
+    },
+    {
+      "case_id": "021-cdmx-tacos-top6-list",
+      "expected": [
+        {
+          "name": "Taquería El Califa de León",
+          "area": "San Rafael, Mexico City",
+          "category": "food"
+        },
+        {
+          "name": "El Califa",
+          "area": "Mexico City",
+          "category": "food"
+        },
+        {
+          "name": "Cinco Hermanos",
+          "area": "La Merced, Mexico City",
+          "category": "food"
+        },
+        {
+          "name": "Los Güeros",
+          "area": "Mexico City",
+          "category": "food"
+        },
+        {
+          "name": "Tacos Chola",
+          "area": "Condesa, Mexico City",
+          "category": "food"
+        },
+        {
+          "name": "Tacos El Paisa",
+          "area": "Mexico City",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Taquería El Califa de León",
+          "area": "Mexico City, Mexico",
+          "category": "food",
+          "confidence": 0.99
+        },
+        {
+          "name": "El Califa",
+          "area": "Mexico City, Mexico",
+          "category": "food",
+          "confidence": 0.95
+        },
+        {
+          "name": "Cinco Hermanos",
+          "area": "Mercado Merced, Mexico City, Mexico",
+          "category": "food",
+          "confidence": 0.92
+        },
+        {
+          "name": "Los Güeros",
+          "area": "Mexico City, Mexico",
+          "category": "food",
+          "confidence": 0.9
+        },
+        {
+          "name": "Tacos Chola",
+          "area": "La Condesa, Mexico City, Mexico",
+          "category": "food",
+          "confidence": 0.98
+        },
+        {
+          "name": "Tacos El Paisa",
+          "area": "Mexico City, Mexico",
+          "category": "food",
+          "confidence": 0.93
+        }
+      ],
+      "points": 6.0,
+      "max_points": 6.0,
+      "outcomes": [
+        "hit: 'Taquería El Califa de León' (food)",
+        "hit: 'El Califa' (food)",
+        "hit: 'Cinco Hermanos' (food)",
+        "hit: 'Los Güeros' (food)",
+        "hit: 'Tacos Chola' (food)",
+        "hit: 'Tacos El Paisa' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 2305,
+        "completion_tokens": 168,
+        "total_tokens": 2473
+      }
+    },
+    {
+      "case_id": "022-cdmx-tacos-spanish-puerco-pina",
+      "expected": [
+        {
+          "name": "Puerco Piña",
+          "area": "Mexico City",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Puerco Piña",
+          "area": "CDMX, Mexico City, Mexico",
+          "category": "food",
+          "confidence": 0.61
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Puerco Piña' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 2019,
+        "completion_tokens": 40,
+        "total_tokens": 2059
+      }
+    },
+    {
+      "case_id": "023-cdmx-tacos-vilsito-spanish",
+      "expected": [
+        {
+          "name": "El Vilsito",
+          "area": "Narvarte, Mexico City",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "El Vilsito",
+          "area": "CDMX, Mexico City, Mexico",
+          "category": "food",
+          "confidence": 0.98
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'El Vilsito' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 2034,
+        "completion_tokens": 39,
+        "total_tokens": 2073
+      }
+    },
+    {
+      "case_id": "024-cdmx-tacos-rey-del-pastor",
+      "expected": [
+        {
+          "name": "El Rey del Pastor",
+          "area": "Mexico City",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "EL REY DEL PASTOR",
+          "area": null,
+          "category": "food",
+          "confidence": 0.98
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'El Rey del Pastor' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 2024,
+        "completion_tokens": 36,
+        "total_tokens": 2060
+      }
+    },
+    {
+      "case_id": "025-cdmx-tacos-unnamed-list",
+      "expected": [],
+      "extracted": [
+        {
+          "name": "Tacos de Pastor",
+          "area": "CDMX, Mexico City, Mexico",
+          "category": "food",
+          "confidence": 0.51
+        }
+      ],
+      "points": 0.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "miss: expected nothing, hallucinated 'Tacos de Pastor'"
+      ],
+      "usage": {
+        "prompt_tokens": 2021,
+        "completion_tokens": 39,
+        "total_tokens": 2060
+      }
+    },
+    {
+      "case_id": "026-lisbon-bar-icon-mention",
+      "expected": [
+        {
+          "name": "ICON Bar & Rooftop",
+          "area": "Belém, Lisbon",
+          "category": "nightlife"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "ICON Bar & Rooftop",
+          "area": "Lisbon, Portugal",
+          "category": "nightlife",
+          "confidence": 0.99
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'ICON Bar & Rooftop' (nightlife)"
+      ],
+      "usage": {
+        "prompt_tokens": 2020,
+        "completion_tokens": 39,
+        "total_tokens": 2059
+      }
+    },
+    {
+      "case_id": "027-lisbon-bar-unnamed-hidden",
+      "expected": [],
+      "extracted": [
+        {
+          "name": null,
+          "area": "Lisbon, Portugal",
+          "category": "nightlife",
+          "confidence": 0.35
+        }
+      ],
+      "points": 0.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "miss: expected nothing, hallucinated None"
+      ],
+      "usage": {
+        "prompt_tokens": 2008,
+        "completion_tokens": 34,
+        "total_tokens": 2042
+      }
+    },
+    {
+      "case_id": "028-barcelona-bar-lamaro",
+      "expected": [
+        {
+          "name": "Lamaro Hotel (L'Àtic rooftop)",
+          "area": "Gothic Quarter, Barcelona",
+          "category": "nightlife"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Lamaro Hotel",
+          "area": "Barcelona, Spain",
+          "category": "stay",
+          "confidence": 0.99
+        }
+      ],
+      "points": 0.5,
+      "max_points": 1.0,
+      "outcomes": [
+        "partial: 'Lamaro Hotel (L'Àtic rooftop)' name matched, category mismatch (expected nightlife, got stay)"
+      ],
+      "usage": {
+        "prompt_tokens": 2029,
+        "completion_tokens": 34,
+        "total_tokens": 2063
+      }
+    },
+    {
+      "case_id": "029-barcelona-bar-german",
+      "expected": [
+        {
+          "name": "L'Àtic",
+          "area": "Gothic Quarter, Barcelona",
+          "category": "nightlife"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "L'Àtic",
+          "area": "Barcelona, Spain",
+          "category": "nightlife",
+          "confidence": 0.95
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'L'Àtic' (nightlife)"
+      ],
+      "usage": {
+        "prompt_tokens": 2041,
+        "completion_tokens": 36,
+        "total_tokens": 2077
+      }
+    },
+    {
+      "case_id": "030-wa-nature-green-river-gorge",
+      "expected": [
+        {
+          "name": "Green River Gorge Resort",
+          "area": "Enumclaw, WA",
+          "category": "views"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Green River Gorge Resort",
+          "area": "Enumclaw, Washington, USA",
+          "category": "stay",
+          "confidence": 0.95
+        }
+      ],
+      "points": 0.5,
+      "max_points": 1.0,
+      "outcomes": [
+        "partial: 'Green River Gorge Resort' name matched, category mismatch (expected views, got stay)"
+      ],
+      "usage": {
+        "prompt_tokens": 2440,
+        "completion_tokens": 39,
+        "total_tokens": 2479
+      }
+    },
+    {
+      "case_id": "031-wa-nature-bench-snow-lakes",
+      "expected": [
+        {
+          "name": "Bench and Snow Lakes Trail",
+          "area": "Mount Rainier National Park, WA",
+          "category": "views"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Bench & Snow Lake",
+          "area": "Mount Rainier",
+          "category": "views",
+          "confidence": 0.97
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Bench and Snow Lakes Trail' (views)"
+      ],
+      "usage": {
+        "prompt_tokens": 2048,
+        "completion_tokens": 35,
+        "total_tokens": 2083
+      }
+    },
+    {
+      "case_id": "032-wa-rainier-multi-pin",
+      "expected": [
+        {
+          "name": "Skyline Trail",
+          "area": "Paradise, Mount Rainier National Park, WA",
+          "category": "views"
+        },
+        {
+          "name": "Reflection Lakes",
+          "area": "Mount Rainier National Park, WA",
+          "category": "views"
+        },
+        {
+          "name": "Bench and Snow Lakes Trail",
+          "area": "Mount Rainier National Park, WA",
+          "category": "views"
+        },
+        {
+          "name": "Pinnacle Peak Trail",
+          "area": "Mount Rainier National Park, WA",
+          "category": "views"
+        },
+        {
+          "name": "Wellspring Spa",
+          "area": "Ashford, WA",
+          "category": "stay"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Skyline Trail",
+          "area": "Mount Rainier National Park, Washington, U.S.",
+          "category": "views",
+          "confidence": 0.99
+        },
+        {
+          "name": "Reflection Lakes",
+          "area": "Mount Rainier National Park, Washington, U.S.",
+          "category": "views",
+          "confidence": 0.98
+        },
+        {
+          "name": "Bench & Snow Lakes Hike",
+          "area": "Mount Rainier National Park, Washington, U.S.",
+          "category": "views",
+          "confidence": 0.95
+        },
+        {
+          "name": "Pinnacle Peak Hike",
+          "area": "Mount Rainier National Park, Washington, U.S.",
+          "category": "views",
+          "confidence": 0.95
+        },
+        {
+          "name": "Wellspring Spa",
+          "area": "Ashford, Washington, U.S.",
+          "category": "stay",
+          "confidence": 0.91
+        }
+      ],
+      "points": 5.0,
+      "max_points": 5.0,
+      "outcomes": [
+        "hit: 'Skyline Trail' (views)",
+        "hit: 'Reflection Lakes' (views)",
+        "hit: 'Bench and Snow Lakes Trail' (views)",
+        "hit: 'Pinnacle Peak Trail' (views)",
+        "hit: 'Wellspring Spa' (stay)"
+      ],
+      "usage": {
+        "prompt_tokens": 2097,
+        "completion_tokens": 160,
+        "total_tokens": 2257
+      }
+    },
+    {
+      "case_id": "033-pnw-nature-no-location",
+      "expected": [],
+      "extracted": [],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: correctly returned nothing"
+      ],
+      "usage": {
+        "prompt_tokens": 2012,
+        "completion_tokens": 11,
+        "total_tokens": 2023
+      }
+    },
+    {
+      "case_id": "034-bali-nature-tukad-cepung",
+      "expected": [
+        {
+          "name": "Tukad Cepung Waterfall",
+          "area": "Bangli, Bali",
+          "category": "views"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Tukad Cepung Waterfall",
+          "area": "Bali, Indonesia",
+          "category": "views",
+          "confidence": 0.99
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Tukad Cepung Waterfall' (views)"
+      ],
+      "usage": {
+        "prompt_tokens": 2033,
+        "completion_tokens": 39,
+        "total_tokens": 2072
+      }
+    },
+    {
+      "case_id": "035-bali-nature-gitgit-indonesian",
+      "expected": [
+        {
+          "name": "Gitgit Waterfall",
+          "area": "Buleleng, Bali",
+          "category": "views"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Gitgit Waterfall",
+          "area": "Bali, Indonesia",
+          "category": "views",
+          "confidence": 0.99
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Gitgit Waterfall' (views)"
+      ],
+      "usage": {
+        "prompt_tokens": 1999,
+        "completion_tokens": 36,
+        "total_tokens": 2035
+      }
+    },
+    {
+      "case_id": "036-bali-food-poh-gading-hashtag-only",
+      "expected": [
+        {
+          "name": "Poh Gading Waterfall",
+          "area": "near Ubud, Bali",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Poh Gading Waterfall",
+          "area": "Bali, Indonesia",
+          "category": "views",
+          "confidence": 0.97
+        }
+      ],
+      "points": 0.5,
+      "max_points": 1.0,
+      "outcomes": [
+        "partial: 'Poh Gading Waterfall' name matched, category mismatch (expected food, got views)"
+      ],
+      "usage": {
+        "prompt_tokens": 2033,
+        "completion_tokens": 38,
+        "total_tokens": 2071
+      }
+    },
+    {
+      "case_id": "037-bali-food-hanging-misleading-tag",
+      "expected": [
+        {
+          "name": "Hanging Restaurant & Bar",
+          "area": "Sekumpul, Buleleng, Bali",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Hanging Restaurant & Bar",
+          "area": "Ubud, Bali, Indonesia",
+          "category": "nightlife",
+          "confidence": 0.97
+        }
+      ],
+      "points": 0.5,
+      "max_points": 1.0,
+      "outcomes": [
+        "partial: 'Hanging Restaurant & Bar' name matched, category mismatch (expected food, got nightlife)"
+      ],
+      "usage": {
+        "prompt_tokens": 1995,
+        "completion_tokens": 40,
+        "total_tokens": 2035
+      }
+    }
+  ]
+}

@@ -54,7 +54,19 @@ def _normalize_name(name: Optional[str]) -> str:
     if name is None:
         return ""
     text = name.lower()
-    text = re.sub(r"[^a-z0-9\s]", "", text)
+    # \w is Unicode-aware for str patterns in Python 3 (matches Hangul,
+    # Kanji, Cyrillic, accented Latin, etc, not just a-z0-9) -- the old
+    # `[^a-z0-9\s]` pattern stripped ALL non-ASCII, which silently reduced
+    # any non-Latin-script name (Korean, Japanese, ...) to an empty string
+    # on both sides of a comparison, making it unmatchable regardless of
+    # whether the extraction was correct (case 016 in the v2 eval run hit
+    # exactly this: a correct Korean-only extraction scored as a name
+    # mismatch because both sides normalized to "" vs "nolsoop comic
+    # cafe"). This still strips punctuation the same way for Latin-script
+    # names (apostrophes, accents attached to punctuation marks) --
+    # verified against existing passing cases ("Jonny's Pizza" ->
+    # "jonnys pizza", "L'Atic" -> "latic") before relying on it.
+    text = re.sub(r"[^\w\s]", "", text, flags=re.UNICODE)
     return re.sub(r"\s+", " ", text).strip()
 
 
@@ -70,6 +82,18 @@ def names_match(a: Optional[str], b: Optional[str]) -> bool:
     if not na or not nb:
         return False
     if na in nb or nb in na:
+        return True
+    # Order-independent word-set match: catches a bilingual name whose
+    # English/native halves are in opposite order ("Anipark (애니파크)" vs
+    # "애니파크 (Anipark)" -- case 017, a real regression introduced by the
+    # Unicode fix above: preserving non-Latin scripts means word order now
+    # matters to the substring/ratio checks in a way the old all-stripping
+    # bug accidentally didn't). Deliberately exact SET equality, not a
+    # fuzzy overlap threshold -- a looser "most words in common" rule would
+    # risk matching genuinely different names that happen to share words
+    # (this test set has exactly that case: "El Califa" vs "Taquería El
+    # Califa de León" are two different, unrelated taco stands).
+    if set(na.split()) == set(nb.split()):
         return True
     return difflib.SequenceMatcher(None, na, nb).ratio() >= 0.65
 
@@ -208,6 +232,51 @@ def load_cases(limit: Optional[int] = None, case_id: Optional[str] = None) -> Li
     return cases
 
 
+def rescore_run(run_path: Path) -> int:
+    """Re-applies score_case to an already-saved run's recorded
+    expected/extracted pairs -- no API calls, no new cost. For verifying a
+    scorer fix (not a prompt/extraction fix) against real past data instead
+    of needing to re-spend LLM calls just to re-test the scoring logic."""
+    with open(run_path, encoding="utf-8") as f:
+        old_run = json.load(f)
+
+    total_points = 0.0
+    total_max = 0.0
+    changed = []
+    for r in old_run["results"]:
+        if r.get("error") is not None or r.get("extracted") is None:
+            continue  # nothing to rescore for a failed call
+        new_score = score_case(r["expected"], r["extracted"])
+        old_points = r.get("points")
+        total_points += new_score.points
+        total_max += new_score.max_points
+        if old_points is not None and abs(new_score.points - old_points) > 1e-9:
+            changed.append((r["case_id"], old_points, new_score.points))
+        r["points"] = new_score.points
+        r["max_points"] = new_score.max_points
+        r["outcomes"] = new_score.outcomes
+
+    print(f"Rescored {run_path.name} with the current score_case/names_match logic.")
+    print(f"Old total: {old_run['total_points']:g}/{old_run['total_max_points']:g}")
+    print(f"New total: {total_points:g}/{total_max:g}")
+    if changed:
+        print("Cases whose score changed:")
+        for case_id, old_pts, new_pts in changed:
+            print(f"  [{case_id}] {old_pts:g} -> {new_pts:g}")
+    else:
+        print("No case's score changed.")
+
+    old_run["total_points"] = total_points
+    old_run["total_max_points"] = total_max
+    old_run["rescored_from"] = run_path.name
+    old_run["rescore_notes"] = "Rescored in place with an updated scorer; no new API calls were made."
+    out_path = run_path.with_name(run_path.stem + "-rescored.json")
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(old_run, f, indent=2, ensure_ascii=False)
+    print(f"Saved rescored run to {out_path}")
+    return 0
+
+
 def git_sha() -> str:
     try:
         return (
@@ -240,7 +309,21 @@ def main() -> int:
         default=0,
         help="Skip the first N case files (resume a run without re-spending calls already made).",
     )
+    parser.add_argument(
+        "--rescore",
+        default=None,
+        metavar="RUN_FILE",
+        help=(
+            "Re-score an existing eval/runs/<timestamp>.json file with the current "
+            "scorer, no API calls. Use this to verify a scorer-only fix without "
+            "spending LLM calls to re-test extraction."
+        ),
+    )
     args = parser.parse_args()
+
+    if args.rescore:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        return rescore_run(Path(args.rescore))
 
     cases = load_cases(limit=args.limit, case_id=args.case_id)
     if args.skip:
@@ -294,6 +377,13 @@ def main() -> int:
 
         extracted = [p.model_dump(mode="json") for p in call_result.places]
         score = score_case(expected, extracted)
+
+        if call_result.dropped_low_confidence:
+            for p in call_result.dropped_low_confidence:
+                print(
+                    f"    - note: dropped by MIN_CONFIDENCE floor before "
+                    f"scoring: '{p.name}' (confidence {p.confidence})"
+                )
         total_points += score.points
         total_max += score.max_points
 
@@ -317,6 +407,9 @@ def main() -> int:
                 "case_id": case_id,
                 "expected": expected,
                 "extracted": extracted,
+                "dropped_low_confidence": [
+                    p.model_dump(mode="json") for p in call_result.dropped_low_confidence
+                ],
                 "points": score.points,
                 "max_points": score.max_points,
                 "outcomes": score.outcomes,
