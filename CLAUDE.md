@@ -10,10 +10,11 @@ OutTheGC turns the TikToks and Reels friends send each other into a shared trip 
 - Extraction never auto-pins. The user always confirms a place before it's saved.
 - No server-side downloading of TikTok/Instagram videos. Input is a shared link (oEmbed/caption), a screenshot, or a screen recording the user captures themselves.
 - Launch platform: TikTok only. Instagram, screen recordings, and web are later (see roadmap "Later" section).
+- LLM provider for place extraction: OpenAI (small-model tier). See [docs/decisions/0001-openai-for-extraction.md](docs/decisions/0001-openai-for-extraction.md).
 
 Three of these — Supabase over Firebase, Expo over Flutter, and users bringing posts into the app rather than the app scraping TikTok/Instagram — were made before this file existed and are good interview material. Backfill them as ADRs with the `decision-record` skill before relying on "we just know why."
 
-Everything else — worker framework, job queue mechanism (polling vs pgmq), worker hosting (Railway/Fly/Render), LLM provider, styling approach (NativeWind vs Tamagui vs plain `StyleSheet`), the SMS/phone-auth provider underneath Supabase Auth — is undecided. Don't assume one because it's a common pairing; check `docs/decisions/` and the spec's Open Questions first.
+Everything else — worker framework, job queue mechanism (polling vs pgmq), worker hosting (Railway/Fly/Render), styling approach (NativeWind vs Tamagui vs plain `StyleSheet`), the SMS/phone-auth provider underneath Supabase Auth — is undecided. Don't assume one because it's a common pairing; check `docs/decisions/` and the spec's Open Questions first.
 
 ## Current step
 

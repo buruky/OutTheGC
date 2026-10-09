@@ -1,0 +1,109 @@
+{
+  "timestamp": "20261009T081643Z",
+  "model": "gpt-5.4-mini",
+  "git_sha": "3cec92b",
+  "notes": "mechanics smoke test, prompt v1",
+  "cases_attempted": 3,
+  "cases_scored": 3,
+  "stopped_early_at": null,
+  "total_points": 2.5,
+  "total_max_points": 3.0,
+  "token_usage": {
+    "prompt_tokens": 3925,
+    "completion_tokens": 137,
+    "total_tokens": 4062
+  },
+  "results": [
+    {
+      "case_id": "001-tokyo-cafe-ruru-shibuya",
+      "expected": [
+        {
+          "name": "RuRu Shibuya",
+          "area": "Shibuya, Tokyo",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "RuRu Shibuya",
+          "area": "Shibuya, Tokyo, Japan",
+          "category": "food",
+          "confidence": 0.97
+        },
+        {
+          "name": "Shibuya Sakura Stage",
+          "area": "Shibuya, Tokyo, Japan",
+          "category": "other",
+          "confidence": 0.86
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'RuRu Shibuya' (food)",
+        "note: extra unmatched extraction 'Shibuya Sakura Stage' (Category.other, confidence 0.86)"
+      ],
+      "usage": {
+        "prompt_tokens": 1356,
+        "completion_tokens": 68,
+        "total_tokens": 1424
+      }
+    },
+    {
+      "case_id": "002-tokyo-neighborhood-gotokuji",
+      "expected": [
+        {
+          "name": "Gotokuji",
+          "area": "Setagaya, Tokyo",
+          "category": "other"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Gotokuji",
+          "area": "Tokyo, Japan",
+          "category": "views",
+          "confidence": 0.86
+        }
+      ],
+      "points": 0.5,
+      "max_points": 1.0,
+      "outcomes": [
+        "partial: 'Gotokuji' name matched, category mismatch (expected other, got Category.views)"
+      ],
+      "usage": {
+        "prompt_tokens": 1290,
+        "completion_tokens": 34,
+        "total_tokens": 1324
+      }
+    },
+    {
+      "case_id": "003-tokyo-cafe-hekkelun-hashtag-only",
+      "expected": [
+        {
+          "name": "Hekkelun",
+          "area": "Shimbashi, Minato, Tokyo",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Hekkelun",
+          "area": "Tokyo, Japan",
+          "category": "food",
+          "confidence": 0.97
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Hekkelun' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 1279,
+        "completion_tokens": 35,
+        "total_tokens": 1314
+      }
+    }
+  ]
+}

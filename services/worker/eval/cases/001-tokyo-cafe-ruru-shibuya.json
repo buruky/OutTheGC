@@ -1,0 +1,22 @@
+{
+  "id": "001-tokyo-cafe-ruru-shibuya",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/discover/coolest-cafes-tokyo",
+  "search_query": "coolest cafes tokyo",
+  "caption": "Hidden Gem in Shibuya 🍵✨ Just a 10-minute walk from the South Exit of Shibuya Station, tucked away on the 2nd floor of Shibuya Sakura Stage, is the serene and stunning RuRu Shibuya. 📍 Save this spot for your next Tokyo trip — it’s the kind of place that feels like a little secret. #TokyoCafe #ShibuyaHiddenGem #MatchaLovers #JapanTravel #RuRuShibuya #cafehoppingjapan",
+  "hashtags": [
+    "tokyocafe",
+    "shibuyahiddengem",
+    "matchalovers",
+    "japantravel",
+    "rurushibuya",
+    "cafehoppingjapan"
+  ],
+  "expected": [
+    {
+      "name": "RuRu Shibuya",
+      "area": "Shibuya, Tokyo",
+      "category": "food"
+    }
+  ]
+}

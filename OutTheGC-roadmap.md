@@ -58,6 +58,7 @@ Check off steps as you finish them. Add new steps anywhere; renumbering is fine.
 - **Done when:** the trip list in the app comes from the database, not hardcoded data.
 - **Notes:** `trips` table deliberately minimal -- no `owner_id`/`invite_code`/RLS yet, those are steps 6-7. Table is currently open to anyone with the (public-by-design) anon key; that's expected until step 6 adds RLS, not a gap in this step. Confirmed live: a dashboard-added row shows up in the app, with the pre-existing hardcoded map pins correctly showing "no pins" for a real trip id (expected until steps 8/12). Keys live in `apps/mobile/.env.local`, gitignored.
 
+
 ### [x] 5. Sign in
 - **Goal:** real accounts.
 - **Try:** add email sign in with Supabase Auth. Create a `profiles` table filled in when someone signs up. Keep people signed in after they close the app. Add sign out.

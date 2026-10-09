@@ -1,0 +1,21 @@
+{
+  "id": "037-bali-food-hanging-misleading-tag",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/discover/ubud-waterfall-restaurant",
+  "search_query": "ubud waterfall restaurant",
+  "caption": "📍 Hanging restaurant & bar #ubud #bali #foodspot #indonesia #waterfall",
+  "hashtags": [
+    "ubud",
+    "bali",
+    "foodspot",
+    "indonesia",
+    "waterfall"
+  ],
+  "expected": [
+    {
+      "name": "Hanging Restaurant & Bar",
+      "area": "Sekumpul, Buleleng, Bali",
+      "category": "food"
+    }
+  ]
+}

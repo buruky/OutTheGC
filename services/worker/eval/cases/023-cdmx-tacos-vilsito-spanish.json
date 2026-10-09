@@ -1,0 +1,19 @@
+{
+  "id": "023-cdmx-tacos-vilsito-spanish",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/@comidistasmx/video/7371536815951531269",
+  "search_query": "tacos al pastor cdmx",
+  "caption": "#MartesDeTacos: Durante años los #tacos al pastor de El Vilsito han sido considerados unos de los mejores de la #CDMX. Tienen una buena comunidad de parroquianos que los visitan constantemente y otros que dicen que ya no son lo que eran. Ustedes ¿qué opinan?",
+  "hashtags": [
+    "martesdetacos:",
+    "tacos",
+    "cdmx."
+  ],
+  "expected": [
+    {
+      "name": "El Vilsito",
+      "area": "Narvarte, Mexico City",
+      "category": "food"
+    }
+  ]
+}

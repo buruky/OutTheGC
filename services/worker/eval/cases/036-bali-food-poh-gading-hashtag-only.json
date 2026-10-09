@@ -1,0 +1,21 @@
+{
+  "id": "036-bali-food-poh-gading-hashtag-only",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/discover/ubud-waterfall-restaurant",
+  "search_query": "ubud waterfall restaurant",
+  "caption": "This viral restaurant is only 20 minutes from Ubud and completely worth the hype 💦 Save this for your next Bali trip!#pohgadingwaterfall #baligems #ubudbali #balitravel #hiddenwaterfall",
+  "hashtags": [
+    "pohgadingwaterfall",
+    "baligems",
+    "ubudbali",
+    "balitravel",
+    "hiddenwaterfall"
+  ],
+  "expected": [
+    {
+      "name": "Poh Gading Waterfall",
+      "area": "near Ubud, Bali",
+      "category": "food"
+    }
+  ]
+}

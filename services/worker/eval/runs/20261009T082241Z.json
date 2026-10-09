@@ -1,0 +1,656 @@
+{
+  "timestamp": "20261009T082241Z",
+  "model": "gpt-5.4-mini",
+  "git_sha": "3cec92b",
+  "notes": "baseline run, prompt v1 (resumed after a Windows console encoding crash at case 16; cases 1-16 scored in the first partial attempt, see report)",
+  "cases_attempted": 21,
+  "cases_scored": 21,
+  "stopped_early_at": null,
+  "total_points": 27.5,
+  "total_max_points": 30.0,
+  "token_usage": {
+    "prompt_tokens": 27741,
+    "completion_tokens": 950,
+    "total_tokens": 28691
+  },
+  "results": [
+    {
+      "case_id": "017-seoul-cafe-anipark-bilingual",
+      "expected": [
+        {
+          "name": "Anipark (애니파크)",
+          "area": "Samseong-dong, Gangnam-gu, Seoul",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "애니파크 (Anipark)",
+          "area": "Samseong-dong, Gangnam-gu, Seoul, South Korea",
+          "category": "food",
+          "confidence": 0.98
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Anipark (애니파크)' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 1301,
+        "completion_tokens": 51,
+        "total_tokens": 1352
+      }
+    },
+    {
+      "case_id": "018-seoul-gallery-address-no-name",
+      "expected": [
+        {
+          "name": null,
+          "area": "Yongsan-gu, Seoul",
+          "category": "entertainment"
+        }
+      ],
+      "extracted": [
+        {
+          "name": null,
+          "area": "Yongsan District, Seoul, South Korea",
+          "category": "other",
+          "confidence": 0.77
+        }
+      ],
+      "points": 0.5,
+      "max_points": 1.0,
+      "outcomes": [
+        "partial: 'None' name matched, category mismatch (expected entertainment, got other)"
+      ],
+      "usage": {
+        "prompt_tokens": 1302,
+        "completion_tokens": 38,
+        "total_tokens": 1340
+      }
+    },
+    {
+      "case_id": "019-seoul-cafe-negative-mention",
+      "expected": [],
+      "extracted": [],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: correctly returned nothing"
+      ],
+      "usage": {
+        "prompt_tokens": 1334,
+        "completion_tokens": 11,
+        "total_tokens": 1345
+      }
+    },
+    {
+      "case_id": "020-seoul-cafe-unnamed-mio",
+      "expected": [],
+      "extracted": [],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: correctly returned nothing"
+      ],
+      "usage": {
+        "prompt_tokens": 1277,
+        "completion_tokens": 11,
+        "total_tokens": 1288
+      }
+    },
+    {
+      "case_id": "021-cdmx-tacos-top6-list",
+      "expected": [
+        {
+          "name": "Taquería El Califa de León",
+          "area": "San Rafael, Mexico City",
+          "category": "food"
+        },
+        {
+          "name": "El Califa",
+          "area": "Mexico City",
+          "category": "food"
+        },
+        {
+          "name": "Cinco Hermanos",
+          "area": "La Merced, Mexico City",
+          "category": "food"
+        },
+        {
+          "name": "Los Güeros",
+          "area": "Mexico City",
+          "category": "food"
+        },
+        {
+          "name": "Tacos Chola",
+          "area": "Condesa, Mexico City",
+          "category": "food"
+        },
+        {
+          "name": "Tacos El Paisa",
+          "area": "Mexico City",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Taquería El Califa de León",
+          "area": "Mexico City, Mexico",
+          "category": "food",
+          "confidence": 0.98
+        },
+        {
+          "name": "El Califa",
+          "area": "Mexico City, Mexico",
+          "category": "food",
+          "confidence": 0.88
+        },
+        {
+          "name": "Cinco Hermanos",
+          "area": "Mercado Merced, Mexico City, Mexico",
+          "category": "food",
+          "confidence": 0.96
+        },
+        {
+          "name": "Los Güeros",
+          "area": "Mexico City, Mexico",
+          "category": "food",
+          "confidence": 0.91
+        },
+        {
+          "name": "Tacos Chola",
+          "area": "La Condesa, Mexico City, Mexico",
+          "category": "food",
+          "confidence": 0.97
+        },
+        {
+          "name": "Tacos El Paisa",
+          "area": "Mexico City, Mexico",
+          "category": "food",
+          "confidence": 0.92
+        }
+      ],
+      "points": 6.0,
+      "max_points": 6.0,
+      "outcomes": [
+        "hit: 'Taquería El Califa de León' (food)",
+        "hit: 'El Califa' (food)",
+        "hit: 'Cinco Hermanos' (food)",
+        "hit: 'Los Güeros' (food)",
+        "hit: 'Tacos Chola' (food)",
+        "hit: 'Tacos El Paisa' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 1562,
+        "completion_tokens": 168,
+        "total_tokens": 1730
+      }
+    },
+    {
+      "case_id": "022-cdmx-tacos-spanish-puerco-pina",
+      "expected": [
+        {
+          "name": "Puerco Piña",
+          "area": "Mexico City",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Puerco Piña",
+          "area": "CDMX, Mexico",
+          "category": "food",
+          "confidence": 0.78
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Puerco Piña' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 1276,
+        "completion_tokens": 37,
+        "total_tokens": 1313
+      }
+    },
+    {
+      "case_id": "023-cdmx-tacos-vilsito-spanish",
+      "expected": [
+        {
+          "name": "El Vilsito",
+          "area": "Narvarte, Mexico City",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "El Vilsito",
+          "area": "CDMX, Mexico City, Mexico",
+          "category": "food",
+          "confidence": 0.98
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'El Vilsito' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 1291,
+        "completion_tokens": 39,
+        "total_tokens": 1330
+      }
+    },
+    {
+      "case_id": "024-cdmx-tacos-rey-del-pastor",
+      "expected": [
+        {
+          "name": "El Rey del Pastor",
+          "area": "Mexico City",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "La Garnacha Que Apapacha",
+          "area": null,
+          "category": "food",
+          "confidence": 0.86
+        }
+      ],
+      "points": 0.5,
+      "max_points": 1.0,
+      "outcomes": [
+        "partial: category matched (food), name mismatch (expected 'El Rey del Pastor', got 'La Garnacha Que Apapacha')"
+      ],
+      "usage": {
+        "prompt_tokens": 1281,
+        "completion_tokens": 36,
+        "total_tokens": 1317
+      }
+    },
+    {
+      "case_id": "025-cdmx-tacos-unnamed-list",
+      "expected": [],
+      "extracted": [],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: correctly returned nothing"
+      ],
+      "usage": {
+        "prompt_tokens": 1278,
+        "completion_tokens": 11,
+        "total_tokens": 1289
+      }
+    },
+    {
+      "case_id": "026-lisbon-bar-icon-mention",
+      "expected": [
+        {
+          "name": "ICON Bar & Rooftop",
+          "area": "Belém, Lisbon",
+          "category": "nightlife"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "ICON Bar & Rooftop",
+          "area": "Lisbon, Portugal",
+          "category": "views",
+          "confidence": 0.96
+        }
+      ],
+      "points": 0.5,
+      "max_points": 1.0,
+      "outcomes": [
+        "partial: 'ICON Bar & Rooftop' name matched, category mismatch (expected nightlife, got views)"
+      ],
+      "usage": {
+        "prompt_tokens": 1277,
+        "completion_tokens": 38,
+        "total_tokens": 1315
+      }
+    },
+    {
+      "case_id": "027-lisbon-bar-unnamed-hidden",
+      "expected": [],
+      "extracted": [],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: correctly returned nothing"
+      ],
+      "usage": {
+        "prompt_tokens": 1265,
+        "completion_tokens": 11,
+        "total_tokens": 1276
+      }
+    },
+    {
+      "case_id": "028-barcelona-bar-lamaro",
+      "expected": [
+        {
+          "name": "Lamaro Hotel (L'Àtic rooftop)",
+          "area": "Gothic Quarter, Barcelona",
+          "category": "nightlife"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Lamaro Hotel",
+          "area": "Barcelona, Spain",
+          "category": "stay",
+          "confidence": 0.98
+        }
+      ],
+      "points": 0.5,
+      "max_points": 1.0,
+      "outcomes": [
+        "partial: 'Lamaro Hotel (L'Àtic rooftop)' name matched, category mismatch (expected nightlife, got stay)"
+      ],
+      "usage": {
+        "prompt_tokens": 1286,
+        "completion_tokens": 34,
+        "total_tokens": 1320
+      }
+    },
+    {
+      "case_id": "029-barcelona-bar-german",
+      "expected": [
+        {
+          "name": "L'Àtic",
+          "area": "Gothic Quarter, Barcelona",
+          "category": "nightlife"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "L'Atic",
+          "area": "Barcelona, Spain",
+          "category": "nightlife",
+          "confidence": 0.95
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'L'Àtic' (nightlife)"
+      ],
+      "usage": {
+        "prompt_tokens": 1298,
+        "completion_tokens": 36,
+        "total_tokens": 1334
+      }
+    },
+    {
+      "case_id": "030-wa-nature-green-river-gorge",
+      "expected": [
+        {
+          "name": "Green River Gorge Resort",
+          "area": "Enumclaw, WA",
+          "category": "views"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Green River Gorge Resort",
+          "area": "Enumclaw, Washington, USA",
+          "category": "views",
+          "confidence": 0.97
+        },
+        {
+          "name": "Green River Gorge",
+          "area": "Enumclaw, Washington, USA",
+          "category": "views",
+          "confidence": 0.91
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Green River Gorge Resort' (views)",
+        "note: extra unmatched extraction 'Green River Gorge' (views, confidence 0.91)"
+      ],
+      "usage": {
+        "prompt_tokens": 1697,
+        "completion_tokens": 65,
+        "total_tokens": 1762
+      }
+    },
+    {
+      "case_id": "031-wa-nature-bench-snow-lakes",
+      "expected": [
+        {
+          "name": "Bench and Snow Lakes Trail",
+          "area": "Mount Rainier National Park, WA",
+          "category": "views"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Bench & Snow Lake",
+          "area": "Mount Rainier, Washington, USA",
+          "category": "views",
+          "confidence": 0.97
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Bench and Snow Lakes Trail' (views)"
+      ],
+      "usage": {
+        "prompt_tokens": 1305,
+        "completion_tokens": 39,
+        "total_tokens": 1344
+      }
+    },
+    {
+      "case_id": "032-wa-rainier-multi-pin",
+      "expected": [
+        {
+          "name": "Skyline Trail",
+          "area": "Paradise, Mount Rainier National Park, WA",
+          "category": "views"
+        },
+        {
+          "name": "Reflection Lakes",
+          "area": "Mount Rainier National Park, WA",
+          "category": "views"
+        },
+        {
+          "name": "Bench and Snow Lakes Trail",
+          "area": "Mount Rainier National Park, WA",
+          "category": "views"
+        },
+        {
+          "name": "Pinnacle Peak Trail",
+          "area": "Mount Rainier National Park, WA",
+          "category": "views"
+        },
+        {
+          "name": "Wellspring Spa",
+          "area": "Ashford, WA",
+          "category": "stay"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Skyline Trail",
+          "area": "Mount Rainier National Park, Washington, USA",
+          "category": "views",
+          "confidence": 0.98
+        },
+        {
+          "name": "Reflection Lakes",
+          "area": "Mount Rainier National Park, Washington, USA",
+          "category": "views",
+          "confidence": 0.98
+        },
+        {
+          "name": "Bench and Snow Lakes hike",
+          "area": "Mount Rainier National Park, Washington, USA",
+          "category": "views",
+          "confidence": 0.95
+        },
+        {
+          "name": "Pinnacle Peak hike",
+          "area": "Mount Rainier National Park, Washington, USA",
+          "category": "views",
+          "confidence": 0.95
+        },
+        {
+          "name": "Wellspring Spa",
+          "area": "Ashford, Washington, USA",
+          "category": "stay",
+          "confidence": 0.84
+        }
+      ],
+      "points": 5.0,
+      "max_points": 5.0,
+      "outcomes": [
+        "hit: 'Skyline Trail' (views)",
+        "hit: 'Reflection Lakes' (views)",
+        "hit: 'Bench and Snow Lakes Trail' (views)",
+        "hit: 'Pinnacle Peak Trail' (views)",
+        "hit: 'Wellspring Spa' (stay)"
+      ],
+      "usage": {
+        "prompt_tokens": 1354,
+        "completion_tokens": 159,
+        "total_tokens": 1513
+      }
+    },
+    {
+      "case_id": "033-pnw-nature-no-location",
+      "expected": [],
+      "extracted": [],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: correctly returned nothing"
+      ],
+      "usage": {
+        "prompt_tokens": 1269,
+        "completion_tokens": 11,
+        "total_tokens": 1280
+      }
+    },
+    {
+      "case_id": "034-bali-nature-tukad-cepung",
+      "expected": [
+        {
+          "name": "Tukad Cepung Waterfall",
+          "area": "Bangli, Bali",
+          "category": "views"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Tukad Cepung Waterfall",
+          "area": "Bali, Indonesia",
+          "category": "views",
+          "confidence": 0.99
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Tukad Cepung Waterfall' (views)"
+      ],
+      "usage": {
+        "prompt_tokens": 1290,
+        "completion_tokens": 39,
+        "total_tokens": 1329
+      }
+    },
+    {
+      "case_id": "035-bali-nature-gitgit-indonesian",
+      "expected": [
+        {
+          "name": "Gitgit Waterfall",
+          "area": "Buleleng, Bali",
+          "category": "views"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Gitgit Waterfall",
+          "area": "Bali, Indonesia",
+          "category": "views",
+          "confidence": 0.98
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Gitgit Waterfall' (views)"
+      ],
+      "usage": {
+        "prompt_tokens": 1256,
+        "completion_tokens": 36,
+        "total_tokens": 1292
+      }
+    },
+    {
+      "case_id": "036-bali-food-poh-gading-hashtag-only",
+      "expected": [
+        {
+          "name": "Poh Gading Waterfall",
+          "area": "near Ubud, Bali",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Poh Gading Waterfall",
+          "area": "near Ubud, Bali, Indonesia",
+          "category": "views",
+          "confidence": 0.97
+        }
+      ],
+      "points": 0.5,
+      "max_points": 1.0,
+      "outcomes": [
+        "partial: 'Poh Gading Waterfall' name matched, category mismatch (expected food, got views)"
+      ],
+      "usage": {
+        "prompt_tokens": 1290,
+        "completion_tokens": 41,
+        "total_tokens": 1331
+      }
+    },
+    {
+      "case_id": "037-bali-food-hanging-misleading-tag",
+      "expected": [
+        {
+          "name": "Hanging Restaurant & Bar",
+          "area": "Sekumpul, Buleleng, Bali",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Hanging Restaurant & Bar",
+          "area": "Ubud, Bali, Indonesia",
+          "category": "food",
+          "confidence": 0.96
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Hanging Restaurant & Bar' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 1252,
+        "completion_tokens": 39,
+        "total_tokens": 1291
+      }
+    }
+  ]
+}

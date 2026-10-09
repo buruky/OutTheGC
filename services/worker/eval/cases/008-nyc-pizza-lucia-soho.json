@@ -1,0 +1,30 @@
+{
+  "id": "008-nyc-pizza-lucia-soho",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/@jacksdiningroom/video/7371591284718341422",
+  "search_query": "best pizza nyc",
+  "caption": "Trying the hottest new pizza in NYC 📍Lucia of SoHo, NYC #nyc #nycfood #nycpizza #pizza #pizzatiktok #pizzatok #sandwiches #sandwichtiktok #sandwichtok #vodkapizza #pepperonipizza #jacksdiningroom #freshdough #pizzadough",
+  "hashtags": [
+    "nyc",
+    "nycfood",
+    "nycpizza",
+    "pizza",
+    "pizzatiktok",
+    "pizzatok",
+    "sandwiches",
+    "sandwichtiktok",
+    "sandwichtok",
+    "vodkapizza",
+    "pepperonipizza",
+    "jacksdiningroom",
+    "freshdough",
+    "pizzadough"
+  ],
+  "expected": [
+    {
+      "name": "Lucia Pizza of SoHo",
+      "area": "SoHo, New York",
+      "category": "food"
+    }
+  ]
+}

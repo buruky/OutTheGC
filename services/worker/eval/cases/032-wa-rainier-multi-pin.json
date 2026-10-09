@@ -1,0 +1,41 @@
+{
+  "id": "032-wa-rainier-multi-pin",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/discover/washington-scenery",
+  "search_query": "washington scenery",
+  "caption": "Save this for your Mount Rainier trip!🏔️👇🏻 📍Skyline Trail (sunrise is a must!)🌅 📍Reflection Lakes on a clear day 📍Bench & Snow Lakes hike 📍Pinnacle Peak hike 📍Stay at @wellspringspa.mtrainier in Ashford (5 minutes from park entrance) ✨ One of my favorite national parks in the U.S. Follow @bri.sea for more hidden gems ✈️ #mtrainier #mountrainiernationalpark #washington #nationalparks #hiking",
+  "hashtags": [
+    "mtrainier",
+    "mountrainiernationalpark",
+    "washington",
+    "nationalparks",
+    "hiking"
+  ],
+  "expected": [
+    {
+      "name": "Skyline Trail",
+      "area": "Paradise, Mount Rainier National Park, WA",
+      "category": "views"
+    },
+    {
+      "name": "Reflection Lakes",
+      "area": "Mount Rainier National Park, WA",
+      "category": "views"
+    },
+    {
+      "name": "Bench and Snow Lakes Trail",
+      "area": "Mount Rainier National Park, WA",
+      "category": "views"
+    },
+    {
+      "name": "Pinnacle Peak Trail",
+      "area": "Mount Rainier National Park, WA",
+      "category": "views"
+    },
+    {
+      "name": "Wellspring Spa",
+      "area": "Ashford, WA",
+      "category": "stay"
+    }
+  ]
+}

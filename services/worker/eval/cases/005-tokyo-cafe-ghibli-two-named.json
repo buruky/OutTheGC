@@ -1,0 +1,27 @@
+{
+  "id": "005-tokyo-cafe-ghibli-two-named",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/@shelbyscafediary/video/7508557183987076370",
+  "search_query": "ghibli cafe tokyo",
+  "caption": "A special episode featuring the most Ghibli-esque cafes 🍃 Thank you to @tomogo.official for taking me on a cafe tour and showing me these cute spots!!  Cafes mentioned: ☕️ Coffee Hall Kugutsuso 🌱 Tea House Happa And for those planning on coming to Japan anytime soon, TOMOGO! is a start-up tour company focused on highlighting lesser-known areas, local communities, and businesses. Highly recommend checking them out the next time you’re in Tokyo!!  #TOMOGO #Cafehopping #Tokyocafes #Tokyo #Japan #Japantravel",
+  "hashtags": [
+    "tomogo",
+    "cafehopping",
+    "tokyocafes",
+    "tokyo",
+    "japan",
+    "japantravel"
+  ],
+  "expected": [
+    {
+      "name": "Coffee Hall Kugutsuso",
+      "area": "Kichijoji, Tokyo",
+      "category": "food"
+    },
+    {
+      "name": "Tea House Happa",
+      "area": "Tokyo",
+      "category": "food"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "017-seoul-cafe-anipark-bilingual",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/discover/cafes-where-you-can-sleep-in-korea",
+  "search_query": "cafes where you can sleep in korea",
+  "caption": "💛 cafe name: 애니파크 (Anipark) 📍 address: 서울 강남구 삼성동 144-14 (지하2층); B2, 144-14 Samseong-dong, Gangnam-gu, Seoul #lifeinkorea #seoulrecommendations #seoul #wheretogo",
+  "hashtags": [
+    "lifeinkorea",
+    "seoulrecommendations",
+    "seoul",
+    "wheretogo"
+  ],
+  "expected": [
+    {
+      "name": "Anipark (애니파크)",
+      "area": "Samseong-dong, Gangnam-gu, Seoul",
+      "category": "food"
+    }
+  ]
+}

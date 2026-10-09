@@ -1,0 +1,21 @@
+{
+  "id": "009-nyc-pizza-rays-address",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/discover/pizza-nyc",
+  "search_query": "pizza nyc",
+  "caption": "pov slice of pizza in nyc #nyc #pizza #foodie #citylife #nycfood 📍Famous Original Ray's Pizza | 736 7th Ave (Times Square)",
+  "hashtags": [
+    "nyc",
+    "pizza",
+    "foodie",
+    "citylife",
+    "nycfood"
+  ],
+  "expected": [
+    {
+      "name": "Famous Original Ray's Pizza",
+      "area": "Times Square, New York",
+      "category": "food"
+    }
+  ]
+}

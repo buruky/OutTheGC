@@ -1,0 +1,40 @@
+{
+  "timestamp": "20261009T082903Z",
+  "model": "gpt-5.4-mini",
+  "git_sha": "3cec92b",
+  "notes": "v2 spot-check: rule 2 tightened (no address = no null-name entry)",
+  "cases_attempted": 1,
+  "cases_scored": 1,
+  "stopped_early_at": null,
+  "total_points": 0.0,
+  "total_max_points": 1.0,
+  "token_usage": {
+    "prompt_tokens": 2211,
+    "completion_tokens": 32,
+    "total_tokens": 2243
+  },
+  "results": [
+    {
+      "case_id": "006-tokyo-cafe-unnamed-fuji-cakes",
+      "expected": [],
+      "extracted": [
+        {
+          "name": null,
+          "area": "Tokyo, Japan",
+          "category": "food",
+          "confidence": 0.39
+        }
+      ],
+      "points": 0.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "miss: expected nothing, hallucinated None"
+      ],
+      "usage": {
+        "prompt_tokens": 2211,
+        "completion_tokens": 32,
+        "total_tokens": 2243
+      }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "035-bali-nature-gitgit-indonesian",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/discover/waterfall-tropical-island",
+  "search_query": "bali waterfall",
+  "caption": "📍Gitgit Waterfall 💦 Definisi obat tenang tanpa dosis✨ . #waterfall #adventure #bali #treking",
+  "hashtags": [
+    "waterfall",
+    "adventure",
+    "bali",
+    "treking"
+  ],
+  "expected": [
+    {
+      "name": "Gitgit Waterfall",
+      "area": "Buleleng, Bali",
+      "category": "views"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "016-seoul-cafe-korean-name",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/discover/cafes-where-you-can-sleep-in-korea",
+  "search_query": "cafes where you can sleep in korea",
+  "caption": "Why didn't anyone tell me about this? The most comfortable cafe in Korea! 📍만화카페 놀숲 (Nolsoop comic cafe) #koreatravel #seoultravel #koreatips #koreacafe #buldakramen",
+  "hashtags": [
+    "koreatravel",
+    "seoultravel",
+    "koreatips",
+    "koreacafe",
+    "buldakramen"
+  ],
+  "expected": [
+    {
+      "name": "Nolsoop Comic Cafe (만화카페 놀숲)",
+      "area": "Seoul",
+      "category": "food"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "timestamp": "20261009T082951Z",
+  "model": "gpt-5.4-mini",
+  "git_sha": "3cec92b",
+  "notes": "v2 spot-check: explicit caption-text name over conflicting hashtag",
+  "cases_attempted": 1,
+  "cases_scored": 1,
+  "stopped_early_at": null,
+  "total_points": 1.0,
+  "total_max_points": 1.0,
+  "token_usage": {
+    "prompt_tokens": 2024,
+    "completion_tokens": 36,
+    "total_tokens": 2060
+  },
+  "results": [
+    {
+      "case_id": "024-cdmx-tacos-rey-del-pastor",
+      "expected": [
+        {
+          "name": "El Rey del Pastor",
+          "area": "Mexico City",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "EL REY DEL PASTOR",
+          "area": null,
+          "category": "food",
+          "confidence": 0.96
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'El Rey del Pastor' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 2024,
+        "completion_tokens": 36,
+        "total_tokens": 2060
+      }
+    }
+  ]
+}

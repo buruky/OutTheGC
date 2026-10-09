@@ -1,0 +1,21 @@
+{
+  "id": "013-nyc-pizza-handle-only",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/tag/pizzanyc",
+  "search_query": "#pizzanyc",
+  "caption": "My favorite slice in NYC🥇🍕 @@jonnyspizzanyc #nycfoodie #pizza #foodie #fyp #foryoupage",
+  "hashtags": [
+    "nycfoodie",
+    "pizza",
+    "foodie",
+    "fyp",
+    "foryoupage"
+  ],
+  "expected": [
+    {
+      "name": "Jonny's Pizza",
+      "area": "Lower East Side, New York",
+      "category": "food"
+    }
+  ]
+}

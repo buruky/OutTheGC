@@ -1,0 +1,19 @@
+{
+  "id": "022-cdmx-tacos-spanish-puerco-pina",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/@celeste.lira/video/7412819396499967237",
+  "search_query": "tacos al pastor cdmx",
+  "caption": "Tacos al pastor en la cdmx que si o si debes probar 🌮 PUERCO PIÑA 💕😋 #tacosdepastor #tacoscdmx #dondecomercdmx",
+  "hashtags": [
+    "tacosdepastor",
+    "tacoscdmx",
+    "dondecomercdmx"
+  ],
+  "expected": [
+    {
+      "name": "Puerco Piña",
+      "area": "Mexico City",
+      "category": "food"
+    }
+  ]
+}

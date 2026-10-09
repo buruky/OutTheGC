@@ -1,0 +1,48 @@
+{
+  "id": "021-cdmx-tacos-top6-list",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/@peanuttandjelly/video/7406776154088082718",
+  "search_query": "tacos cdmx",
+  "caption": "✅ Top 6 Tacos in CDMX 🌮 Mexico City is home to the only taco stand with a Michelin star! Here are our top 6 taco shops in CDMX, in no particular order, but number six is our favorite: 1️⃣ **Taquería El Califa de León**   Michelin-starred Gaonera tacos 🌟 We got lucky—no line at first, but it grew fast as we ordered. Tried one of each, and it was worth it! 2️⃣ **El Califa**   Tacos al Pastor were great, but the Tacos de Costras stole the show. 🤤 3️⃣ **Cinco Hermanos**   Don’t miss the Tacos de Suadero at Mercado Merced. A must-visit! 🌮 4️⃣ **Los Güeros**   We tried Tacos de Suadero, Al Pastor, and Tripa—so good we had to go back another night. 😋 5️⃣ **Tacos Chola** (La Condesa)   Our favorite breakfast tacos! The Tacos de Chorizo con Papa were so good we visited twice. 🍳 6️⃣ **Tacos El Paisa**   Our personal number one! Best Tacos de Suadero and Al Pastor. Pro tip: order all your tacos at once to avoid waiting in line twice! 🔥 #CDMXTacos #TacoTour #MexicoCityEats #FoodieFavorites #TacoHeaven #MichelinStarTacos #CapCut",
+  "hashtags": [
+    "cdmxtacos",
+    "tacotour",
+    "mexicocityeats",
+    "foodiefavorites",
+    "tacoheaven",
+    "michelinstartacos",
+    "capcut"
+  ],
+  "expected": [
+    {
+      "name": "Taquería El Califa de León",
+      "area": "San Rafael, Mexico City",
+      "category": "food"
+    },
+    {
+      "name": "El Califa",
+      "area": "Mexico City",
+      "category": "food"
+    },
+    {
+      "name": "Cinco Hermanos",
+      "area": "La Merced, Mexico City",
+      "category": "food"
+    },
+    {
+      "name": "Los Güeros",
+      "area": "Mexico City",
+      "category": "food"
+    },
+    {
+      "name": "Tacos Chola",
+      "area": "Condesa, Mexico City",
+      "category": "food"
+    },
+    {
+      "name": "Tacos El Paisa",
+      "area": "Mexico City",
+      "category": "food"
+    }
+  ]
+}

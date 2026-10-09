@@ -1,0 +1,20 @@
+{
+  "id": "014-seoul-cafe-saeraul-address",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/tag/seoulcafe",
+  "search_query": "#seoulcafe",
+  "caption": "📍Cafe Saeraul | 99 Yeonhui-ro 27-gil, Seodaemun-gu, Seoul #visitkorea #seoultravel #seoul #koreatravel",
+  "hashtags": [
+    "visitkorea",
+    "seoultravel",
+    "seoul",
+    "koreatravel"
+  ],
+  "expected": [
+    {
+      "name": "Cafe Saeraul",
+      "area": "Yeonhui-dong, Seodaemun-gu, Seoul",
+      "category": "food"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "026-lisbon-bar-icon-mention",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/discover/icon-rooftop-lisbon",
+  "search_query": "rooftop bar lisbon",
+  "caption": "a view you just have to experience in person 🌉 📍 @ICON Bar & Rooftop save for your next trip to lisbon ✔️ #visitlisbon #lisbon #lisbonportugal #lisbontravel",
+  "hashtags": [
+    "visitlisbon",
+    "lisbon",
+    "lisbonportugal",
+    "lisbontravel"
+  ],
+  "expected": [
+    {
+      "name": "ICON Bar & Rooftop",
+      "area": "Belém, Lisbon",
+      "category": "nightlife"
+    }
+  ]
+}

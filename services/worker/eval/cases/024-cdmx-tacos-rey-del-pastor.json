@@ -1,0 +1,21 @@
+{
+  "id": "024-cdmx-tacos-rey-del-pastor",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/@peluche.torres/video/7535144390675729670",
+  "search_query": "tacos al pastor cdmx",
+  "caption": "49 años siendo ¡¡EL REY DEL PASTOR!!👑🌮😋#fyp #fypシ゚ #foodie #foodtok #lagarnachaqueapapacha",
+  "hashtags": [
+    "fyp",
+    "fypシ゚",
+    "foodie",
+    "foodtok",
+    "lagarnachaqueapapacha"
+  ],
+  "expected": [
+    {
+      "name": "El Rey del Pastor",
+      "area": "Mexico City",
+      "category": "food"
+    }
+  ]
+}

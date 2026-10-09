@@ -2,3 +2,20 @@
 # (no built-in retry/timeout ergonomics, clunkier API than `requests.get(...).json()`).
 # This is the only third-party dependency this step needs.
 requests>=2.31,<3
+
+# python-dotenv: loads key=value pairs from .env into os.environ, so the OpenAI
+# API key never has to be hardcoded or passed on the command line.
+python-dotenv>=1.0,<2
+
+# openai: official SDK for the Chat Completions / Structured Outputs API used
+# for place extraction (step 11).
+openai>=1.0,<2
+
+# pydantic: defines extract.py's output schema (ExtractedPlace,
+# ExtractionResult) that the OpenAI SDK turns into a JSON Schema for
+# Structured Outputs, and that validates/parses the response back into
+# typed Python objects. Already pulled in transitively by openai>=1.0, but
+# listed explicitly since extract.py imports it directly -- pinning only
+# what openai happens to depend on, with no guarantee of a direct import
+# staying compatible, is a reproducibility gap.
+pydantic>=2.0,<3

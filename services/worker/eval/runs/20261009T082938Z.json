@@ -1,0 +1,33 @@
+{
+  "timestamp": "20261009T082938Z",
+  "model": "gpt-5.4-mini",
+  "git_sha": "3cec92b",
+  "notes": "v2 spot-check retry: rule 2 wording strengthened + explicit example added after first retry still hallucinated",
+  "cases_attempted": 1,
+  "cases_scored": 1,
+  "stopped_early_at": null,
+  "total_points": 1.0,
+  "total_max_points": 1.0,
+  "token_usage": {
+    "prompt_tokens": 2350,
+    "completion_tokens": 11,
+    "total_tokens": 2361
+  },
+  "results": [
+    {
+      "case_id": "006-tokyo-cafe-unnamed-fuji-cakes",
+      "expected": [],
+      "extracted": [],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: correctly returned nothing"
+      ],
+      "usage": {
+        "prompt_tokens": 2350,
+        "completion_tokens": 11,
+        "total_tokens": 2361
+      }
+    }
+  ]
+}

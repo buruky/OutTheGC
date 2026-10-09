@@ -1,0 +1,19 @@
+{
+  "id": "003-tokyo-cafe-hekkelun-hashtag-only",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/@siuwupao/video/7214304154305531141",
+  "search_query": "hidden cafe tokyo",
+  "caption": "One of the oldest cafes in Tokyo holds a hidden gem—a pudding 🍮 master ☺️ good food, good company (friendly foreigners inside :3) and a good host 💕 Just make sure to prepare your lungs jk #hekkelun #cafe #japan",
+  "hashtags": [
+    "hekkelun",
+    "cafe",
+    "japan"
+  ],
+  "expected": [
+    {
+      "name": "Hekkelun",
+      "area": "Shimbashi, Minato, Tokyo",
+      "category": "food"
+    }
+  ]
+}

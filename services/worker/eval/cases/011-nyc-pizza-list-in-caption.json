@@ -1,0 +1,52 @@
+{
+  "id": "011-nyc-pizza-list-in-caption",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/@jeffreyinnyc/video/7451236343188966702",
+  "search_query": "must try nyc pizza",
+  "caption": "Top 5 Must Try NYC Pizza 2025 Edition #nyc #food #NewYork #travel #visitnyc #nybucketlist  This was about slices only so I didn’t include Rubirosa or John’s of Bleecker but those are two fantastic whole-pie spots. Additional slice recommendations: 6. Zillion’s - plain slice 7. Pop’s Pizza - Margherita 8. Prince Street Pizza - Spicy Spring 9. NY Pizza Suprema - Grandma Slice & Plain Slice 10. Cello’s Pizza - Burrata Pie(chef came from L’Industrie)",
+  "hashtags": [
+    "nyc",
+    "food",
+    "newyork",
+    "travel",
+    "visitnyc",
+    "nybucketlist"
+  ],
+  "expected": [
+    {
+      "name": "Rubirosa",
+      "area": "Nolita, New York",
+      "category": "food"
+    },
+    {
+      "name": "John's of Bleecker Street",
+      "area": "West Village, New York",
+      "category": "food"
+    },
+    {
+      "name": "Zillion's",
+      "area": "New York",
+      "category": "food"
+    },
+    {
+      "name": "Pop's Pizza",
+      "area": "New York",
+      "category": "food"
+    },
+    {
+      "name": "Prince Street Pizza",
+      "area": "Nolita, New York",
+      "category": "food"
+    },
+    {
+      "name": "NY Pizza Suprema",
+      "area": "Midtown, New York",
+      "category": "food"
+    },
+    {
+      "name": "Cello's Pizza",
+      "area": "East Village, New York",
+      "category": "food"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "timestamp": "20261009T082945Z",
+  "model": "gpt-5.4-mini",
+  "git_sha": "3cec92b",
+  "notes": "v2 spot-check: neighborhood -> other, not views",
+  "cases_attempted": 1,
+  "cases_scored": 1,
+  "stopped_early_at": null,
+  "total_points": 1.0,
+  "total_max_points": 1.0,
+  "token_usage": {
+    "prompt_tokens": 2033,
+    "completion_tokens": 34,
+    "total_tokens": 2067
+  },
+  "results": [
+    {
+      "case_id": "002-tokyo-neighborhood-gotokuji",
+      "expected": [
+        {
+          "name": "Gotokuji",
+          "area": "Setagaya, Tokyo",
+          "category": "other"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Gotokuji",
+          "area": "Tokyo, Japan",
+          "category": "other",
+          "confidence": 0.97
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Gotokuji' (other)"
+      ],
+      "usage": {
+        "prompt_tokens": 2033,
+        "completion_tokens": 34,
+        "total_tokens": 2067
+      }
+    }
+  ]
+}

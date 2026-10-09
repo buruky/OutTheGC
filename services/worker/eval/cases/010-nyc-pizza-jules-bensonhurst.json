@@ -1,0 +1,21 @@
+{
+  "id": "010-nyc-pizza-jules-bensonhurst",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/tag/pizzanyc",
+  "search_query": "#pizzanyc",
+  "caption": "pov slice of pizza in nyc #nyc #pizza #foodie #citylife #nycfood 📍 Jules Pizza | 176 Avenue O (Bensonhurst)",
+  "hashtags": [
+    "nyc",
+    "pizza",
+    "foodie",
+    "citylife",
+    "nycfood"
+  ],
+  "expected": [
+    {
+      "name": "Jules Pizza",
+      "area": "Bensonhurst, Brooklyn, New York",
+      "category": "food"
+    }
+  ]
+}

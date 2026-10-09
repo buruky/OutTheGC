@@ -1,0 +1,21 @@
+{
+  "id": "031-wa-nature-bench-snow-lakes",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/discover/spring-hikes-washington",
+  "search_query": "spring hikes washington",
+  "caption": "If you’re looking for a minimum effort hike with a view- this one is for you! 📍Bench & Snow Lake 2.5 miles Stunning views of Rainier on the walk out! This one is worth saving for later. #mountrainier #alpinelake #hikingadventures #pnw #hiking",
+  "hashtags": [
+    "mountrainier",
+    "alpinelake",
+    "hikingadventures",
+    "pnw",
+    "hiking"
+  ],
+  "expected": [
+    {
+      "name": "Bench and Snow Lakes Trail",
+      "area": "Mount Rainier National Park, WA",
+      "category": "views"
+    }
+  ]
+}

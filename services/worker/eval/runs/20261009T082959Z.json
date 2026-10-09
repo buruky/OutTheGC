@@ -1,0 +1,118 @@
+{
+  "timestamp": "20261009T082959Z",
+  "model": "gpt-5.4-mini",
+  "git_sha": "3cec92b",
+  "notes": "v2 spot-check: aside-mention places (didn't include X, but great too) should still be extracted",
+  "cases_attempted": 1,
+  "cases_scored": 1,
+  "stopped_early_at": null,
+  "total_points": 7.0,
+  "total_max_points": 7.0,
+  "token_usage": {
+    "prompt_tokens": 2103,
+    "completion_tokens": 198,
+    "total_tokens": 2301
+  },
+  "results": [
+    {
+      "case_id": "011-nyc-pizza-list-in-caption",
+      "expected": [
+        {
+          "name": "Rubirosa",
+          "area": "Nolita, New York",
+          "category": "food"
+        },
+        {
+          "name": "John's of Bleecker Street",
+          "area": "West Village, New York",
+          "category": "food"
+        },
+        {
+          "name": "Zillion's",
+          "area": "New York",
+          "category": "food"
+        },
+        {
+          "name": "Pop's Pizza",
+          "area": "New York",
+          "category": "food"
+        },
+        {
+          "name": "Prince Street Pizza",
+          "area": "Nolita, New York",
+          "category": "food"
+        },
+        {
+          "name": "NY Pizza Suprema",
+          "area": "Midtown, New York",
+          "category": "food"
+        },
+        {
+          "name": "Cello's Pizza",
+          "area": "East Village, New York",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Rubirosa",
+          "area": "NYC, New York, USA",
+          "category": "food",
+          "confidence": 0.97
+        },
+        {
+          "name": "John's of Bleecker",
+          "area": "NYC, New York, USA",
+          "category": "food",
+          "confidence": 0.97
+        },
+        {
+          "name": "Zillion's",
+          "area": "NYC, New York, USA",
+          "category": "food",
+          "confidence": 0.9
+        },
+        {
+          "name": "Pop's Pizza",
+          "area": "NYC, New York, USA",
+          "category": "food",
+          "confidence": 0.94
+        },
+        {
+          "name": "Prince Street Pizza",
+          "area": "NYC, New York, USA",
+          "category": "food",
+          "confidence": 0.99
+        },
+        {
+          "name": "NY Pizza Suprema",
+          "area": "NYC, New York, USA",
+          "category": "food",
+          "confidence": 0.99
+        },
+        {
+          "name": "Cello's Pizza",
+          "area": "NYC, New York, USA",
+          "category": "food",
+          "confidence": 0.96
+        }
+      ],
+      "points": 7.0,
+      "max_points": 7.0,
+      "outcomes": [
+        "hit: 'Rubirosa' (food)",
+        "hit: 'John's of Bleecker Street' (food)",
+        "hit: 'Zillion's' (food)",
+        "hit: 'Pop's Pizza' (food)",
+        "hit: 'Prince Street Pizza' (food)",
+        "hit: 'NY Pizza Suprema' (food)",
+        "hit: 'Cello's Pizza' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 2103,
+        "completion_tokens": 198,
+        "total_tokens": 2301
+      }
+    }
+  ]
+}

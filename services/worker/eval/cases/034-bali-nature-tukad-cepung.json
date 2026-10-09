@@ -1,0 +1,19 @@
+{
+  "id": "034-bali-nature-tukad-cepung",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/discover/things-to-do-in-bali",
+  "search_query": "things to do in bali",
+  "caption": "Skip the tourist traps in Bali and discover Tukad Cepung Waterfall 🌴✨ Hidden in a cave with magical sunbeams and fewer crowds—this is the secret spot you NEED to see. Who are you bringing here? 👇 #BaliTravel #HiddenBali #TukadCepung",
+  "hashtags": [
+    "balitravel",
+    "hiddenbali",
+    "tukadcepung"
+  ],
+  "expected": [
+    {
+      "name": "Tukad Cepung Waterfall",
+      "area": "Bangli, Bali",
+      "category": "views"
+    }
+  ]
+}

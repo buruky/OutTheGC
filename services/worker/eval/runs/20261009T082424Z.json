@@ -1,0 +1,106 @@
+{
+  "timestamp": "20261009T082424Z",
+  "model": "gpt-5.4-mini",
+  "git_sha": "3cec92b",
+  "notes": "diagnostic: inspect raw extraction for the pizza-list case",
+  "cases_attempted": 1,
+  "cases_scored": 1,
+  "stopped_early_at": null,
+  "total_points": 3.0,
+  "total_max_points": 7.0,
+  "token_usage": {
+    "prompt_tokens": 1360,
+    "completion_tokens": 143,
+    "total_tokens": 1503
+  },
+  "results": [
+    {
+      "case_id": "011-nyc-pizza-list-in-caption",
+      "expected": [
+        {
+          "name": "Rubirosa",
+          "area": "Nolita, New York",
+          "category": "food"
+        },
+        {
+          "name": "John's of Bleecker Street",
+          "area": "West Village, New York",
+          "category": "food"
+        },
+        {
+          "name": "Zillion's",
+          "area": "New York",
+          "category": "food"
+        },
+        {
+          "name": "Pop's Pizza",
+          "area": "New York",
+          "category": "food"
+        },
+        {
+          "name": "Prince Street Pizza",
+          "area": "Nolita, New York",
+          "category": "food"
+        },
+        {
+          "name": "NY Pizza Suprema",
+          "area": "Midtown, New York",
+          "category": "food"
+        },
+        {
+          "name": "Cello's Pizza",
+          "area": "East Village, New York",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Zillion's",
+          "area": "NYC, New York, USA",
+          "category": "food",
+          "confidence": 0.88
+        },
+        {
+          "name": "Pop's Pizza",
+          "area": "NYC, New York, USA",
+          "category": "food",
+          "confidence": 0.95
+        },
+        {
+          "name": "Prince Street Pizza",
+          "area": "NYC, New York, USA",
+          "category": "food",
+          "confidence": 0.99
+        },
+        {
+          "name": "NY Pizza Suprema",
+          "area": "NYC, New York, USA",
+          "category": "food",
+          "confidence": 0.99
+        },
+        {
+          "name": "Cello's Pizza",
+          "area": "NYC, New York, USA",
+          "category": "food",
+          "confidence": 0.94
+        }
+      ],
+      "points": 3.0,
+      "max_points": 7.0,
+      "outcomes": [
+        "partial: category matched (food), name mismatch (expected 'Rubirosa', got 'Zillion's')",
+        "partial: category matched (food), name mismatch (expected 'John's of Bleecker Street', got 'Pop's Pizza')",
+        "partial: category matched (food), name mismatch (expected 'Zillion's', got 'Prince Street Pizza')",
+        "hit: 'Pop's Pizza' (food)",
+        "partial: category matched (food), name mismatch (expected 'Prince Street Pizza', got 'NY Pizza Suprema')",
+        "miss: no extracted entry matched 'NY Pizza Suprema' (food)",
+        "miss: no extracted entry matched 'Cello's Pizza' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 1360,
+        "completion_tokens": 143,
+        "total_tokens": 1503
+      }
+    }
+  ]
+}

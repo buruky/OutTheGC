@@ -1,0 +1,22 @@
+{
+  "id": "028-barcelona-bar-lamaro",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/discover/lamaro-hotel-rooftop-bar-barcelona",
+  "search_query": "rooftop bar barcelona",
+  "caption": "✅ Save this for your next trip to Barcelona ! 📍 Lamaro Hotel, Barcelona #twobrokechicks #barcelona #barcelonatips #europe #eurosummer #travelhacks",
+  "hashtags": [
+    "twobrokechicks",
+    "barcelona",
+    "barcelonatips",
+    "europe",
+    "eurosummer",
+    "travelhacks"
+  ],
+  "expected": [
+    {
+      "name": "Lamaro Hotel (L'Àtic rooftop)",
+      "area": "Gothic Quarter, Barcelona",
+      "category": "nightlife"
+    }
+  ]
+}

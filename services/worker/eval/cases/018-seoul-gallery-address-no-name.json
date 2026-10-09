@@ -1,0 +1,21 @@
+{
+  "id": "018-seoul-gallery-address-no-name",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/discover/seoul-artist-cafe",
+  "search_query": "seoul artist cafe",
+  "caption": "A beautifully curated space to discover glass art, meet the artists, and hear the stories behind their work 🪷 Pause and still 📍 6 Hangang-daero 40ga-gil, Yongsan District, Seoul #seoul #seoultravel #yongsan #glassart #thingstodoinseoul",
+  "hashtags": [
+    "seoul",
+    "seoultravel",
+    "yongsan",
+    "glassart",
+    "thingstodoinseoul"
+  ],
+  "expected": [
+    {
+      "name": null,
+      "area": "Yongsan-gu, Seoul",
+      "category": "entertainment"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "timestamp": "20261009T082604Z",
+  "model": "gpt-5.4-mini",
+  "git_sha": "3cec92b",
+  "notes": "diagnostic: recover detail lost to the console crash",
+  "cases_attempted": 1,
+  "cases_scored": 1,
+  "stopped_early_at": null,
+  "total_points": 0.5,
+  "total_max_points": 1.0,
+  "token_usage": {
+    "prompt_tokens": 1298,
+    "completion_tokens": 47,
+    "total_tokens": 1345
+  },
+  "results": [
+    {
+      "case_id": "016-seoul-cafe-korean-name",
+      "expected": [
+        {
+          "name": "Nolsoop Comic Cafe (만화카페 놀숲)",
+          "area": "Seoul",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "만화카페 놀숲 (Nolsoop comic cafe)",
+          "area": "Korea",
+          "category": "entertainment",
+          "confidence": 0.98
+        }
+      ],
+      "points": 0.5,
+      "max_points": 1.0,
+      "outcomes": [
+        "partial: 'Nolsoop Comic Cafe (만화카페 놀숲)' name matched, category mismatch (expected food, got entertainment)"
+      ],
+      "usage": {
+        "prompt_tokens": 1298,
+        "completion_tokens": 47,
+        "total_tokens": 1345
+      }
+    }
+  ]
+}

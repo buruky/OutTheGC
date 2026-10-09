@@ -1,0 +1,21 @@
+{
+  "id": "029-barcelona-bar-german",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/discover/rooftop-bars-barcelona",
+  "search_query": "rooftop bars barcelona",
+  "caption": "Ihr müsst zu dieser Rooftop Bar an der Kathedrale in Barcelona 🥺 Eintritt kostet 4€, zahlt man am Eingang 💫 📍 L'atic - Barcelona #barcelona #rooftopbar #kathedrale #barcelonaguide #travelspain",
+  "hashtags": [
+    "barcelona",
+    "rooftopbar",
+    "kathedrale",
+    "barcelonaguide",
+    "travelspain"
+  ],
+  "expected": [
+    {
+      "name": "L'Àtic",
+      "area": "Gothic Quarter, Barcelona",
+      "category": "nightlife"
+    }
+  ]
+}

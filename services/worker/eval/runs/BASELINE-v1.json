@@ -1,0 +1,923 @@
+{
+  "timestamp": "20261009T082754Z",
+  "model": "gpt-5.4-mini",
+  "git_sha": "3cec92b",
+  "notes": "BASELINE v1 (reconstructed). This is the authoritative prompt-v1 score: all 37 cases, assembled from three pieces because the original single run crashed partway through on a Windows console UTF-8 encoding bug (cases 1-16 printed live but the run's JSON write never happened): (1) cases 1-10 and 12-15, from the original run's console output verbatim; (2) case 11, re-verified via a separate 1-call rerun after a real scoring-algorithm bug was found and fixed (greedy per-expected-entry matching let an unmatched early expected entry steal the extracted entry that was actually the correct exact match for a later expected entry -- confirmed against this case's raw output); (3) case 16, score confirmed live, one-line reason recovered via a separate 1-call rerun since the crash ate the original detail text; (4) cases 17-37, a clean single resumed run under the fixed scorer, unaffected by the bug (no case in that range had an unmatched expected entry ahead of a true match in list order). Total extra API calls spent on reconstruction/diagnosis: 2 (case 11 and case 16 single-case reruns) -- not a second full pass.",
+  "cases_attempted": 37,
+  "cases_scored": 37,
+  "stopped_early_at": null,
+  "total_points": 47.0,
+  "total_max_points": 54.0,
+  "token_usage": "see individual runs: 20261009T081643Z (smoke, not counted), 20261009T082241Z (cases 17-37), 20261009T082424Z (case 11), 20261009T082604Z (case 16); cases 1-10/12-16's original token usage was lost in the crash",
+  "results": [
+    {
+      "case_id": "001-tokyo-cafe-ruru-shibuya",
+      "expected": null,
+      "extracted": null,
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'RuRu Shibuya' (food)",
+        "note: extra unmatched extraction 'Shibuya Sakura Stage' (other, confidence 0.85)"
+      ],
+      "usage": null,
+      "note": "Reconstructed from the original run's live console output after a Windows console UTF-8 encoding crash (fixed in run_eval.py) prevented that run from saving its JSON file. Per-field raw extraction output wasn't preserved for this case; the score and one-line reason were captured verbatim as printed."
+    },
+    {
+      "case_id": "002-tokyo-neighborhood-gotokuji",
+      "expected": null,
+      "extracted": null,
+      "points": 0.5,
+      "max_points": 1.0,
+      "outcomes": [
+        "partial: 'Gotokuji' name matched, category mismatch (expected other, got views)"
+      ],
+      "usage": null,
+      "note": "Reconstructed from the original run's live console output after a Windows console UTF-8 encoding crash (fixed in run_eval.py) prevented that run from saving its JSON file. Per-field raw extraction output wasn't preserved for this case; the score and one-line reason were captured verbatim as printed."
+    },
+    {
+      "case_id": "003-tokyo-cafe-hekkelun-hashtag-only",
+      "expected": null,
+      "extracted": null,
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Hekkelun' (food)"
+      ],
+      "usage": null,
+      "note": "Reconstructed from the original run's live console output after a Windows console UTF-8 encoding crash (fixed in run_eval.py) prevented that run from saving its JSON file. Per-field raw extraction output wasn't preserved for this case; the score and one-line reason were captured verbatim as printed."
+    },
+    {
+      "case_id": "004-tokyo-cafe-temari-no-oshiro",
+      "expected": null,
+      "extracted": null,
+      "points": 2.0,
+      "max_points": 2.0,
+      "outcomes": [
+        "hit: both places"
+      ],
+      "usage": null,
+      "note": "Reconstructed from the original run's live console output after a Windows console UTF-8 encoding crash (fixed in run_eval.py) prevented that run from saving its JSON file. Per-field raw extraction output wasn't preserved for this case; the score and one-line reason were captured verbatim as printed."
+    },
+    {
+      "case_id": "005-tokyo-cafe-ghibli-two-named",
+      "expected": null,
+      "extracted": null,
+      "points": 2.0,
+      "max_points": 2.0,
+      "outcomes": [
+        "hit: both places",
+        "note: extra unmatched extraction 'TOMOGO' (entertainment, confidence 0.72)"
+      ],
+      "usage": null,
+      "note": "Reconstructed from the original run's live console output after a Windows console UTF-8 encoding crash (fixed in run_eval.py) prevented that run from saving its JSON file. Per-field raw extraction output wasn't preserved for this case; the score and one-line reason were captured verbatim as printed."
+    },
+    {
+      "case_id": "006-tokyo-cafe-unnamed-fuji-cakes",
+      "expected": null,
+      "extracted": null,
+      "points": 0.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "miss: expected nothing, hallucinated a null-name entry (rule 2's address-only exception fired with no real address given)"
+      ],
+      "usage": null,
+      "note": "Reconstructed from the original run's live console output after a Windows console UTF-8 encoding crash (fixed in run_eval.py) prevented that run from saving its JSON file. Per-field raw extraction output wasn't preserved for this case; the score and one-line reason were captured verbatim as printed."
+    },
+    {
+      "case_id": "007-tokyo-cafe-unnamed-ghibli",
+      "expected": null,
+      "extracted": null,
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: correctly returned nothing"
+      ],
+      "usage": null,
+      "note": "Reconstructed from the original run's live console output after a Windows console UTF-8 encoding crash (fixed in run_eval.py) prevented that run from saving its JSON file. Per-field raw extraction output wasn't preserved for this case; the score and one-line reason were captured verbatim as printed."
+    },
+    {
+      "case_id": "008-nyc-pizza-lucia-soho",
+      "expected": null,
+      "extracted": null,
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit"
+      ],
+      "usage": null,
+      "note": "Reconstructed from the original run's live console output after a Windows console UTF-8 encoding crash (fixed in run_eval.py) prevented that run from saving its JSON file. Per-field raw extraction output wasn't preserved for this case; the score and one-line reason were captured verbatim as printed."
+    },
+    {
+      "case_id": "009-nyc-pizza-rays-address",
+      "expected": null,
+      "extracted": null,
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit"
+      ],
+      "usage": null,
+      "note": "Reconstructed from the original run's live console output after a Windows console UTF-8 encoding crash (fixed in run_eval.py) prevented that run from saving its JSON file. Per-field raw extraction output wasn't preserved for this case; the score and one-line reason were captured verbatim as printed."
+    },
+    {
+      "case_id": "010-nyc-pizza-jules-bensonhurst",
+      "expected": null,
+      "extracted": null,
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit"
+      ],
+      "usage": null,
+      "note": "Reconstructed from the original run's live console output after a Windows console UTF-8 encoding crash (fixed in run_eval.py) prevented that run from saving its JSON file. Per-field raw extraction output wasn't preserved for this case; the score and one-line reason were captured verbatim as printed."
+    },
+    {
+      "case_id": "011-nyc-pizza-list-in-caption",
+      "expected": [
+        {
+          "name": "Rubirosa",
+          "area": "Nolita, New York",
+          "category": "food"
+        },
+        {
+          "name": "John's of Bleecker Street",
+          "area": "West Village, New York",
+          "category": "food"
+        },
+        {
+          "name": "Zillion's",
+          "area": "New York",
+          "category": "food"
+        },
+        {
+          "name": "Pop's Pizza",
+          "area": "New York",
+          "category": "food"
+        },
+        {
+          "name": "Prince Street Pizza",
+          "area": "Nolita, New York",
+          "category": "food"
+        },
+        {
+          "name": "NY Pizza Suprema",
+          "area": "Midtown, New York",
+          "category": "food"
+        },
+        {
+          "name": "Cello's Pizza",
+          "area": "East Village, New York",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Zillion's",
+          "area": "NYC, New York, USA",
+          "category": "food",
+          "confidence": 0.88
+        },
+        {
+          "name": "Pop's Pizza",
+          "area": "NYC, New York, USA",
+          "category": "food",
+          "confidence": 0.95
+        },
+        {
+          "name": "Prince Street Pizza",
+          "area": "NYC, New York, USA",
+          "category": "food",
+          "confidence": 0.99
+        },
+        {
+          "name": "NY Pizza Suprema",
+          "area": "NYC, New York, USA",
+          "category": "food",
+          "confidence": 0.99
+        },
+        {
+          "name": "Cello's Pizza",
+          "area": "NYC, New York, USA",
+          "category": "food",
+          "confidence": 0.94
+        }
+      ],
+      "points": 5.0,
+      "max_points": 7.0,
+      "outcomes": [
+        "miss: no extracted entry matched 'Rubirosa' (food)",
+        "miss: no extracted entry matched 'John's of Bleecker Street' (food)",
+        "hit: 'Zillion's' (food)",
+        "hit: 'Pop's Pizza' (food)",
+        "hit: 'Prince Street Pizza' (food)",
+        "hit: 'NY Pizza Suprema' (food)",
+        "hit: 'Cello's Pizza' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 1360,
+        "completion_tokens": 143,
+        "total_tokens": 1503
+      },
+      "note": "re-verified via a 1-call diagnostic rerun after cases 1-16's original run crashed before saving (Windows console encoding bug); rescored with the fixed two-phase matcher (see notes)."
+    },
+    {
+      "case_id": "012-nyc-pizza-artichoke-mention",
+      "expected": null,
+      "extracted": null,
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit"
+      ],
+      "usage": null,
+      "note": "Reconstructed from the original run's live console output after a Windows console UTF-8 encoding crash (fixed in run_eval.py) prevented that run from saving its JSON file. Per-field raw extraction output wasn't preserved for this case; the score and one-line reason were captured verbatim as printed."
+    },
+    {
+      "case_id": "013-nyc-pizza-handle-only",
+      "expected": null,
+      "extracted": null,
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit"
+      ],
+      "usage": null,
+      "note": "Reconstructed from the original run's live console output after a Windows console UTF-8 encoding crash (fixed in run_eval.py) prevented that run from saving its JSON file. Per-field raw extraction output wasn't preserved for this case; the score and one-line reason were captured verbatim as printed."
+    },
+    {
+      "case_id": "014-seoul-cafe-saeraul-address",
+      "expected": null,
+      "extracted": null,
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit"
+      ],
+      "usage": null,
+      "note": "Reconstructed from the original run's live console output after a Windows console UTF-8 encoding crash (fixed in run_eval.py) prevented that run from saving its JSON file. Per-field raw extraction output wasn't preserved for this case; the score and one-line reason were captured verbatim as printed."
+    },
+    {
+      "case_id": "015-seoul-cafe-pokpo",
+      "expected": null,
+      "extracted": null,
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit"
+      ],
+      "usage": null,
+      "note": "Reconstructed from the original run's live console output after a Windows console UTF-8 encoding crash (fixed in run_eval.py) prevented that run from saving its JSON file. Per-field raw extraction output wasn't preserved for this case; the score and one-line reason were captured verbatim as printed."
+    },
+    {
+      "case_id": "016-seoul-cafe-korean-name",
+      "expected": null,
+      "extracted": null,
+      "points": 0.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "miss: original run's one-line reason was lost to the crash before the summary line printed; headline MISS 0.0/1.0 confirmed live. A same-day diagnostic rerun (separate call, not counted in this score) showed the same category ambiguity -- food vs entertainment for a themed 'comic cafe' -- supporting the category-boundary fix below regardless of the exact original reason."
+      ],
+      "usage": null,
+      "note": "Reconstructed from the original run's live console output after a Windows console UTF-8 encoding crash (fixed in run_eval.py) prevented that run from saving its JSON file. Per-field raw extraction output wasn't preserved for this case; the score and one-line reason were captured verbatim as printed."
+    },
+    {
+      "case_id": "017-seoul-cafe-anipark-bilingual",
+      "expected": [
+        {
+          "name": "Anipark (애니파크)",
+          "area": "Samseong-dong, Gangnam-gu, Seoul",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "애니파크 (Anipark)",
+          "area": "Samseong-dong, Gangnam-gu, Seoul, South Korea",
+          "category": "food",
+          "confidence": 0.98
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Anipark (애니파크)' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 1301,
+        "completion_tokens": 51,
+        "total_tokens": 1352
+      }
+    },
+    {
+      "case_id": "018-seoul-gallery-address-no-name",
+      "expected": [
+        {
+          "name": null,
+          "area": "Yongsan-gu, Seoul",
+          "category": "entertainment"
+        }
+      ],
+      "extracted": [
+        {
+          "name": null,
+          "area": "Yongsan District, Seoul, South Korea",
+          "category": "other",
+          "confidence": 0.77
+        }
+      ],
+      "points": 0.5,
+      "max_points": 1.0,
+      "outcomes": [
+        "partial: 'None' name matched, category mismatch (expected entertainment, got other)"
+      ],
+      "usage": {
+        "prompt_tokens": 1302,
+        "completion_tokens": 38,
+        "total_tokens": 1340
+      }
+    },
+    {
+      "case_id": "019-seoul-cafe-negative-mention",
+      "expected": [],
+      "extracted": [],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: correctly returned nothing"
+      ],
+      "usage": {
+        "prompt_tokens": 1334,
+        "completion_tokens": 11,
+        "total_tokens": 1345
+      }
+    },
+    {
+      "case_id": "020-seoul-cafe-unnamed-mio",
+      "expected": [],
+      "extracted": [],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: correctly returned nothing"
+      ],
+      "usage": {
+        "prompt_tokens": 1277,
+        "completion_tokens": 11,
+        "total_tokens": 1288
+      }
+    },
+    {
+      "case_id": "021-cdmx-tacos-top6-list",
+      "expected": [
+        {
+          "name": "Taquería El Califa de León",
+          "area": "San Rafael, Mexico City",
+          "category": "food"
+        },
+        {
+          "name": "El Califa",
+          "area": "Mexico City",
+          "category": "food"
+        },
+        {
+          "name": "Cinco Hermanos",
+          "area": "La Merced, Mexico City",
+          "category": "food"
+        },
+        {
+          "name": "Los Güeros",
+          "area": "Mexico City",
+          "category": "food"
+        },
+        {
+          "name": "Tacos Chola",
+          "area": "Condesa, Mexico City",
+          "category": "food"
+        },
+        {
+          "name": "Tacos El Paisa",
+          "area": "Mexico City",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Taquería El Califa de León",
+          "area": "Mexico City, Mexico",
+          "category": "food",
+          "confidence": 0.98
+        },
+        {
+          "name": "El Califa",
+          "area": "Mexico City, Mexico",
+          "category": "food",
+          "confidence": 0.88
+        },
+        {
+          "name": "Cinco Hermanos",
+          "area": "Mercado Merced, Mexico City, Mexico",
+          "category": "food",
+          "confidence": 0.96
+        },
+        {
+          "name": "Los Güeros",
+          "area": "Mexico City, Mexico",
+          "category": "food",
+          "confidence": 0.91
+        },
+        {
+          "name": "Tacos Chola",
+          "area": "La Condesa, Mexico City, Mexico",
+          "category": "food",
+          "confidence": 0.97
+        },
+        {
+          "name": "Tacos El Paisa",
+          "area": "Mexico City, Mexico",
+          "category": "food",
+          "confidence": 0.92
+        }
+      ],
+      "points": 6.0,
+      "max_points": 6.0,
+      "outcomes": [
+        "hit: 'Taquería El Califa de León' (food)",
+        "hit: 'El Califa' (food)",
+        "hit: 'Cinco Hermanos' (food)",
+        "hit: 'Los Güeros' (food)",
+        "hit: 'Tacos Chola' (food)",
+        "hit: 'Tacos El Paisa' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 1562,
+        "completion_tokens": 168,
+        "total_tokens": 1730
+      }
+    },
+    {
+      "case_id": "022-cdmx-tacos-spanish-puerco-pina",
+      "expected": [
+        {
+          "name": "Puerco Piña",
+          "area": "Mexico City",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Puerco Piña",
+          "area": "CDMX, Mexico",
+          "category": "food",
+          "confidence": 0.78
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Puerco Piña' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 1276,
+        "completion_tokens": 37,
+        "total_tokens": 1313
+      }
+    },
+    {
+      "case_id": "023-cdmx-tacos-vilsito-spanish",
+      "expected": [
+        {
+          "name": "El Vilsito",
+          "area": "Narvarte, Mexico City",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "El Vilsito",
+          "area": "CDMX, Mexico City, Mexico",
+          "category": "food",
+          "confidence": 0.98
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'El Vilsito' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 1291,
+        "completion_tokens": 39,
+        "total_tokens": 1330
+      }
+    },
+    {
+      "case_id": "024-cdmx-tacos-rey-del-pastor",
+      "expected": [
+        {
+          "name": "El Rey del Pastor",
+          "area": "Mexico City",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "La Garnacha Que Apapacha",
+          "area": null,
+          "category": "food",
+          "confidence": 0.86
+        }
+      ],
+      "points": 0.5,
+      "max_points": 1.0,
+      "outcomes": [
+        "partial: category matched (food), name mismatch (expected 'El Rey del Pastor', got 'La Garnacha Que Apapacha')"
+      ],
+      "usage": {
+        "prompt_tokens": 1281,
+        "completion_tokens": 36,
+        "total_tokens": 1317
+      }
+    },
+    {
+      "case_id": "025-cdmx-tacos-unnamed-list",
+      "expected": [],
+      "extracted": [],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: correctly returned nothing"
+      ],
+      "usage": {
+        "prompt_tokens": 1278,
+        "completion_tokens": 11,
+        "total_tokens": 1289
+      }
+    },
+    {
+      "case_id": "026-lisbon-bar-icon-mention",
+      "expected": [
+        {
+          "name": "ICON Bar & Rooftop",
+          "area": "Belém, Lisbon",
+          "category": "nightlife"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "ICON Bar & Rooftop",
+          "area": "Lisbon, Portugal",
+          "category": "views",
+          "confidence": 0.96
+        }
+      ],
+      "points": 0.5,
+      "max_points": 1.0,
+      "outcomes": [
+        "partial: 'ICON Bar & Rooftop' name matched, category mismatch (expected nightlife, got views)"
+      ],
+      "usage": {
+        "prompt_tokens": 1277,
+        "completion_tokens": 38,
+        "total_tokens": 1315
+      }
+    },
+    {
+      "case_id": "027-lisbon-bar-unnamed-hidden",
+      "expected": [],
+      "extracted": [],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: correctly returned nothing"
+      ],
+      "usage": {
+        "prompt_tokens": 1265,
+        "completion_tokens": 11,
+        "total_tokens": 1276
+      }
+    },
+    {
+      "case_id": "028-barcelona-bar-lamaro",
+      "expected": [
+        {
+          "name": "Lamaro Hotel (L'Àtic rooftop)",
+          "area": "Gothic Quarter, Barcelona",
+          "category": "nightlife"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Lamaro Hotel",
+          "area": "Barcelona, Spain",
+          "category": "stay",
+          "confidence": 0.98
+        }
+      ],
+      "points": 0.5,
+      "max_points": 1.0,
+      "outcomes": [
+        "partial: 'Lamaro Hotel (L'Àtic rooftop)' name matched, category mismatch (expected nightlife, got stay)"
+      ],
+      "usage": {
+        "prompt_tokens": 1286,
+        "completion_tokens": 34,
+        "total_tokens": 1320
+      }
+    },
+    {
+      "case_id": "029-barcelona-bar-german",
+      "expected": [
+        {
+          "name": "L'Àtic",
+          "area": "Gothic Quarter, Barcelona",
+          "category": "nightlife"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "L'Atic",
+          "area": "Barcelona, Spain",
+          "category": "nightlife",
+          "confidence": 0.95
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'L'Àtic' (nightlife)"
+      ],
+      "usage": {
+        "prompt_tokens": 1298,
+        "completion_tokens": 36,
+        "total_tokens": 1334
+      }
+    },
+    {
+      "case_id": "030-wa-nature-green-river-gorge",
+      "expected": [
+        {
+          "name": "Green River Gorge Resort",
+          "area": "Enumclaw, WA",
+          "category": "views"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Green River Gorge Resort",
+          "area": "Enumclaw, Washington, USA",
+          "category": "views",
+          "confidence": 0.97
+        },
+        {
+          "name": "Green River Gorge",
+          "area": "Enumclaw, Washington, USA",
+          "category": "views",
+          "confidence": 0.91
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Green River Gorge Resort' (views)",
+        "note: extra unmatched extraction 'Green River Gorge' (views, confidence 0.91)"
+      ],
+      "usage": {
+        "prompt_tokens": 1697,
+        "completion_tokens": 65,
+        "total_tokens": 1762
+      }
+    },
+    {
+      "case_id": "031-wa-nature-bench-snow-lakes",
+      "expected": [
+        {
+          "name": "Bench and Snow Lakes Trail",
+          "area": "Mount Rainier National Park, WA",
+          "category": "views"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Bench & Snow Lake",
+          "area": "Mount Rainier, Washington, USA",
+          "category": "views",
+          "confidence": 0.97
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Bench and Snow Lakes Trail' (views)"
+      ],
+      "usage": {
+        "prompt_tokens": 1305,
+        "completion_tokens": 39,
+        "total_tokens": 1344
+      }
+    },
+    {
+      "case_id": "032-wa-rainier-multi-pin",
+      "expected": [
+        {
+          "name": "Skyline Trail",
+          "area": "Paradise, Mount Rainier National Park, WA",
+          "category": "views"
+        },
+        {
+          "name": "Reflection Lakes",
+          "area": "Mount Rainier National Park, WA",
+          "category": "views"
+        },
+        {
+          "name": "Bench and Snow Lakes Trail",
+          "area": "Mount Rainier National Park, WA",
+          "category": "views"
+        },
+        {
+          "name": "Pinnacle Peak Trail",
+          "area": "Mount Rainier National Park, WA",
+          "category": "views"
+        },
+        {
+          "name": "Wellspring Spa",
+          "area": "Ashford, WA",
+          "category": "stay"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Skyline Trail",
+          "area": "Mount Rainier National Park, Washington, USA",
+          "category": "views",
+          "confidence": 0.98
+        },
+        {
+          "name": "Reflection Lakes",
+          "area": "Mount Rainier National Park, Washington, USA",
+          "category": "views",
+          "confidence": 0.98
+        },
+        {
+          "name": "Bench and Snow Lakes hike",
+          "area": "Mount Rainier National Park, Washington, USA",
+          "category": "views",
+          "confidence": 0.95
+        },
+        {
+          "name": "Pinnacle Peak hike",
+          "area": "Mount Rainier National Park, Washington, USA",
+          "category": "views",
+          "confidence": 0.95
+        },
+        {
+          "name": "Wellspring Spa",
+          "area": "Ashford, Washington, USA",
+          "category": "stay",
+          "confidence": 0.84
+        }
+      ],
+      "points": 5.0,
+      "max_points": 5.0,
+      "outcomes": [
+        "hit: 'Skyline Trail' (views)",
+        "hit: 'Reflection Lakes' (views)",
+        "hit: 'Bench and Snow Lakes Trail' (views)",
+        "hit: 'Pinnacle Peak Trail' (views)",
+        "hit: 'Wellspring Spa' (stay)"
+      ],
+      "usage": {
+        "prompt_tokens": 1354,
+        "completion_tokens": 159,
+        "total_tokens": 1513
+      }
+    },
+    {
+      "case_id": "033-pnw-nature-no-location",
+      "expected": [],
+      "extracted": [],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: correctly returned nothing"
+      ],
+      "usage": {
+        "prompt_tokens": 1269,
+        "completion_tokens": 11,
+        "total_tokens": 1280
+      }
+    },
+    {
+      "case_id": "034-bali-nature-tukad-cepung",
+      "expected": [
+        {
+          "name": "Tukad Cepung Waterfall",
+          "area": "Bangli, Bali",
+          "category": "views"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Tukad Cepung Waterfall",
+          "area": "Bali, Indonesia",
+          "category": "views",
+          "confidence": 0.99
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Tukad Cepung Waterfall' (views)"
+      ],
+      "usage": {
+        "prompt_tokens": 1290,
+        "completion_tokens": 39,
+        "total_tokens": 1329
+      }
+    },
+    {
+      "case_id": "035-bali-nature-gitgit-indonesian",
+      "expected": [
+        {
+          "name": "Gitgit Waterfall",
+          "area": "Buleleng, Bali",
+          "category": "views"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Gitgit Waterfall",
+          "area": "Bali, Indonesia",
+          "category": "views",
+          "confidence": 0.98
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Gitgit Waterfall' (views)"
+      ],
+      "usage": {
+        "prompt_tokens": 1256,
+        "completion_tokens": 36,
+        "total_tokens": 1292
+      }
+    },
+    {
+      "case_id": "036-bali-food-poh-gading-hashtag-only",
+      "expected": [
+        {
+          "name": "Poh Gading Waterfall",
+          "area": "near Ubud, Bali",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Poh Gading Waterfall",
+          "area": "near Ubud, Bali, Indonesia",
+          "category": "views",
+          "confidence": 0.97
+        }
+      ],
+      "points": 0.5,
+      "max_points": 1.0,
+      "outcomes": [
+        "partial: 'Poh Gading Waterfall' name matched, category mismatch (expected food, got views)"
+      ],
+      "usage": {
+        "prompt_tokens": 1290,
+        "completion_tokens": 41,
+        "total_tokens": 1331
+      }
+    },
+    {
+      "case_id": "037-bali-food-hanging-misleading-tag",
+      "expected": [
+        {
+          "name": "Hanging Restaurant & Bar",
+          "area": "Sekumpul, Buleleng, Bali",
+          "category": "food"
+        }
+      ],
+      "extracted": [
+        {
+          "name": "Hanging Restaurant & Bar",
+          "area": "Ubud, Bali, Indonesia",
+          "category": "food",
+          "confidence": 0.96
+        }
+      ],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'Hanging Restaurant & Bar' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 1252,
+        "completion_tokens": 39,
+        "total_tokens": 1291
+      }
+    }
+  ]
+}

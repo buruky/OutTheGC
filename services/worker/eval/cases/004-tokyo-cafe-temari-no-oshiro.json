@@ -1,0 +1,37 @@
+{
+  "id": "004-tokyo-cafe-temari-no-oshiro",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/@nickandhelmi/video/7340221012719521026",
+  "search_query": "ghibli cafe tokyo",
+  "caption": "Hidden Cat Cafe, Tokyo Japan🐱 We found this beautiful cat cafe in Tokyo’s upcoming neighbourhood called Kichijoji. Inside this area is a themed cafe called Petit Mura, its a quaint yet beutiful cafe to visit🥰 But the hidden gem is the cafe behind it called Temari no Oshiro Cat Cafe which is filled with gorgeous cats! 🎥Follow @nickandhelmi for more Japan travel and Japan food videos✨ 📍Temari No Oshiro, Tokyo Japan  . . . . #japanfoodie #tokyofoodie #placestovisit #tokyocafe #catcafe #japancafe #ghibli #tokyojapan #cutecafe #kawaiicute #petitmura #kichijoji #ghiblistudio #visitjapan #japantraveltips #traveljapan",
+  "hashtags": [
+    "japanfoodie",
+    "tokyofoodie",
+    "placestovisit",
+    "tokyocafe",
+    "catcafe",
+    "japancafe",
+    "ghibli",
+    "tokyojapan",
+    "cutecafe",
+    "kawaiicute",
+    "petitmura",
+    "kichijoji",
+    "ghiblistudio",
+    "visitjapan",
+    "japantraveltips",
+    "traveljapan"
+  ],
+  "expected": [
+    {
+      "name": "Temari no Oshiro",
+      "area": "Kichijoji, Tokyo",
+      "category": "food"
+    },
+    {
+      "name": "Petit Mura",
+      "area": "Kichijoji, Tokyo",
+      "category": "food"
+    }
+  ]
+}

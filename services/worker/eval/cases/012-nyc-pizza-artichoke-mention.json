@@ -1,0 +1,31 @@
+{
+  "id": "012-nyc-pizza-artichoke-mention",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/@devourpower/video/7492497171057528094",
+  "search_query": "nyc pizza slice",
+  "caption": "Which slice from @Artichoke Basille’s Pizza in NYC are you DEVOURING?! Spoiler alert… theyre all delicious! 🍕😋 #DEVOURPOWER #fyp #foryou #foodtiktok #foodies #artichokepizza #artichoke #vodkasauce #nycpizza #pizzanyc #newyorkcity #pizza #pizzaslice #bestpizza #bestpizzanyc",
+  "hashtags": [
+    "devourpower",
+    "fyp",
+    "foryou",
+    "foodtiktok",
+    "foodies",
+    "artichokepizza",
+    "artichoke",
+    "vodkasauce",
+    "nycpizza",
+    "pizzanyc",
+    "newyorkcity",
+    "pizza",
+    "pizzaslice",
+    "bestpizza",
+    "bestpizzanyc"
+  ],
+  "expected": [
+    {
+      "name": "Artichoke Basille's Pizza",
+      "area": "New York",
+      "category": "food"
+    }
+  ]
+}

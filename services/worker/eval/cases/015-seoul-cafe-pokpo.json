@@ -1,0 +1,21 @@
+{
+  "id": "015-seoul-cafe-pokpo",
+  "source": "tiktok",
+  "url": "https://www.tiktok.com/tag/seoulcafe",
+  "search_query": "#seoulcafe",
+  "caption": "A waterfall cafe 🥰 Cafe Pokpo Seoul Korea #waterfallcafe #cafepokpo #seoultravel #seoulkorea #traveltiktok",
+  "hashtags": [
+    "waterfallcafe",
+    "cafepokpo",
+    "seoultravel",
+    "seoulkorea",
+    "traveltiktok"
+  ],
+  "expected": [
+    {
+      "name": "Cafe Pokpo",
+      "area": "Seodaemun-gu, Seoul",
+      "category": "food"
+    }
+  ]
+}
