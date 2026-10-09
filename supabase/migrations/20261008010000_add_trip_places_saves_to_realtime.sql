@@ -1,0 +1,106 @@
+-- Roadmap step 9: "Live updates." Turns on Postgres Changes (Supabase Realtime)
+-- for the two tables that make a pin appear/disappear/change save-count on a
+-- trip's map: `trip_places` and `saves`. Spec/CLAUDE.md permission rule this
+-- has to keep holding: "a trip and everything on it is visible only to
+-- members" -- Postgres Changes is the mechanism chosen specifically because it
+-- re-checks each table's own SELECT RLS policy per subscriber, so a client
+-- only receives an event for a row it could already read directly. This
+-- migration does not add or change any table, column, or policy -- additive
+-- only, per the brief: it flips on replication for rows that are already
+-- gated by the RLS policies step 8 wrote.
+--
+-- ---------------------------------------------------------------------------
+-- Mechanism: `supabase_realtime` is a Postgres publication (a named list of
+-- tables whose row-level changes get written to the write-ahead log in a
+-- replication-consumable form). Supabase's Realtime server subscribes to this
+-- one publication; a table not in it never generates a Postgres Changes
+-- event, no matter how permissive its RLS is. `alter publication ... add
+-- table` is the standard one-line-per-table way to opt a table in -- it's a
+-- metadata change (which tables the publication tracks), not a schema change
+-- to the table itself.
+-- ---------------------------------------------------------------------------
+
+-- trip_places: this is the actual "a pin added on one phone appears on the
+-- other" mechanism the roadmap step is named for -- INSERT (new pin), UPDATE
+-- (category/notes edited), DELETE (pin removed, including the step 8 trigger
+-- deleting a now-empty pin) all need to reach every other member's open trip
+-- screen without a refocus.
+alter publication supabase_realtime add table public.trip_places;
+
+-- saves: the "saved by N" count and the my/group toggle both live-update off
+-- this table's row count, not trip_places' own columns -- without this, a pin
+-- would appear live (from trip_places above) but its save count would stay
+-- stale until the next refocus, which is half of what this step is for.
+alter publication supabase_realtime add table public.saves;
+
+-- ---------------------------------------------------------------------------
+-- `places` deliberately excluded from this migration.
+-- ---------------------------------------------------------------------------
+-- Considered and rejected for this step, not overlooked:
+-- - No UPDATE or DELETE policy exists on `places` yet (see step 8's migration,
+--   section 7) -- today nothing in the app or database can produce an UPDATE
+--   or DELETE event on this table at all, so subscribing to it buys nothing
+--   live-wise until that policy gap is deliberately filled.
+-- - The one event that *can* happen -- INSERT, when someone hand-types a new
+--   place -- isn't the signal the app's UI actually needs; a pin becoming
+--   visible is signaled by the `trip_places` INSERT above, which is what the
+--   mobile client should key off of. A bare new `places` row with no pin
+--   attached to any trip yet isn't something any screen renders.
+-- - `places` has no trip_id and its SELECT policy is already "any
+--   authenticated user, full table" (step 8: places aren't trip-scoped, a
+--   place is a fact about the world, not a trip's data) -- so there's no
+--   privacy reason to include it either way, just no present benefit.
+-- Revisit together with adding a real UPDATE policy on `places` (the open gap
+-- step 8 flagged: "who can fix a typo'd address") if/when that ships --
+-- that's the point at which a live-updating place name/address actually
+-- matters to a screen.
+
+-- ---------------------------------------------------------------------------
+-- Investigated, not guessed: does RLS behave the same for Postgres Changes as
+-- for an ordinary SELECT on these two tables? Re-verified by a security
+-- review during this step -- two claims in an earlier draft of this comment
+-- were wrong and are corrected below.
+-- ---------------------------------------------------------------------------
+-- INSERT / UPDATE: yes, same as a direct query. Supabase's Realtime server
+-- authorizes each event by evaluating the table's own RLS SELECT policy for
+-- the subscriber's role (from their JWT) against the changed row. That means:
+--   - trip_places' policy (`is_trip_member(trip_id)`) evaluates identically
+--     whether triggered by `select * from trip_places` or by a Postgres
+--     Changes authorization check -- a non-member gets nothing either way.
+--   - saves' policy (an EXISTS joining into trip_places) also evaluates the
+--     same way in both paths -- any member gets the event for any other
+--     member's save, same as a direct query would return.
+--
+-- DELETE: genuinely different -- a real Postgres/Realtime limitation, not
+-- specific to this project's policies. RLS is NOT evaluated for DELETE
+-- events at all (the row is already gone by the time any check would run);
+-- who receives a delete event is gated only by the table's ordinary grants,
+-- not by policy. Corrected understanding, as of this step:
+--   - CORRECTED: REPLICA IDENTITY FULL would NOT leak trip_id/category/notes
+--     into the old record. Supabase strips a DELETE's old record down to the
+--     primary key regardless of replica identity, specifically because it
+--     can't run RLS on it -- this is true with or without FULL. The original
+--     version of this comment claimed otherwise; that was wrong. Replica
+--     identity is still left at its default below, but not for that reason.
+--   - CORRECTED: a server-side `filter: trip_id=eq.<id>` on DELETE events
+--     likely doesn't work at all, with either replica identity setting --
+--     Supabase documents delete events as not filterable by a non-PK column,
+--     since the identity used for filtering never includes trip_id here.
+--     mobile-expert should design for unfiltered delete events, not assume a
+--     trip-scoped delete subscription is possible.
+--   - WIDER THAN FIRST ASSESSED: since RLS doesn't gate this and nothing
+--     revoked the default table grant, the DELETE event stream for these two
+--     tables was reachable by anon -- i.e. anyone holding the public anon key
+--     shipped in the app, not just a signed-in user. Closed below.
+--   - Net exposure once the revoke below is applied: a signed-in user who is
+--     NOT a member of a given trip can still receive that trip's
+--     trip_places/saves DELETE events, but the payload is only a bare row
+--     `id` with no trip_id/place_id/user_id -- no way to tie it to a trip,
+--     place name, or person without already having seen that id before
+--     (e.g. a removed member who cached it while still a member). There is
+--     no "remove member" or "leave trip" feature yet (no DELETE policy on
+--     trip_members), so nothing can exploit that today. Accepted as a
+--     tracked limitation for this step; must be revisited (via Broadcast,
+--     which properly authorizes per-message instead of per-table-grant)
+--     before a remove-member/leave-trip feature ships.
+revoke select on public.trip_places, public.saves from anon;

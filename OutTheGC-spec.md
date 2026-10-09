@@ -135,6 +135,7 @@ See OutTheGC-roadmap.md for the step by step build plan.
 - Profiles: username, avatar, anything public?
 - Can trips be made public or shared via a view-only link?
 - Account deletion in app (required by Apple) and data export?
+- `places` (step 8) is readable by any authenticated user, by design, so a place can be shared across trips before a real match key (`google_place_id`, step 12) exists. But places are currently hand-typed, so a hand-added place's `name`/`address` is user-written trip content (e.g. "Our Airbnb, 14 Elm St"), not a neutral fact like a Google Places listing — readable by any stranger with an account, not just non-members of the trip that added it. Flagged by `security-reviewer` during step 9; not fixed yet. Options: scope hand-added places (`google_place_id is null`) to members of a trip that pins them via an `EXISTS` through `trip_places`; or only make Google-resolved places globally readable once step 12 lands; or accept and document. Revisit before relying on `places` holding anything sensitive.
 
 ### 8. Web
 - Full web app, or view-only trip links that open in a browser?

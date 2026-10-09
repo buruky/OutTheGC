@@ -47,6 +47,16 @@ export type TripPin = {
   saveCount: number;
   /** Whether the user this was fetched for has a `saves` row on this pin. */
   savedByMe: boolean;
+  /**
+   * `saves.id` for every save on this pin. Not used by any screen's
+   * rendering — kept so the step 9 Realtime subscription can match an
+   * incoming `saves` DELETE event (whose payload is stripped to just that
+   * row's own `id`, no `trip_place_id` — see
+   * `supabase/migrations/20261008010000_add_trip_places_saves_to_realtime.sql`)
+   * against "is this save one of the ones already loaded for this pin"
+   * without a extra round trip.
+   */
+  saveIds: string[];
 };
 
 // Raw shapes for the nested-select response below, before being reshaped
@@ -71,7 +81,7 @@ type RawTripPlace = {
   category: TripPlaceCategory;
   notes: string | null;
   places: RawPlace | null;
-  saves: { user_id: string | null }[];
+  saves: { id: string; user_id: string | null }[];
 };
 
 /**
@@ -122,6 +132,7 @@ function toTripPin(row: RawTripPlace, userId: string): TripPin | null {
     },
     saveCount: row.saves.length,
     savedByMe: row.saves.some((save) => save.user_id === userId),
+    saveIds: row.saves.map((save) => save.id),
   };
 }
 
@@ -135,7 +146,7 @@ function toTripPin(row: RawTripPlace, userId: string): TripPin | null {
 export async function fetchTripPins(tripId: string, userId: string): Promise<TripPin[]> {
   const { data, error } = await supabase
     .from('trip_places')
-    .select('id, trip_id, place_id, category, notes, places(id, name, address, location), saves(user_id)')
+    .select('id, trip_id, place_id, category, notes, places(id, name, address, location), saves(id, user_id)')
     .eq('trip_id', tripId);
 
   if (error) throw error;

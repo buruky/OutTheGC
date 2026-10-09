@@ -1,0 +1,4 @@
+# requests: minimal, well-known HTTP client for Python's stdlib doesn't give you
+# (no built-in retry/timeout ergonomics, clunkier API than `requests.get(...).json()`).
+# This is the only third-party dependency this step needs.
+requests>=2.31,<3

@@ -89,23 +89,23 @@ Check off steps as you finish them. Add new steps anywhere; renumbering is fine.
 - **Done when:** two accounts saving the same place on a trip creates one pin that says "saved by 2".
 - **Notes:** Launch categories resolved (Open Q #4): `food, views, entertainment, stay, shopping, nightlife, other` as a Postgres ENUM on `trip_places.category`, default `'other'`. `places` is trip-agnostic (shared across trips) with permissive RLS (any authenticated user can read/insert — privacy enforced at `trip_places`, not here); `trip_places`/`saves` gated by `is_trip_member`, same helper function as steps 6/7. A zero-saves pin deletes itself via a `SECURITY DEFINER` trigger (`cleanup_empty_trip_place`) rather than app-layer logic, so the invariant holds no matter what client removes the last save. `trip_places.place_id` FK is `RESTRICT` not `CASCADE` (a place can be pinned on multiple unrelated trips). Mobile: `places.location` (PostGIS `geography`) comes back over PostgREST as hex EWKB, not JSON — hand-rolled a small fixed-shape parser rather than add a dependency; inserts use EWKT text via PostGIS's registered assignment cast, no RPC needed. No fuzzy or exact dedup on hand-added places yet (accepted gap until step 12's `google_place_id` gives a real match key) — two people typing identical coordinates get two separate pins; the "merged pin" demo path is add-once-then-others-save, matching this step's literal done-when. Verified via direct SQL (saved_by count + trigger-deletes-empty-pin) and the full flow on two real accounts/devices, including the my/group toggle and delete-for-everyone. `archived_at` still doesn't exist as a column (flagged with TODOs in the migration, same as step 7) — not blocking yet.
 
-### [ ] 9. Live updates
+### [x] 9. Live updates
 - **Goal:** pins appear for everyone without refreshing.
 - **Try:** subscribe to the trip's pins with Supabase Realtime.
 - **Learn:** realtime subscriptions and keeping app state in sync with the database.
 - **Done when:** a pin added on one phone appears on the other within a second or two.
-- **Notes:**
+- **Notes:** Used Supabase Realtime's Postgres Changes (not Broadcast) on `trip_places`/`saves`, added to the `supabase_realtime` publication. A security review during this step found and fixed a real gap: DELETE events aren't RLS-gated at all (a Postgres/Realtime limitation, not project-specific) and were reachable by the anon key, not just signed-in users — fixed with `revoke select ... from anon` on both tables, verified via direct SQL. Remaining accepted gap: a signed-in non-member can still receive a bare deleted-row UUID with no trip linkage for trips they're not on; inert today (no leave-trip/remove-member feature exists to populate a removed member's cache with ids to watch) but must be revisited via Broadcast before that feature ships. Also surfaced, logged separately in the spec (not blocking): `places` rows are readable by any authenticated user by design, but since places are currently hand-typed (not Google-resolved until step 12), a hand-added address is user-written trip content exposed to non-members — open question, not fixed. Mobile: subscribes on focus/unsubscribes on blur (not mount/unmount, since Expo Router keeps pushed-under screens mounted), full-list refetch on any relevant event rather than incremental patching (simpler, matches the project's no-premature-optimization bias at this trip's realistic scale), debounced 400ms so a cascade delete's multiple events coalesce into one refetch. `saves` DELETE events can't be filtered server-side at all (no `trip_id` column, and delete payloads are stripped to bare `id` regardless of replica identity) — matched locally against each pin's `saveIds` instead. Verified end to end on two real devices.
 
 ---
 
 ## Phase 3: Extraction
 
-### [ ] 10. Caption from a TikTok link
+### [x] 10. Caption from a TikTok link
 - **Goal:** the first piece of the pipeline, outside the app.
 - **Try:** a Python script that takes a TikTok URL, calls TikTok's oEmbed endpoint, and prints the caption and author.
 - **Learn:** calling an HTTP API from Python, reading JSON responses, and Python virtual environments.
 - **Done when:** the script prints captions for 3 different TikToks.
-- **Notes:**
+- **Notes:** `services/worker/oembed_caption.py`, plain `venv` + `requirements.txt` (not Poetry/pipenv -- revisit once step 13 makes this a real multi-dependency worker). Takes multiple URLs in one invocation, each tried independently so one bad link doesn't block the others; distinguishes bad-input/404/other-non-200/network-failure/malformed-JSON with a clear message for each rather than a raw stack trace. TikTok's oEmbed `title` field holds the caption (no separate title concept on TikTok). Hit and fixed a real bug during testing: Windows' default console codepage can't print emoji (TikTok captions are full of them) -- forced UTF-8 on stdout/stderr rather than crashing. Confirmed with 3 real TikTok URLs, all succeeded. Cost: $0, oEmbed is public and keyless -- cheapest step in the whole pipeline; step 11 (LLM) and step 12 (Google Places) are where real per-post cost starts.
 
 ### [ ] 11. LLM extraction and a test set
 - **Goal:** captions turned into structured place data.

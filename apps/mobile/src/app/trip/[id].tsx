@@ -14,6 +14,8 @@ import {
 import MapView, { Marker, type Region } from 'react-native-maps';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import type { RealtimeChannel, RealtimePostgresChangesPayload } from '@supabase/supabase-js';
+
 import { PrimaryButton } from '@/components/primary-button';
 import { TextField } from '@/components/text-field';
 import { ThemedText } from '@/components/themed-text';
@@ -21,6 +23,7 @@ import { ThemedView } from '@/components/themed-view';
 import { Spacing } from '@/constants/theme';
 import { useAuth } from '@/hooks/use-auth';
 import { useTheme } from '@/hooks/use-theme';
+import { supabase } from '@/lib/supabase';
 import {
   addPlaceByHand,
   deleteTripPlace,
@@ -50,6 +53,19 @@ function buildInviteLink(inviteCode: string): string {
 function formatCategoryLabel(category: TripPlaceCategory): string {
   return category.charAt(0).toUpperCase() + category.slice(1);
 }
+
+// Minimal row shapes for the step 9 Realtime payloads below — just the
+// columns actually inspected, not the full table. No generated `Database`
+// type exists yet (same gap `places.ts` already notes), so these are
+// hand-written rather than derived.
+type TripPlaceChangeRow = { id: string };
+type SaveChangeRow = { id: string; trip_place_id: string };
+
+// How long to wait after a Realtime event before refetching, coalescing a
+// burst of near-simultaneous events (e.g. deleting a pin cascades into
+// several `saves` DELETEs that all land around the same commit timestamp)
+// into one round trip instead of one per event.
+const REALTIME_REFETCH_DEBOUNCE_MS = 400;
 
 export default function TripDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -160,6 +176,105 @@ export default function TripDetailScreen() {
     useCallback(() => {
       loadPins();
     }, [loadPins]),
+  );
+
+  // Kept in sync with `pins` on every render so the Realtime handlers below
+  // (registered once per focus, not re-registered on every pins update) can
+  // check "is this id one of mine" against the latest list without a stale
+  // closure — see the DELETE handling notes further down.
+  const pinsRef = useRef<TripPin[]>(pins);
+  useEffect(() => {
+    pinsRef.current = pins;
+  }, [pins]);
+
+  const refetchDebounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const scheduleRefetch = useCallback(() => {
+    if (refetchDebounceTimer.current) clearTimeout(refetchDebounceTimer.current);
+    refetchDebounceTimer.current = setTimeout(() => {
+      refetchDebounceTimer.current = null;
+      loadPins();
+    }, REALTIME_REFETCH_DEBOUNCE_MS);
+  }, [loadPins]);
+
+  // Step 9: live updates. Subscribed on focus, torn down on blur (not a
+  // plain mount/unmount effect) — Expo Router's native-stack keeps a screen
+  // mounted when another screen is pushed on top of it, so mount/unmount
+  // alone would leave this trip's channel open (and its handlers firing)
+  // while the user is looking at a different screen entirely. Re-focusing a
+  // trip already visited would then open a second channel on top of the
+  // first, doubling event handling — the "leaked subscription" failure mode
+  // the brief calls out.
+  //
+  // Refetches the whole pin list on any relevant event rather than applying
+  // each payload's fields to local state incrementally — simpler, and the
+  // existing `fetchTripPins` already recomputes `saveCount`/`savedByMe`
+  // correctly in one shot. The round trip per event is an accepted cost at
+  // this trip's realistic scale (a handful of members, not thousands) per
+  // this project's "no premature optimization" bias.
+  useFocusEffect(
+    useCallback(() => {
+      if (!userId) return;
+
+      // `trip_places` has a real `trip_id` column, so the server can filter
+      // INSERT/UPDATE to just this trip and RLS re-checks membership on top
+      // of that (see the migration's point 1) — safe to subscribe broadly.
+      // DELETE is different: Supabase strips a delete payload down to just
+      // the row's own `id`, so `filter: trip_id=eq.<id>` cannot and does not
+      // apply to DELETE events on this channel — they arrive unfiltered
+      // (any trip, any member), so the handler below checks the deleted id
+      // against the pins this screen already has loaded before refetching,
+      // rather than trusting the filter to have scoped it.
+      const tripPlacesFilter = `trip_id=eq.${id}`;
+
+      const channel: RealtimeChannel = supabase
+        .channel(`trip-places-${id}`)
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'trip_places', filter: tripPlacesFilter },
+          (payload: RealtimePostgresChangesPayload<TripPlaceChangeRow>) => {
+            if (payload.eventType === 'DELETE') {
+              const deletedId = payload.old.id;
+              if (!deletedId || !pinsRef.current.some((pin) => pin.id === deletedId)) return;
+            }
+            scheduleRefetch();
+          },
+        )
+        // `saves` has no `trip_id` column at all (it's reached via
+        // `trip_place_id` → `trip_places.trip_id`), so no server-side
+        // filter is possible for *any* event on this table, not just
+        // DELETE — every event this user's RLS lets through (any save on
+        // any trip they're a member of) arrives on every open trip screen's
+        // channel. The handler below matches locally — by `trip_place_id`
+        // for INSERT/UPDATE, and by the save's own `id` against each pin's
+        // `saveIds` for DELETE (a delete payload has no `trip_place_id` to
+        // match on directly) — so a save on a *different* trip this user is
+        // also a member of doesn't trigger a wasted refetch here.
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'saves' },
+          (payload: RealtimePostgresChangesPayload<SaveChangeRow>) => {
+            if (payload.eventType === 'DELETE') {
+              const deletedSaveId = payload.old.id;
+              if (!deletedSaveId || !pinsRef.current.some((pin) => pin.saveIds.includes(deletedSaveId))) {
+                return;
+              }
+            } else {
+              const tripPlaceId = payload.new.trip_place_id;
+              if (!tripPlaceId || !pinsRef.current.some((pin) => pin.id === tripPlaceId)) return;
+            }
+            scheduleRefetch();
+          },
+        )
+        .subscribe();
+
+      return () => {
+        if (refetchDebounceTimer.current) {
+          clearTimeout(refetchDebounceTimer.current);
+          refetchDebounceTimer.current = null;
+        }
+        supabase.removeChannel(channel);
+      };
+    }, [id, userId, scheduleRefetch]),
   );
 
   const visiblePins = useMemo(

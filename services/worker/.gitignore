@@ -1,0 +1,13 @@
+# Python virtual environment -- machine-specific, never committed.
+# requirements.txt is what's committed; venv/ is rebuilt locally from it.
+venv/
+.venv/
+
+# Python bytecode cache
+__pycache__/
+*.pyc
+
+# Env vars (API keys, once later steps add any) -- never commit secrets.
+.env
+.env.*
+!.env.example
