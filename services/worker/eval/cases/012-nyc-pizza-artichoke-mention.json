@@ -21,6 +21,7 @@
     "bestpizza",
     "bestpizzanyc"
   ],
+  "transcript": "Come with us as we try every single slice at this famous New York City pizza joint, Artichoke Pizza. Starting with their most popular, the Artichoke Slice, packed with their spinach cream sauce, mozzarella, pecorino, and artichoke hearts. Their slices are basically the size of my head, it's so flavorful. Next up, their vodka pan slice. They are not dry with the vodka sauce here. With their creamy vodka sauce and Italian cheeses onto their pepperoni vodka slice. Top with charred pepperoni and basil. Cheesy, creamy, and downright delicious. Next up, their Margarita slice with plum tomato sauce, basil, their cheese blend, and olive oil. They're also famous for their crab slice packed with fresh mozzarella and crab bisque. I love this slice. Onto their pepperoni slice. These slices are huge, packed with charred, oily pepperoni cups. Rebecca couldn't resist their meatball pepperoni slice. I love their pepperoni. And their Staten Island slice with meatballs, cooked sauce, onions, and ricotta.",
   "expected": [
     {
       "name": "Artichoke Basille's Pizza",

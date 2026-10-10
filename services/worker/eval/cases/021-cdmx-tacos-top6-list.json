@@ -13,6 +13,7 @@
     "michelinstartacos",
     "capcut"
   ],
+  "transcript": "Here's our top six taco shops in Mexico City, in no particular order. At No. 1, we visited Taqueria El Califa De Leon, the only taco shop with a Michelin star awarded for their Gounera taco. We got lucky, no lines at first, but it grew fast as we ordered. We tried one of each and it was well worth it. At number two, we hit El Califa, where the tacos al pastor were great, but the tacos de Costra stole the show. No. 3 took us to Cinco Hermanos for tacos de suadero, and from there we were on a mission to try as many as we could. Don't miss a spot in Mercado Merced! At No. 4, Los Gordos, we tried tacos de suadero al pastor and tripa. So good we had to go back another night. At No. 5, Tacos Chola in LA Condesa served up our favorite breakfast tacos. We loved the tacos de chorizo con papa so much we visited twice. Finally at No. 6 and our personal No.. 1, Tacos El Paisa, where we found the best tacos de suadero and al pastor. We had to order twice because everything was so delicious. Pro tip order all your tacos at once to avoid waiting in line twice.",
   "expected": [
     {
       "name": "Taquería El Califa de León",

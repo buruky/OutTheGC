@@ -9,6 +9,7 @@
     "tacos",
     "cdmx."
   ],
+  "transcript": "Esta taquería o la amas o la odias, y más ahora que recibió un reconocimiento por la ia Michelin. Se trata del billcito que recibió el beef hurman, que significa buena calidad a buen precio. Para nosotros, su pastor con un pedacito de piña y la salsa de chile de árbol, es una verdadera gozada. Los encuentran en la esquina de Petén con universidad, en la colonia Narvarte de la Ciudad de México. ¿A ustedes qué les parecen?",
   "expected": [
     {
       "name": "El Vilsito",

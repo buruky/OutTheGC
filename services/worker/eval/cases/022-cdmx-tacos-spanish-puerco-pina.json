@@ -9,6 +9,8 @@
     "tacoscdmx",
     "dondecomercdmx"
   ],
+  "transcript": "",
+  "transcript_note": "ScrapeCreators returned a transcript with no spoken text (music-only/silent video, or genuinely nothing to transcribe)",
   "expected": [
     {
       "name": "Puerco Piña",

@@ -12,6 +12,7 @@
     "visitnyc",
     "nybucketlist"
   ],
+  "transcript": "Here are my top five pizza slices you must try in New York City, 2025 edition. At No. 5 we have Mama's 2 and they're known for their square slices that get baked to perfection with a pillowy center and a crispy golden crust. The vodka slice hits every single time. Next we have scars on the Lower East Side and they're famous for their massive slices with fresh sauce, house milled dough and topped with a blend of three different types of cheeses. Plain slices my go to here. At No. 3 we have Lucia of Soho and they're bringing a Brooklyn tradition to Manhattan with their thin, crispy slices that are charred to perfection. My favourite is the spicy pepperoni slice with hot honey and jalapenos. And at No. 2 we have Vito's Slices and ices, which is a locals favourite and probably the most underrated slice shop in New York City. Their slices are massive and bursting with flavor, all while holding it together like a proper New York slice. And taking home the No.. 1 spot on this list is Linda's Street. They import their toppings straight from Italy and have the most thin, crispy, light, airy texture, all while packing a flavor punch like no other. Their burrata pie is a mouthwatering masterpiece. Follow for more New York City tours!",
   "expected": [
     {
       "name": "Rubirosa",
@@ -46,6 +47,31 @@
     {
       "name": "Cello's Pizza",
       "area": "East Village, New York",
+      "category": "food"
+    },
+    {
+      "name": "Mama's 2",
+      "area": "New York",
+      "category": "food"
+    },
+    {
+      "name": "Scars",
+      "area": "Lower East Side, New York",
+      "category": "food"
+    },
+    {
+      "name": "Lucia of Soho",
+      "area": "SoHo, New York",
+      "category": "food"
+    },
+    {
+      "name": "Vito's Slices and Ices",
+      "area": "New York",
+      "category": "food"
+    },
+    {
+      "name": "Linda's Street",
+      "area": "New York",
       "category": "food"
     }
   ]

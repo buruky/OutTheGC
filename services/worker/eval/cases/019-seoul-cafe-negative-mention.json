@@ -15,5 +15,7 @@
     "caferecommendation",
     "fyp"
   ],
+  "transcript": "",
+  "transcript_note": "url is not a real /@user/video/<id> TikTok link (a /discover or /tag topic page) -- ScrapeCreators cannot resolve this to any video, so no API call was made.",
   "expected": []
 }

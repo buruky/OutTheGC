@@ -1,0 +1,70 @@
+{
+  "timestamp": "20261010T051601Z",
+  "model": "gpt-5.4-mini",
+  "git_sha": "5e5da4c",
+  "notes": "diagnostic: recheck 025 after fixes (ground-truth flagged separately, not edited)",
+  "cases_attempted": 1,
+  "cases_scored": 1,
+  "stopped_early_at": null,
+  "total_points": 0.0,
+  "total_max_points": 1.0,
+  "token_usage": {
+    "prompt_tokens": 4457,
+    "completion_tokens": 161,
+    "total_tokens": 4618
+  },
+  "results": [
+    {
+      "case_id": "025-cdmx-tacos-unnamed-list",
+      "expected": [],
+      "extracted": [
+        {
+          "name": "La Pingüica",
+          "area": "Ciudad de México, Mexico",
+          "address": null,
+          "category": "food",
+          "confidence": 0.96
+        },
+        {
+          "name": "La Chula",
+          "area": "Ciudad de México, Mexico",
+          "address": null,
+          "category": "food",
+          "confidence": 0.94
+        },
+        {
+          "name": "Tacos Juan",
+          "area": "Ciudad de México, Mexico",
+          "address": null,
+          "category": "food",
+          "confidence": 0.93
+        },
+        {
+          "name": "El Bilsito",
+          "area": "Ciudad de México, Mexico",
+          "address": null,
+          "category": "food",
+          "confidence": 0.95
+        },
+        {
+          "name": "Quería Los Amigos",
+          "area": "Ciudad de México, Mexico",
+          "address": null,
+          "category": "food",
+          "confidence": 0.9
+        }
+      ],
+      "dropped_low_confidence": [],
+      "points": 0.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "miss: expected nothing, hallucinated 'La Pingüica', 'La Chula', 'Tacos Juan', 'El Bilsito', 'Quería Los Amigos'"
+      ],
+      "usage": {
+        "prompt_tokens": 4457,
+        "completion_tokens": 161,
+        "total_tokens": 4618
+      }
+    }
+  ]
+}

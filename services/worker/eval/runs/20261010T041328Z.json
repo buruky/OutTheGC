@@ -1,0 +1,49 @@
+{
+  "timestamp": "20261010T041328Z",
+  "model": "gpt-5.4-mini",
+  "git_sha": "5e5da4c",
+  "notes": "address field fix: rule 2 now populates address text, resolve_place searches on it instead of skipping",
+  "cases_attempted": 1,
+  "cases_scored": 1,
+  "stopped_early_at": null,
+  "total_points": 1.0,
+  "total_max_points": 1.0,
+  "token_usage": {
+    "prompt_tokens": 2735,
+    "completion_tokens": 57,
+    "total_tokens": 2792
+  },
+  "results": [
+    {
+      "case_id": "018-seoul-gallery-address-no-name",
+      "expected": [
+        {
+          "name": null,
+          "area": "Yongsan-gu, Seoul",
+          "address": "6 Hangang-daero 40ga-gil, Yongsan District, Seoul",
+          "category": "entertainment"
+        }
+      ],
+      "extracted": [
+        {
+          "name": null,
+          "area": "Yongsan District, Seoul",
+          "address": "6 Hangang-daero 40ga-gil, Yongsan District, Seoul",
+          "category": "entertainment",
+          "confidence": 0.97
+        }
+      ],
+      "dropped_low_confidence": [],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: 'None' (entertainment)"
+      ],
+      "usage": {
+        "prompt_tokens": 2735,
+        "completion_tokens": 57,
+        "total_tokens": 2792
+      }
+    }
+  ]
+}

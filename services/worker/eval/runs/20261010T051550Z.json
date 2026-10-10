@@ -1,0 +1,42 @@
+{
+  "timestamp": "20261010T051550Z",
+  "model": "gpt-5.4-mini",
+  "git_sha": "5e5da4c",
+  "notes": "diagnostic: rule 5 waypoint fix",
+  "cases_attempted": 1,
+  "cases_scored": 1,
+  "stopped_early_at": null,
+  "total_points": 0.0,
+  "total_max_points": 1.0,
+  "token_usage": {
+    "prompt_tokens": 4179,
+    "completion_tokens": 42,
+    "total_tokens": 4221
+  },
+  "results": [
+    {
+      "case_id": "007-tokyo-cafe-unnamed-ghibli",
+      "expected": [],
+      "extracted": [
+        {
+          "name": "Croc Cafe",
+          "area": "Japan",
+          "address": null,
+          "category": "food",
+          "confidence": 0.72
+        }
+      ],
+      "dropped_low_confidence": [],
+      "points": 0.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "miss: expected nothing, hallucinated 'Croc Cafe'"
+      ],
+      "usage": {
+        "prompt_tokens": 4179,
+        "completion_tokens": 42,
+        "total_tokens": 4221
+      }
+    }
+  ]
+}

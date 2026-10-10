@@ -25,3 +25,15 @@ One line per run: date, score, what changed, link to the run file. Scoring conve
 | 20261009T182546Z | 1/1 | v3 spot-check confirm: re-run 025 once more to check consistency | `eval/runs/20261009T182546Z.json` |
 | 20261009T183129Z | 50.5/54 | prompt v3: fixed rule 6 conflict, confidence floor, unicode scorer bug | `eval/runs/20261009T183129Z.json` |
 | 20261009T183129Z-rescored | 51/54 (94.4%) | **FINAL v3 score.** Rescore only, no new API calls: fixed a second scorer bug the previous entry's Unicode fix introduced (word-order-sensitive matching broke case 017, a bilingual name whose English/native halves are in the opposite order from its translation) by adding exact word-SET equality as a third match path alongside substring/ratio. Only case 017 changed (0.5->1.0); verified no other case's score moved, including the one pair this test set has that's genuinely at risk of a looser fix causing false positives ("El Califa" vs "Taquería El Califa de León", case 021). | `eval/runs/20261009T183129Z-rescored.json` |
+| 20261010T041328Z | 1/1 | address field fix: rule 2 now populates address text, resolve_place searches on it instead of skipping | `eval/runs/20261010T041328Z.json` |
+| 20261010T051113Z | 47/54 | ADR 0005: transcript added as second input source, prompt redesigned for caption+transcript reconciliation | `eval/runs/20261010T051113Z.json` |
+| 20261010T051243Z | 0/1 | diagnostic: re-check 022 consistency, isolate rule 1 rewrite vs transcript | `eval/runs/20261010T051243Z.json` |
+| 20261010T051550Z | 0/1 | diagnostic: rule 5 waypoint fix | `eval/runs/20261010T051550Z.json` |
+| 20261010T051554Z | 1/1 | diagnostic: rule 1 formatting-signal fix | `eval/runs/20261010T051554Z.json` |
+| 20261010T051556Z | 1/1 | diagnostic: rule 2 null+null guard fix | `eval/runs/20261010T051556Z.json` |
+| 20261010T051601Z | 0/1 | diagnostic: recheck 025 after fixes (ground-truth flagged separately, not edited) | `eval/runs/20261010T051601Z.json` |
+| 20261010T051629Z | 0/1 | diagnostic: 007 retry 2, check consistency | `eval/runs/20261010T051629Z.json` |
+| 20261010T051633Z | 0/1 | diagnostic: 007 retry 3, check consistency | `eval/runs/20261010T051633Z.json` |
+| 20261010T051710Z | 1/1 | diagnostic: rule 5 strengthened (grabbing/action-at-waypoint still a waypoint) | `eval/runs/20261010T051710Z.json` |
+| 20261010T051717Z | 1/1 | diagnostic: 007 confirm stability after rule 5 strengthening | `eval/runs/20261010T051717Z.json` |
+| 20261010T052200Z | 54/59 | ADR 0005 v2: transcript reconciliation rules + 3 fixes (rule 1 formatting-as-signal, rule 2 null+null guard, rule 5 waypoint/landmark distinction) after diagnosing the first transcript-enabled run's regressions | `eval/runs/20261010T052200Z.json` |

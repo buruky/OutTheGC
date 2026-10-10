@@ -1,0 +1,34 @@
+{
+  "timestamp": "20261010T051717Z",
+  "model": "gpt-5.4-mini",
+  "git_sha": "5e5da4c",
+  "notes": "diagnostic: 007 confirm stability after rule 5 strengthening",
+  "cases_attempted": 1,
+  "cases_scored": 1,
+  "stopped_early_at": null,
+  "total_points": 1.0,
+  "total_max_points": 1.0,
+  "token_usage": {
+    "prompt_tokens": 4243,
+    "completion_tokens": 17,
+    "total_tokens": 4260
+  },
+  "results": [
+    {
+      "case_id": "007-tokyo-cafe-unnamed-ghibli",
+      "expected": [],
+      "extracted": [],
+      "dropped_low_confidence": [],
+      "points": 1.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "hit: correctly returned nothing"
+      ],
+      "usage": {
+        "prompt_tokens": 4243,
+        "completion_tokens": 17,
+        "total_tokens": 4260
+      }
+    }
+  ]
+}

@@ -352,7 +352,10 @@ def main() -> int:
 
         try:
             call_result = extract_places(
-                caption=case["caption"], hashtags=case.get("hashtags"), client=client
+                caption=case["caption"],
+                hashtags=case.get("hashtags"),
+                transcript=case.get("transcript"),
+                client=client,
             )
         except QuotaExhaustedError as e:
             print(

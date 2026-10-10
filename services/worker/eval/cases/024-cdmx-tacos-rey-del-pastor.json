@@ -11,6 +11,7 @@
     "foodtok",
     "lagarnachaqueapapacha"
   ],
+  "transcript": "Bien dicen que entre más peligroso el barrio, más rica la comida. Trompito de tradición. ¿Dónde más? En la Warrior. Claro que sí, es del 76, 49 ya va a cumplir 50. Receta directa de Jalisco, ya te la sabes, harta cebolla, hartos chiles servidos en cilindro y como dicta y manda, baño en salsa roja, ¡eh! Como estilo Jalisco, no de Arandas, por lo regular, cebolla, col y el adobo es natural de chile, guajillo con especias y todo, lavado de diente, traguito de tepache, más salsita y otra mordida. Me encanta esta colonia, camaradas, de verdad, aquí se come como no tienen una idea",
   "expected": [
     {
       "name": "El Rey del Pastor",

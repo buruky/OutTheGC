@@ -16,6 +16,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import type { RealtimeChannel, RealtimePostgresChangesPayload } from '@supabase/supabase-js';
 
+import { PasteLinkModal } from '@/components/paste-link-modal';
 import { PrimaryButton } from '@/components/primary-button';
 import { TextField } from '@/components/text-field';
 import { ThemedText } from '@/components/themed-text';
@@ -85,6 +86,13 @@ export default function TripDetailScreen() {
   const [selectedPinId, setSelectedPinId] = useState<string | null>(null);
   const [filterMode, setFilterMode] = useState<FilterMode>('group');
   const [actionPending, setActionPending] = useState(false);
+
+  const [pasteLinkModalVisible, setPasteLinkModalVisible] = useState(false);
+  // Bumped every time the modal is opened, passed as PasteLinkModal's `key`
+  // — forces a fresh mount (and so fresh internal state) per open, instead
+  // of an effect inside that component resetting state on `visible` (see
+  // its own comment on why that would be a lint violation here).
+  const [pasteLinkModalKey, setPasteLinkModalKey] = useState(0);
 
   const [addModalVisible, setAddModalVisible] = useState(false);
   const [addName, setAddName] = useState('');
@@ -499,6 +507,13 @@ export default function TripDetailScreen() {
           </ThemedView>
 
           <PrimaryButton label="+ Add a place" onPress={handleOpenAddModal} />
+          <PrimaryButton
+            label="+ Paste a TikTok link"
+            onPress={() => {
+              setPasteLinkModalKey((key) => key + 1);
+              setPasteLinkModalVisible(true);
+            }}
+          />
         </ThemedView>
 
         <ThemedView style={styles.mapContainer}>
@@ -723,6 +738,15 @@ export default function TripDetailScreen() {
           </SafeAreaView>
         </ThemedView>
       </Modal>
+
+      <PasteLinkModal
+        key={pasteLinkModalKey}
+        visible={pasteLinkModalVisible}
+        tripId={id}
+        userId={userId}
+        onClose={() => setPasteLinkModalVisible(false)}
+        onConfirmed={loadPins}
+      />
     </ThemedView>
   );
 }

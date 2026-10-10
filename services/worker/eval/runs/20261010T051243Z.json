@@ -1,0 +1,40 @@
+{
+  "timestamp": "20261010T051243Z",
+  "model": "gpt-5.4-mini",
+  "git_sha": "5e5da4c",
+  "notes": "diagnostic: re-check 022 consistency, isolate rule 1 rewrite vs transcript",
+  "cases_attempted": 1,
+  "cases_scored": 1,
+  "stopped_early_at": null,
+  "total_points": 0.0,
+  "total_max_points": 1.0,
+  "token_usage": {
+    "prompt_tokens": 3597,
+    "completion_tokens": 11,
+    "total_tokens": 3608
+  },
+  "results": [
+    {
+      "case_id": "022-cdmx-tacos-spanish-puerco-pina",
+      "expected": [
+        {
+          "name": "Puerco Piña",
+          "area": "Mexico City",
+          "category": "food"
+        }
+      ],
+      "extracted": [],
+      "dropped_low_confidence": [],
+      "points": 0.0,
+      "max_points": 1.0,
+      "outcomes": [
+        "miss: no extracted entry matched 'Puerco Piña' (food)"
+      ],
+      "usage": {
+        "prompt_tokens": 3597,
+        "completion_tokens": 11,
+        "total_tokens": 3608
+      }
+    }
+  ]
+}

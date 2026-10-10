@@ -58,7 +58,20 @@ def validate_tiktok_url(url: str) -> None:
         raise OEmbedError(f"'{url}' doesn't look like a valid URL.")
     # tiktok.com and its subdomains (www.tiktok.com, vm.tiktok.com for short
     # links, etc.) are all fine -- just reject anything clearly not TikTok.
-    if "tiktok.com" not in parsed.netloc:
+    # Proper suffix match, not a substring check: a plain `"tiktok.com" in
+    # parsed.netloc` (the original version of this check) would wrongly
+    # accept a host like "tiktok.com.evil.net" or "evil-tiktok.com", since
+    # both contain the literal text "tiktok.com" somewhere without actually
+    # being a tiktok.com (sub)domain. Low real-world impact here specifically
+    # -- fetch_oembed always sends its request to tiktok.com's own oEmbed
+    # endpoint with `url` as an encoded query *parameter*, never as the
+    # request's own target host, so a bypass can't redirect this worker's
+    # outbound traffic anywhere (no true SSRF) -- but worth getting right
+    # now that `url` comes from posts.url (step 14), settable by any trip
+    # member via the posts INSERT policy, not just text the developer typed
+    # into this script's CLI arg by hand (step 10's original threat model).
+    host = (parsed.hostname or "").lower()
+    if host != "tiktok.com" and not host.endswith(".tiktok.com"):
         raise OEmbedError(
             f"'{url}' doesn't look like a TikTok URL (host was '{parsed.netloc}')."
         )
