@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, Modal, Pressable, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Modal, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { PrimaryButton } from './primary-button';
@@ -11,6 +11,7 @@ import { Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import type { TripPlaceCategory } from '@/services/places';
 import {
+  cancelPendingPost,
   confirmPostCandidate,
   createTikTokPost,
   fetchPostCandidates,
@@ -210,8 +211,15 @@ export function PasteLinkModal({ visible, tripId, userId, onClose, onConfirmed }
 
   const handleClose = useCallback(() => {
     if (submitStatus === 'submitting') return;
+    // Best-effort: if the worker hasn't claimed this post yet, this stops it
+    // from ever being picked up. If it's already claimed (or already past
+    // processing), the update just matches 0 rows — nothing to undo, so no
+    // error handling needed beyond not blocking the close on it.
+    if (stage === 'processing' && postId) {
+      cancelPendingPost(postId).catch(() => {});
+    }
     onClose();
-  }, [submitStatus, onClose]);
+  }, [submitStatus, stage, postId, onClose]);
 
   return (
     <Modal visible={visible} animationType="slide" onRequestClose={handleClose}>
@@ -280,13 +288,14 @@ export function PasteLinkModal({ visible, tripId, userId, onClose, onConfirmed }
           )}
 
           {stage === 'confirm' && (
-            <ThemedView style={styles.form}>
-              {candidates.length === 0 ? (
-                <ThemedText type="small" themeColor="textSecondary">
-                  No places found in this video.
-                </ThemedText>
-              ) : (
-                candidates.map((candidate) => {
+            <ThemedView style={[styles.form, styles.confirmForm]}>
+              <ScrollView style={styles.candidateList} contentContainerStyle={styles.candidateListContent}>
+                {candidates.length === 0 ? (
+                  <ThemedText type="small" themeColor="textSecondary">
+                    No places found in this video.
+                  </ThemedText>
+                ) : (
+                  candidates.map((candidate) => {
                   const confirmable = isConfirmable(candidate);
                   const checked = selectedIds.has(candidate.id);
                   const name = candidate.resolved_name ?? candidate.name ?? '(unnamed place)';
@@ -337,8 +346,9 @@ export function PasteLinkModal({ visible, tripId, userId, onClose, onConfirmed }
                       </ThemedView>
                     </Pressable>
                   );
-                })
-              )}
+                  })
+                )}
+              </ScrollView>
 
               {errorMessage && (
                 <ThemedText type="small" themeColor="textSecondary">
@@ -393,6 +403,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.four,
     gap: Spacing.three,
   },
+  confirmForm: {
+    flex: 1,
+  },
+  candidateList: {
+    flex: 1,
+  },
+  candidateListContent: {
+    gap: Spacing.three,
+    paddingBottom: Spacing.three,
+  },
   centered: {
     flex: 1,
     alignItems: 'center',
@@ -413,10 +433,10 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 2,
+    marginTop: Spacing.half,
   },
   candidateInfo: {
     flex: 1,
-    gap: 2,
+    gap: Spacing.half,
   },
 });

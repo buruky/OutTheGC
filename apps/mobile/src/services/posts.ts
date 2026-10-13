@@ -11,7 +11,7 @@
 import { supabase } from '@/lib/supabase';
 import type { TripPlaceCategory } from '@/services/places';
 
-export type PostStatus = 'pending' | 'processing' | 'needs_confirmation' | 'confirmed' | 'failed';
+export type PostStatus = 'pending' | 'processing' | 'needs_confirmation' | 'confirmed' | 'failed' | 'canceled';
 
 export type PostCandidateMatchQuality = 'confident' | 'low_confidence' | 'no_match' | 'skipped_no_name';
 
@@ -46,6 +46,27 @@ export async function createTikTokPost(tripId: string, userId: string, url: stri
 
   if (error) throw error;
   return data;
+}
+
+/**
+ * Best-effort cancel for a post the user backed out of while it was still
+ * `pending` — see migration 20261012000000's RLS policy. The `.eq('status',
+ * 'pending')` mirrors the policy's own `using` clause: if the worker already
+ * claimed the row (flipped it to `processing`), this matches 0 rows rather
+ * than erroring, same race shape as the worker's own claim PATCH. Returns
+ * whether it actually canceled, so a caller could tell "too late" apart from
+ * "canceled" if it ever needs to — the current caller doesn't.
+ */
+export async function cancelPendingPost(postId: string): Promise<boolean> {
+  const { data, error } = await supabase
+    .from('posts')
+    .update({ status: 'canceled' })
+    .eq('id', postId)
+    .eq('status', 'pending')
+    .select('id');
+
+  if (error) throw error;
+  return (data ?? []).length === 1;
 }
 
 /** Polled every ~3s by the processing-state UI until it leaves pending/processing. */

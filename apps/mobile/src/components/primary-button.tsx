@@ -3,6 +3,7 @@ import { ActivityIndicator, Pressable, StyleSheet, type GestureResponderEvent } 
 import { ThemedText } from './themed-text';
 
 import { Spacing } from '@/constants/theme';
+import { useTheme } from '@/hooks/use-theme';
 
 type PrimaryButtonProps = {
   label: string;
@@ -12,8 +13,9 @@ type PrimaryButtonProps = {
   accessibilityLabel?: string;
 };
 
-/** Filled action button (sign in / sign up) — `linkPrimary`'s blue (`#3c87f7`), matching the existing accent color. */
+/** Filled action button (sign in / sign up) — uses the theme's `accent` color. */
 export function PrimaryButton({ label, onPress, disabled, loading, accessibilityLabel }: PrimaryButtonProps) {
+  const theme = useTheme();
   const isDisabled = disabled || loading;
 
   return (
@@ -25,6 +27,7 @@ export function PrimaryButton({ label, onPress, disabled, loading, accessibility
       onPress={onPress}
       style={({ pressed }) => [
         styles.button,
+        { backgroundColor: theme.accent },
         isDisabled && styles.disabled,
         pressed && !isDisabled && styles.pressed,
       ]}>
@@ -35,7 +38,6 @@ export function PrimaryButton({ label, onPress, disabled, loading, accessibility
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#3c87f7',
     borderRadius: Spacing.two,
     paddingVertical: Spacing.three,
     alignItems: 'center',
