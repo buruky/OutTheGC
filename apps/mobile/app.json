@@ -12,6 +12,11 @@
     },
     "android": {
       "package": "com.outthegc.mobile",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBUHFmhra9OR-oLSJ0fel4SfSIx_NBgDZU"
+        }
+      },
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -32,6 +37,13 @@
           "backgroundColor": "#208AEF",
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 76
+        }
+      ],
+      [
+        "expo-share-intent",
+        {
+          "androidIntentFilters": ["text/*"],
+          "disableIOS": true
         }
       ]
     ],

@@ -140,12 +140,12 @@ Check off steps as you finish them. Add new steps anywhere; renumbering is fine.
 
 ## Phase 4: Make it feel like a real app
 
-### [ ] 15. Development build
+### [x] 15. Development build
 - **Goal:** move off Expo Go so native features work.
 - **Try:** set up EAS and make a development build for your phone. (iOS on a real device needs an Apple Developer account.)
 - **Learn:** the difference between Expo Go and a custom build, and what native modules are.
 - **Done when:** your app runs from its own icon on your phone.
-- **Notes:**
+- **Notes:** Android only — no Apple Developer account yet, so iOS stays on Expo Go/untested until that's resolved (accepted gap, doesn't block step 16). EAS project linked (`eas init`), `eas.json` hand-written (not via `build:configure`, which needs an interactive prompt not available in this environment) with `development`/`preview`/`production` profiles; `expo-dev-client` added as a dependency; `android.package` set to `com.outthegc.mobile` in `app.json`. First build installed and ran, but crashed immediately opening the map: `react-native-maps` on Android needs its own Google Maps API key once outside Expo Go (Expo Go bundles its own; a standalone app is a new identity to Google). Fixed by enabling "Maps SDK for Android" in the existing `outthegc` GCP project (same project as step 12's Places key), creating a key restricted to Android app `com.outthegc.mobile` + the EAS-managed dev keystore's SHA-1 fingerprint (pulled from the EAS dashboard's Credentials page, not the CLI — `eas credentials` is interactive-only and couldn't run here), adding it to `app.json`'s `android.config.googleMaps.apiKey`, and rebuilding. Confirmed on an Android Studio emulator (required enabling Windows Hypervisor Platform): app installs and launches from its own icon outside Expo Go, map renders and pinch-zooms correctly. Tested on emulator only, no physical Android device used.
 
 ### [ ] 16. Share from TikTok
 - **Goal:** the core feature.

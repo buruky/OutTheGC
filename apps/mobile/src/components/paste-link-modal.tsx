@@ -31,7 +31,7 @@ const POLL_INTERVAL_MS = 3000;
 // validate_tiktok_url (oembed_caption.py). A non-TikTok or malformed-but-
 // URL-shaped link still ends this post up status=failed, which this modal
 // already has to handle (the 'failed' stage) regardless.
-function looksLikeUrl(value: string): boolean {
+export function looksLikeUrl(value: string): boolean {
   return /^https?:\/\/\S+\.\S+/i.test(value.trim());
 }
 
@@ -66,6 +66,14 @@ type PasteLinkModalProps = {
   onClose: () => void;
   /** Called once any candidate has been confirmed, so the caller can refetch pins. */
   onConfirmed: () => void;
+  /**
+   * Set when the caller already created the `posts` row itself — the share-
+   * intent flow (step 16) has to let the user pick a trip before a post can
+   * exist, so it calls `createTikTokPost` up front and hands the resulting
+   * id in here, skipping straight to the 'processing' stage instead of
+   * showing the paste form.
+   */
+  initialPostId?: string;
 };
 
 /**
@@ -74,12 +82,22 @@ type PasteLinkModalProps = {
  * route, matching the trip screen's existing "+ Add a place" modal pattern
  * — this one just has more internal stages.
  */
-export function PasteLinkModal({ visible, tripId, userId, onClose, onConfirmed }: PasteLinkModalProps) {
+export function PasteLinkModal({
+  visible,
+  tripId,
+  userId,
+  onClose,
+  onConfirmed,
+  initialPostId,
+}: PasteLinkModalProps) {
   const theme = useTheme();
 
-  const [stage, setStage] = useState<Stage>('paste');
+  // Caller remounts this component per open (see the `key` prop note below),
+  // so reading `initialPostId` once here as the initial state is enough —
+  // no effect needed to react to it changing after mount.
+  const [stage, setStage] = useState<Stage>(initialPostId ? 'processing' : 'paste');
   const [url, setUrl] = useState('');
-  const [postId, setPostId] = useState<string | null>(null);
+  const [postId, setPostId] = useState<string | null>(initialPostId ?? null);
   const [candidates, setCandidates] = useState<PostCandidateRow[]>([]);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'submitting'>('idle');
